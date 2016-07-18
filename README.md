@@ -1,6 +1,6 @@
 # \<uvalib-hours-card\>
 
-Library hours information displayed in a card section
+Today's Library location hours information displayed in a card section
 
 ## Install the Polymer-CLI
 

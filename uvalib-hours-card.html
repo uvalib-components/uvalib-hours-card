@@ -1,20 +1,54 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
 
 <!--
 `uvalib-hours-card`
 Library hours information displayed in a card section
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="uvalib-hours-card">
   <template>
-    <style>
-      :host {
-        display: block;
+    <style is="custom-style">
+      .container {
+        @apply(--layout-vertical);
+      }
+      .location {
+        @apply(--layout-flex-auto);
+      }
+      .row-bkgrd-color-odd {
+        background-color: var(--uvalib-hours-card-row-bkgrd-color-odd,--color-light-blue);
+      }
+      .row-bkgrd-color-even {
+        background-color: var(--uvalib-hours-card-row-bkgrd-color-even,--color-white);
       }
     </style>
-    <h2>Hello [[prop1]]</h2>
+
+    <iron-ajax auto url={{libraryHourSource}} handle-as="json" last-response={{jsonData}}></iron-ajax>
+
+    <div class="container">
+      <div class="title">
+        <h1>Hours</h1>
+      </div>
+      <template is="dom-repeat" items="{{locations}}">
+        <div class$="location {{_rowBackgroundColor(index)}}">
+          <h2>{{item}} Library</h2>
+          <p>
+            <span class="today">
+              Today [[_today]]
+            </span>
+            <span class="hours">
+              {{_getHours(item)}}
+            </span>
+          </p>
+        </div>
+      </template>
+      <div class="more">
+        <uvalib-button url="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+      </div>
+    </div>
   </template>
 
   <script>
@@ -23,12 +57,60 @@ Library hours information displayed in a card section
       is: 'uvalib-hours-card',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'uvalib-hours-card',
+        /**
+         * The library locations that should be included in this list of hours.
+         * The locations should be the string to be displayed and be able to be
+         * found as a string in the LibCal Hours locations.
+         */
+        locations: {
+          type: Array,
+          value: ['Alderman', 'Clemons', 'Brown', 'Music'],
         },
+
+        /**
+         * The Springshare URL for retrieving today's hours in JSON format.
+         */
+        todayHoursUrl: {
+          type: String,
+          value: "https://api3.libcal.com/api_hours_today.php?iid=863&lid=0&format=json"
+        },
+        
+        /**
+         * The current date in the format month/day.
+         */
+        _today: {
+          type: String,
+          computed: '_getMonthDay()'
+        }
       },
 
+      /**
+       * Retrieves the system date and formats as month/date.
+       * @return {String}
+       */
+      _getMonthDay: function() {
+        var today = new Date();
+        return "hello";
+//        return "" + (today.getMonth()+1) + "/" + today.getDate();
+      },
+
+      /**
+       * Adjust Library location row background color based on odd/even item.
+       * @param {Integer} index
+       */
+      _rowBackgroundColor: function(index) {
+        var clsName = (index % 2) ? 'row-bkgrd-color-even' : 'row-bkgrd-color-odd';
+        return clsName;
+      },
+
+      /**
+       * Find and return hours for specified library location.
+       * @param {String} location
+       * @return {String}
+       */
+      _getHours: function(location) {
+        return "Get hours for "+location;
+      }
     });
   </script>
 </dom-module>

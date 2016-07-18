@@ -9,6 +9,8 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
+    <link rel="import" href="../../uvalib-theme/typekit.html">
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
     <link rel="import" href="../uvalib-hours-card.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
@@ -20,7 +22,12 @@
       <h3>Basic uvalib-hours-card Demo</h3>
       <demo-snippet>
         <template>
-          <uvalib-hours-card></uvalib-hours-card>
+          <p>
+            <uvalib-hours-card></uvalib-hours-card>
+          </p>
+          <p>
+            <uvalib-hours-card locations="[Alderman, Chemistry, Fine Arts]"></uvalib-hours-card>
+          </p>
         </template>
       </demo-snippet>
     </div>
