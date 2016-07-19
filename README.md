@@ -1,6 +1,12 @@
 # \<uvalib-hours-card\>
 
-Today's Library location hours information displayed in a card section
+Today's Library location hours information displayed in a card. For example, use it this component like so
+
+<uvalib-hours-card libraries="alderman,clemons,brown,music" >
+  <div class="card-actions">
+       <uvalib-button href="http://foo.com">View all hours</a></uvalib-button>
+   </div>
+</uvalib-hours-card>
 
 ## Install the Polymer-CLI
 

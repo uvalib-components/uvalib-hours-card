@@ -9,6 +9,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
+    <link rel="import" href="../../uvalib-button/uvalib-button.html">
     <link rel="import" href="../../uvalib-theme/typekit.html">
     <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
     <link rel="import" href="../uvalib-hours-card.html">
@@ -22,12 +23,15 @@
       <h3>Basic uvalib-hours-card Demo</h3>
       <demo-snippet>
         <template>
-          <p>
-            <uvalib-hours-card></uvalib-hours-card>
-          </p>
-          <p>
-            <uvalib-hours-card locations="[Alderman, Chemistry, Fine Arts]"></uvalib-hours-card>
-          </p>
+          <uvalib-hours-card>
+            <div class="card-actions">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">View all hours</uvalib-button>
+            </div>
+          </uvalib-hours-card>
+          <uvalib-hours-card locations="fine arts"
+              libraryHoursSource="https://api3.libcal.com/api_hours_today.php"
+              libraryHoursParams='{"iid":"863","lid":"3805","format":"json"}'>
+          </uvalib-hours-card>
         </template>
       </demo-snippet>
     </div>
