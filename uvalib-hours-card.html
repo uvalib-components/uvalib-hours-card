@@ -102,9 +102,13 @@ Library hours information displayed in a card section
         var libraries = this.locations.split(",");
         // loop through each library and build
         for (var i=0; i < libraries.length; i++) {
-          var libName = libraries[i].charAt(0).toUpperCase() + libraries[i].substr(1);
+          var libName = libraries.split(" ");
+          var capName = "";
+          for (var j=0; j < libName.length; j++) {
+            capName += libName[j].charAt(0).toUpperCase() + libName[j].substr(1) + " ";
+          }
           var info = {
-            name: _getName(libraries[i], data),
+            name: capName + "Library",
             currentDate: monthDay,
             hours: _getHours(libraries[i], data)
           };
