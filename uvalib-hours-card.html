@@ -12,9 +12,14 @@ Library hours information displayed in a card section
 <dom-module id="uvalib-hours-card">
   <template>
     <style is="custom-style">
+      :host {
+        display: block;
+      }
+
       .row-bkgrd-color-odd {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-odd,--color-light-blue);
       }
+      
       .row-bkgrd-color-even {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-even,--color-white);
       }
