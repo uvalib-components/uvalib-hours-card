@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../uvalib-card/uvalib-card.html">
 
 <!--
 `uvalib-hours-card`
@@ -19,16 +20,18 @@ Library hours information displayed in a card section
       .row-bkgrd-color-odd {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-odd,--color-light-blue);
       }
-      
+
       .row-bkgrd-color-even {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-even,--color-white);
       }
     </style>
 
-    <byutv-jsonp auto url="{{libraryHoursSource}}" params="{{libraryHoursParams}}" on-response="_handleResponse"
-      debounce-duration="300"></byutv-jsonp>
+    <iron-ajax id="hrsData" auto url="{{libraryHoursSource}}" params="{{libraryHoursParams}}" on-response="_handleResponse"
+      debounce-duration="300" handle-as="json"></iron-ajax>
+    <!-- byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{libraryHoursParams}}" on-response="_handleResponse"
+      debounce-duration="300"></byutv-jsonp -->
 
-    <paper-card heading="Hours">
+    <uvalib-card heading="Hours">
       <div class="card-content">
         <template is="dom-repeat" items="{{_libraries}}">
           <div class$="location {{_rowBackgroundColor(index)}}">
@@ -45,7 +48,7 @@ Library hours information displayed in a card section
         </template>
       </div>
       <content></content>
-    </paper-card>
+    </uvalib-card>
   </template>
 
   <script>
@@ -76,8 +79,32 @@ Library hours information displayed in a card section
          * The vendor URL (less parameters) for retrieving today's hours in JSON format.
          */
         libraryHoursParams: {
+          type: Object,
+          computed: "_getParams(_iid,_lid,_format)"
+        },
+
+        /**
+         * Institution ID parameter needed to get Springshare hours.
+         */
+        _iid: {
+          type: Number,
+          value: 863
+        },
+
+        /**
+         * Library ID parameter needed to get Springshare hours. Zero value retrieves all libraries
+         */
+        _lid: {
+          type: Number,
+          value: 0
+        },
+
+        /**
+         * Data format parameter needed to get Springshare hours.
+         */
+        _format: {
           type: String,
-          value: '{"iid":"863","lid":"0","format":"json"}'
+          value: "json"
         },
 
         /**
@@ -89,6 +116,13 @@ Library hours information displayed in a card section
       },
 
       /**
+       *
+       */
+      _getParams: function(institutionId,libraryId,dataFormat) {
+        return {iid:institutionId , lid:libraryId , format:dataFormat};
+      },
+
+      /**
       * When the Springshare hours JSON object is ready then pull the
       * needed locations' hours data into this component's object
       * used to build the list of library hours.
@@ -96,24 +130,26 @@ Library hours information displayed in a card section
       * @param {Object} data
       */
       _handleResponse: function(data) {
-        // format today as month/date
-        var today = new Date();
-        var monthDay = (today.getMonth()+1) + "/" + today.getDate();
-        // create libraries array from string of locations
-        var libraries = this.locations.split(",");
-        // loop through each library and build
-        for (var i=0; i < libraries.length; i++) {
-          var libName = libraries.split(" ");
-          var capName = "";
-          for (var j=0; j < libName.length; j++) {
-            capName += libName[j].charAt(0).toUpperCase() + libName[j].substr(1) + " ";
+        if (this.$.hrsData.lastResponse) {
+          // format today as month/date
+          var today = new Date();
+          var monthDay = (today.getMonth()+1) + "/" + today.getDate();
+          // create libraries array from string of locations
+          var libraries = this.locations.split(",");
+          // loop through each library and build
+          for (var i=0; i < libraries.length; i++) {
+            var libName = libraries.split(" ");
+            var capName = "";
+            for (var j=0; j < libName.length; j++) {
+              capName += libName[j].charAt(0).toUpperCase() + libName[j].substr(1) + " ";
+            }
+            var info = {
+              name: capName + "Library",
+              currentDate: monthDay,
+              hours: _getHours(libraries[i], data)
+            };
+            this._libraries[i] = info;
           }
-          var info = {
-            name: capName + "Library",
-            currentDate: monthDay,
-            hours: _getHours(libraries[i], data)
-          };
-          this._libraries[i] = info;
         }
       },
 

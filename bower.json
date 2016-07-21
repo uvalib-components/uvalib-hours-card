@@ -4,8 +4,9 @@
   "main": "uvalib-hours-card.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "paper-card": "PolymerElements/paper-card#^1.1.1",
-    "byutv-jsonp": "^1.2.0"
+    "byutv-jsonp": "^1.2.0",
+    "uvalib-card": "uvalib-components/uvalib-card",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
@@ -16,6 +17,7 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
   "resolutions": {
-    "polymer": "^1.4.0"
+    "polymer": "^1.4.0",
+    "uvalib-button": "master"
   }
 }
