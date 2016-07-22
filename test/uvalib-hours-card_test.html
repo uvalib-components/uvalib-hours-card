@@ -26,6 +26,16 @@
           assert.equal(element.is, 'uvalib-hours-card');
         });
 
+        test('check ajax call returns data', function() {
+          var element = fixture('basic');
+          assert.isNotNull(element._libraries);
+        });
+
+        test('check _libraries length > 0', function() {
+          var element = fixture('basic');
+          assert.isAbove(element._libraries.length, 0);
+        });
+
       });
     </script>
   </body>

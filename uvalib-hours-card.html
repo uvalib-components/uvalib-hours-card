@@ -26,10 +26,10 @@ Library hours information displayed in a card section
       }
     </style>
 
-    <iron-ajax id="hrsData" auto url="{{libraryHoursSource}}" params="{{libraryHoursParams}}" on-response="_handleResponse"
-      debounce-duration="300" handle-as="json"></iron-ajax>
-    <!-- byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{libraryHoursParams}}" on-response="_handleResponse"
-      debounce-duration="300"></byutv-jsonp -->
+    <!-- iron-ajax id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" on-response="_handleResponse"
+      debounce-duration="300" handle-as="json"></iron-ajax -->
+    <byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" on-response="_handleResponse"
+      debounce-duration="300"></byutv-jsonp>
 
     <uvalib-card heading="Hours">
       <div class="card-content">
@@ -76,9 +76,9 @@ Library hours information displayed in a card section
         },
 
         /**
-         * The vendor URL (less parameters) for retrieving today's hours in JSON format.
+         * The Springshare parameters for retrieving the current day's hours.
          */
-        libraryHoursParams: {
+        _libraryHoursParams: {
           type: Object,
           computed: "_getParams(_iid,_lid,_format)"
         },
@@ -92,7 +92,7 @@ Library hours information displayed in a card section
         },
 
         /**
-         * Library ID parameter needed to get Springshare hours. Zero value retrieves all libraries
+         * Library ID parameter needed to get Springshare hours. 0 retrieves all libraries.
          */
         _lid: {
           type: Number,
@@ -108,7 +108,7 @@ Library hours information displayed in a card section
         },
 
         /**
-         * Library locations with hours for use in generating the card content.
+         * Library locations with hours for use in generating this card content.
          */
         _libraries: {
           type: Array
@@ -116,7 +116,11 @@ Library hours information displayed in a card section
       },
 
       /**
+       * Get the Springshare parameters into a proper object.
        *
+       * @param {Integer} institutionId Springshare institution identifier
+       * @param {Integer} libraryId Springshare library identifier
+       * @param {String} dataFormat structure of the data returned
        */
       _getParams: function(institutionId,libraryId,dataFormat) {
         return {iid:institutionId , lid:libraryId , format:dataFormat};
@@ -127,7 +131,7 @@ Library hours information displayed in a card section
       * needed locations' hours data into this component's object
       * used to build the list of library hours.
       *
-      * @param {Object} data
+      * @param {Object} data the returned data from the AJAX call
       */
       _handleResponse: function(data) {
         if (this.$.hrsData.lastResponse) {
@@ -138,7 +142,7 @@ Library hours information displayed in a card section
           var libraries = this.locations.split(",");
           // loop through each library and build
           for (var i=0; i < libraries.length; i++) {
-            var libName = libraries.split(" ");
+            var libName = libraries[i].split(" ");
             var capName = "";
             for (var j=0; j < libName.length; j++) {
               capName += libName[j].charAt(0).toUpperCase() + libName[j].substr(1) + " ";
@@ -146,7 +150,7 @@ Library hours information displayed in a card section
             var info = {
               name: capName + "Library",
               currentDate: monthDay,
-              hours: _getHours(libraries[i], data)
+              hours: this._getHours(libraries[i], data)
             };
             this._libraries[i] = info;
           }
@@ -156,8 +160,8 @@ Library hours information displayed in a card section
       /**
        * Find and return hours for specified library location.
        *
-       * @param {String} location
-       * @param {Object} data
+       * @param {String} location one of names specified in locations attribute
+       * @param {Object} data the returned data from the AJAX call
        * @return {String}
        */
       _getHours: function(location, data) {
@@ -175,8 +179,8 @@ Library hours information displayed in a card section
       /**
        * Find and return name for specified library location.
        *
-       * @param {String} location
-       * @param {Object} data
+       * @param {String} location one of names specified in locations attribute
+       * @param {Object} data the returned data from the AJAX call
        * @return {String}
        */
       _getName: function(location, data) {
@@ -193,12 +197,22 @@ Library hours information displayed in a card section
 
       /**
        * Adjust Library location row background color based on odd/even item.
-       * @param {Integer} index
+       *
+       * @param {Integer} index row of dom-repeat item/_libraries being processed
        */
       _rowBackgroundColor: function(index) {
         var clsName = (index % 2) ? 'row-bkgrd-color-even' : 'row-bkgrd-color-odd';
         return clsName;
       },
+
+      ready: function() {
+        // `ready` is called after all elements have been configured, but
+        // propagates bottom-up. This element's children are ready, but parents
+        // are not.
+        //
+        // This is the point where you should make modifications to the DOM (when
+        // necessary), or kick off any processes the element wants to perform.
+      }
 
     });
 
