@@ -26,14 +26,18 @@
           assert.equal(element.is, 'uvalib-hours-card');
         });
 
-        test('check ajax call returns data', function() {
+        test('check ajax call returns data', function(done) {
+          var isDone = false;
+          this.timeout(5000);
           var element = fixture('basic');
-          assert.isNotNull(element._libraries);
-        });
-
-        test('check _libraries length > 0', function() {
-          var element = fixture('basic');
-          assert.isAbove(element._libraries.length, 0);
+          element.addEventListener('response', function(evt) {
+            assert.isNotNull(element._libraries);
+            assert.isAbove(element._libraries.length, 0);
+            if (!isDone) {
+              isDone = true;
+              done();
+            }
+          });
         });
 
       });
