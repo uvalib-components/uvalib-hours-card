@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 
 <!--
@@ -27,11 +27,13 @@ Custom property | Description | Default
         display: block;
         --uvalib-hours-card-header-font-size: 24px;
         --uvalib-hours-card-header-font-weight: bold;
-        padding: var(--uvalib-hours-card-padding,15px);
         --iron-icon-fill-color: var(--color-text-gray,black);
       }
       iron-icon {
         padding-right: 10px;
+      }
+      .card {
+        padding: var(--uvalib-hours-card-padding,15px);
       }
       .card-header {
         font-size: var(--uvalib-hours-card-header-font-size,--header-font-size);
@@ -39,7 +41,11 @@ Custom property | Description | Default
         padding-bottom: 20px;
       }
       .card-actions {
-        border-top: 1px solid gray;
+        border-top: 1px solid LightGray;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: var(--uvalib-hours-card-padding,15px);
+        padding-right: var(--uvalib-hours-card-padding,15px);
       }
       .row-bkgrd-color-odd {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-odd,--color-light-blue);
@@ -49,8 +55,14 @@ Custom property | Description | Default
       .row-bkgrd-color-even {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-even,--color-white);
       }
+      .name {
+        font-size: larger;
+      }
       .location {
-
+        padding-bottom: 15px;
+      }
+      .location-info {
+        margin-top: 0px;
       }
       .status {
         float: left;
@@ -60,42 +72,42 @@ Custom property | Description | Default
         padding-left: 10px;
       }
       .open {
-        color: green;
+        color: LightGreen;
       }
       .closed {
-        color: red;
+        color: Red;
       }
       .closing-soon {
-        color: var(--color-primary-orange,orange);
+        color: var(--color-primary-orange,Orange);
       }
     </style>
 
     <byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" last-response="{{_springshareData}}"
       debounce-duration="300"></byutv-jsonp>
 
-    <div class="card">
-      <div class="card-header">
-        <iron-icon icon$="{{headingIcon}}"></iron-icon> {{heading}}
+    <paper-material>
+      <div class="card">
+        <div class="card-header">
+          <iron-icon icon$="{{headingIcon}}"></iron-icon> {{heading}}
+        </div>
+        <div class="card-content">
+          <template is="dom-repeat" items="{{_libraries}}">
+            <div class="location">
+                <div class="name">{{item.name}}</div>
+                <div class="location-info">
+                  <span class$="status {{_statusColor(item.status)}}">
+                    {{item.status}}
+                  </span>
+                  <span class="hours">
+                    {{item.hours}}
+                  </span>
+                </div>
+            </div>
+          </template>
+        </div>
       </div>
-      <div class="card-content">
-        <template is="dom-repeat" items="{{_libraries}}">
-          <div class="location">
-            <h2>{{item.name}}</h2>
-            <p>
-              <span class$="status {{_statusColor(item.status)}}">
-                {{item.status}}
-              </span>
-              <span class="hours">
-                {{item.hours}}
-              </span>
-            </p>
-          </div>
-        </template>
-      </div>
-      <div class="card-actions">
-        <content></content>
-      </div>
-    </div>
+      <content></content>
+    </paper-material>
   </template>
 
   <script>
@@ -104,6 +116,11 @@ Custom property | Description | Default
       is: 'uvalib-hours-card',
 
       properties: {
+        elevation: {
+          type: Number,
+          value: 1
+        },
+
         headingIcon: {
           type: String,
           value: "clock-o"
@@ -296,6 +313,13 @@ Custom property | Description | Default
         var clsName = (status == 'closing soon') ? 'closing-soon' : status;
         return clsName;
       },
+
+      /**
+       * Apply styles from this component onto the LibCal widget
+       */
+      ready: function() {
+        this.scopeSubtree(this.querySelector('.card-actions'), true);
+      }
 
     });
 

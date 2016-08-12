@@ -12,6 +12,7 @@
     <link rel="import" href="../../uvalib-button/uvalib-button.html">
     <link rel="import" href="../../uvalib-theme/typekit.html">
     <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
+    <link rel="import" href="../../uvalib-theme/uvalib-icons.html">
     <link rel="import" href="../uvalib-hours-card.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
@@ -23,14 +24,10 @@
       <h3>Basic uvalib-hours-card Demo</h3>
       <demo-snippet>
         <template>
-          <uvalib-hours-card>
+          <uvalib-hours-card locations="alderman,brown,clemons" elevation="3">
             <div class="card-actions">
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
             </div>
-          </uvalib-hours-card>
-          <p></p>
-          <uvalib-hours-card locations="fine arts"
-              libraryHoursSource="https://api3.libcal.com/api_hours_today.php">
           </uvalib-hours-card>
         </template>
       </demo-snippet>
