@@ -1,7 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../byutv-jsonp/byutv-jsonp.html">
-<link rel="import" href="../uvalib-card/uvalib-card.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
 <!--
 `uvalib-hours-card`
@@ -24,30 +25,65 @@ Custom property | Description | Default
     <style is="custom-style">
       :host {
         display: block;
+        --uvalib-hours-card-header-font-size: 24px;
+        --uvalib-hours-card-header-font-weight: bold;
+        padding: var(--uvalib-hours-card-padding,15px);
+        --iron-icon-fill-color: var(--color-text-gray,black);
       }
-
+      iron-icon {
+        padding-right: 10px;
+      }
+      .card-header {
+        font-size: var(--uvalib-hours-card-header-font-size,--header-font-size);
+        font-weight: var(--uvalib-hours-card-header-font-weight,--font-weight-demi);
+        padding-bottom: 20px;
+      }
+      .card-actions {
+        border-top: 1px solid gray;
+      }
       .row-bkgrd-color-odd {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-odd,--color-light-blue);
         padding-left: -10px;
         padding-right: -10px;
       }
-
       .row-bkgrd-color-even {
         background-color: var(--uvalib-hours-card-row-bkgrd-color-even,--color-white);
+      }
+      .location {
+
+      }
+      .status {
+        float: left;
+      }
+      .hours {
+        color: blue;
+        padding-left: 10px;
+      }
+      .open {
+        color: green;
+      }
+      .closed {
+        color: red;
+      }
+      .closing-soon {
+        color: var(--color-primary-orange,orange);
       }
     </style>
 
     <byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" last-response="{{_springshareData}}"
       debounce-duration="300"></byutv-jsonp>
 
-    <uvalib-card heading="Hours">
+    <div class="card">
+      <div class="card-header">
+        <iron-icon icon$="{{headingIcon}}"></iron-icon> {{heading}}
+      </div>
       <div class="card-content">
         <template is="dom-repeat" items="{{_libraries}}">
-          <div class$="location {{_rowBackgroundColor(index)}}">
+          <div class="location">
             <h2>{{item.name}}</h2>
             <p>
-              <span class="today">
-                Today {{item.currentDate}}
+              <span class$="status {{_statusColor(item.status)}}">
+                {{item.status}}
               </span>
               <span class="hours">
                 {{item.hours}}
@@ -56,8 +92,10 @@ Custom property | Description | Default
           </div>
         </template>
       </div>
-      <content></content>
-    </uvalib-card>
+      <div class="card-actions">
+        <content></content>
+      </div>
+    </div>
   </template>
 
   <script>
@@ -66,6 +104,19 @@ Custom property | Description | Default
       is: 'uvalib-hours-card',
 
       properties: {
+        headingIcon: {
+          type: String,
+          value: "clock-o"
+        },
+
+        /**
+         * Card heading to use for the uvalib-events-card component.
+         */
+        heading: {
+          type: String,
+          value: "Today's Hours"
+        },
+
         /**
          * A comma-delimited string of library locations to be included in the
          * card content. The locations should be the name to be displayed and
@@ -150,9 +201,6 @@ Custom property | Description | Default
       */
       _buildLibrariesHours: function(data) {
         var libraries = new Array();
-        // format today as month/date
-        var today = new Date();
-        var monthDay = (today.getMonth()+1) + "/" + today.getDate();
         // create libraries array from string of locations
         var libLocations = this.locations.split(",");
         // loop through each library and build
@@ -163,9 +211,9 @@ Custom property | Description | Default
             capName += libName[j].charAt(0).toUpperCase() + libName[j].substr(1) + " ";
           }
           var info = {
-            name: capName + "Library",
-            currentDate: monthDay,
-            hours: this._getHours(libLocations[i], data)
+            name: capName,
+            status: this._getStatus(libLocations[i], data),
+            hours: this._getHours(libLocations[i], data).toUpperCase()
           };
           libraries[i] = info;
         }
@@ -189,6 +237,25 @@ Custom property | Description | Default
           }
         }
         return hours;
+      },
+
+      /**
+       * Find and return status for specified library location.
+       *
+       * @param {String} location one of names specified in locations attribute
+       * @param {Object} data the returned data from the AJAX call
+       * @return {String}
+       */
+      _getStatus: function(location, data) {
+        var status = "";
+        for (var i=0; i < data.locations.length; i++) {
+          var libname = data.locations[i].name.toLowerCase();
+          if ((libname.indexOf(location.toLowerCase()) >= 0) && (libname.indexOf('library') >= 0)) {
+            status = data.locations[i].times.status;
+            break;
+          }
+        }
+        return status;
       },
 
       /**
@@ -217,6 +284,16 @@ Custom property | Description | Default
        */
       _rowBackgroundColor: function(index) {
         var clsName = (index % 2) ? 'row-bkgrd-color-even' : 'row-bkgrd-color-odd';
+        return clsName;
+      },
+
+      /**
+       * Specify status class to use for adjusting color, etc.
+       *
+       * @param {String} status
+       */
+      _statusColor: function(status) {
+        var clsName = (status == 'closing soon') ? 'closing-soon' : status;
         return clsName;
       },
 
