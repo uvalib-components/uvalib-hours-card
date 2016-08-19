@@ -24,10 +24,19 @@
       <h3>Basic uvalib-hours-card Demo</h3>
       <demo-snippet>
         <template>
+          <style is="custom-style">
+            uvalib-hours-card {
+              padding: 20px;
+            }
+            .long {
+              height: 500px;
+            }
+          </style>
           <uvalib-hours-card locations="alderman,brown,clemons" elevation="3">
-            <div class="card-actions">
-              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
-            </div>
+            <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
+          </uvalib-hours-card>
+          <uvalib-hours-card class="long" locations="alderman,brown,clemons" elevation="3">
+            <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
           </uvalib-hours-card>
         </template>
       </demo-snippet>

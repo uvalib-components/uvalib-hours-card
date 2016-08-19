@@ -37,6 +37,8 @@ Custom property | Description | Default
         padding-right: 10px;
       }
       .card {
+        height: 100%;
+        @apply(--layout-vertical);
         padding: var(--uvalib-hours-card-padding,15px);
       }
       .card-header {
@@ -44,6 +46,9 @@ Custom property | Description | Default
         font-weight: var(--uvalib-hours-card-header-font-weight,--font-weight-demi);
         color: var(--color-text-gray,black);
         padding-bottom: 20px;
+      }
+      .card-content {
+        @apply(--layout-flex);
       }
       .card-actions {
         border-top: 1px solid LightGray;
@@ -103,8 +108,17 @@ Custom property | Description | Default
             </div>
           </template>
         </div>
+        <div class="card-actions">
+          <content></content>
+        </div>
       </div>
-      <content></content>
+      <!--
+      <template is="dom-if" if="{{_hasContent(_childText)}}">
+        <div class="card-actions">
+          <content></content>
+        </div>
+      </template>
+    -->
     </paper-material>
   </template>
 
@@ -317,6 +331,13 @@ Custom property | Description | Default
        */
       ready: function() {
         this.scopeSubtree(this.querySelector('.card-actions'), true);
+      },
+
+      attached: function() {
+        this._childText = Polymer.dom(this).textContent;
+      },
+      _hasContent: function(){
+        return this._childText && this._childText.length > 0;
       }
 
     });
