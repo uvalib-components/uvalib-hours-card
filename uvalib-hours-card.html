@@ -158,6 +158,11 @@ Custom property | Description | Default
           value: "alderman,clemons,brown,music",
         },
 
+        allLocations: {
+          type: Boolean,
+          value: false
+        },
+
         /**
          * The vendor URL (less parameters) for retrieving today's hours in JSON format.
          */
@@ -232,80 +237,51 @@ Custom property | Description | Default
       */
       _buildLibrariesHours: function(data) {
         var libraries = new Array();
-        // create libraries array from string of locations
-        var libLocations = this.locations.split(",");
-        // loop through each library and build
-        for (var i=0; i < libLocations.length; i++) {
-          var libName = libLocations[i].split(" ");
-          var capName = "";
-          for (var j=0; j < libName.length; j++) {
-            capName += libName[j].charAt(0).toUpperCase() + libName[j].substr(1) + " ";
-          }
+        // Create array of needed data and save keys for use in sorting.
+        var unsorted = new Array();
+        var locations = [];
+        for (var i=0; i < data.locations.length; i++) {
+          var unit = (data.locations[i].parent_lid) ? true : false;
+          var key = data.locations[i].name.replace('Library ','').replace(' Library','');
           var info = {
-            name: capName,
-            status: this._getStatus(libLocations[i], data),
-            hours: this._getHours(libLocations[i], data).toUpperCase()
+            status: data.locations[i].times.status,
+            hours: data.locations[i].rendered,
+            subunit: unit
           };
-          libraries[i] = info;
+          unsorted[key] = info;
+          locations.push(key);
+        }
+        // If all locations are specified then make sure theh list is sorted alphabetically
+        if (this.allLocations) {
+          locations.sort();
+          for (var i=0; i < locations.length; i++) {
+            var info = {
+              name: locations[i],
+              status: unsorted[locations[i]].status,
+              hours: unsorted[locations[i]].hours,
+              subunit: unsorted[locations[i]].subunit
+            };
+            libraries[i] = info;
+          }
+        } else {
+          // create libraries array from string of locations
+          var libLocations = this.locations.split(",");
+          // loop through each library and build
+          for (var i=0; i < libLocations.length; i++) {
+            for (key in unsorted) {
+              if (key.toString().includes(libLocations[i])) {
+                var info = {
+                  name: key,
+                  status: unsorted[key].status,
+                  hours: unsorted[key].hours,
+                  subunit: unsorted[key].subunit
+                };
+                libraries[i] = info;
+              }
+            }
+          }
         }
         return libraries;
-      },
-
-      /**
-       * Find and return hours for specified library location.
-       *
-       * @param {String} location one of names specified in locations attribute
-       * @param {Object} data the returned data from the AJAX call
-       * @return {String}
-       */
-      _getHours: function(location, data) {
-        var hours = "";
-        for (var i=0; i < data.locations.length; i++) {
-          var libname = data.locations[i].name.toLowerCase();
-          if ((libname.indexOf(location.toLowerCase()) >= 0) && (libname.indexOf('library') >= 0)) {
-            hours = data.locations[i].rendered;
-            break;
-          }
-        }
-        return hours;
-      },
-
-      /**
-       * Find and return status for specified library location.
-       *
-       * @param {String} location one of names specified in locations attribute
-       * @param {Object} data the returned data from the AJAX call
-       * @return {String}
-       */
-      _getStatus: function(location, data) {
-        var status = "";
-        for (var i=0; i < data.locations.length; i++) {
-          var libname = data.locations[i].name.toLowerCase();
-          if ((libname.indexOf(location.toLowerCase()) >= 0) && (libname.indexOf('library') >= 0)) {
-            status = data.locations[i].times.status;
-            break;
-          }
-        }
-        return status;
-      },
-
-      /**
-       * Find and return name for specified library location.
-       *
-       * @param {String} location one of names specified in locations attribute
-       * @param {Object} data the returned data from the AJAX call
-       * @return {String}
-       */
-      _getName: function(location, data) {
-        var name = "";
-        for (var i=0; i < data.locations.length; i++) {
-          var libname = data.locations[i].name.toLowerCase();
-          if ((libname.indexOf(location.toLowerCase()) >= 0) && (libname.indexOf('library') >= 0)) {
-            name = data.locations[i].name;
-            break;
-          }
-        }
-        return name;
       },
 
       /**
