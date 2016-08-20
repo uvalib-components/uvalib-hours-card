@@ -242,10 +242,11 @@ Custom property | Description | Default
         var unsorted = new Array();
         var locations = [];
         for (var i=0; i < data.locations.length; i++) {
-          var unit = (data.locations[i].parent_lid) ? true : false;
+          var unit = (data.locations[i].category != 'library') ? true : false;
           var key = data.locations[i].name.replace('Library ','').replace(' Library','');
+          var status = (data.locations[i].times.currently_open) ? 'open' : 'closed';
           var info = {
-            status: data.locations[i].times.status,
+            status: status,
             hours: data.locations[i].rendered,
             subunit: unit
           };
