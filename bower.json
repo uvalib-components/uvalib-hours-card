@@ -22,6 +22,7 @@
   "resolutions": {
     "polymer": "^1.4.0",
     "uvalib-button": "master",
-    "lodash": "^4.13.1"
+    "lodash": "^4.13.1",
+    "uvalib-theme": "master"
   }
 }
