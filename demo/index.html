@@ -4,7 +4,18 @@
     <title>uvalib-hours-card demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script>
+      Polymer = {dom: 'shadow'};
+      (function() {
+        if ('registerElement' in document
+            && 'import' in document.createElement('link')
+            && 'content' in document.createElement('template')) {
+          // platform is good!
+        } else {
+          document.write( '<script src="../../webcomponentsjs/webcomponents-lite.min.js">\x3C/script>')
+        }
+      })();
+    </script>
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
