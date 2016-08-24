@@ -3,6 +3,7 @@
 <link rel="import" href="../byutv-jsonp/byutv-jsonp.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../uvalib-theme/uvalib-common-styles.html">
 <link rel="import" href="../uvalib-helper-libs/polyfills.html">
 
 <!--
@@ -23,7 +24,7 @@ Custom property | Description | Default
 
 <dom-module id="uvalib-hours-card">
   <template>
-    <style is="custom-style">
+    <style is="custom-style" include="uvalib-theme">
       :host {
         display: block;
         --uvalib-hours-card-header-font-size: 24px;
