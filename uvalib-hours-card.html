@@ -13,6 +13,7 @@ Library hours information displayed in a card section
 
 ### Styling
 
+Note that you need to explicitly set the height of this component.
 The following custom properties are available for styling:
 
 Custom property | Description | Default
@@ -34,14 +35,14 @@ Custom property | Description | Default
       }
       paper-material {
         background-color: var(--color-white,white);
-/*        height: 100%;*/
+        height: 100%;
       }
       iron-icon {
         padding-right: 10px;
       }
       .card {
-/*        height: 100%;
-        @apply(--layout-vertical); */
+        height: 100%;
+        @apply(--layout-vertical);
       }
       .card-header {
         font-size: var(--uvalib-hours-card-header-font-size,--header-font-size);
