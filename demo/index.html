@@ -20,6 +20,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
+    <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
     <link rel="import" href="../../uvalib-button/uvalib-button.html">
     <link rel="import" href="../../uvalib-theme/uvalib-icons.html">
     <link rel="import" href="../uvalib-hours-card.html">
@@ -34,21 +35,28 @@
       <demo-snippet>
         <template>
           <style is="custom-style">
+            #container {
+              height: 1700px;
+              @apply(--layout-vertical);
+            }
             uvalib-hours-card {
               padding: 20px;
+              @apply(--layout-flex);
             }
-            .long {
-              height: 500px;
+            uvalib-hours-card[all-locations] {
+              min-height: 900px;
             }
           </style>
-          <uvalib-hours-card style="height:300px" locations="Alderman,Clemons,Brown" elevation="3">
-            <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
-          </uvalib-hours-card>
-          <uvalib-hours-card class="long" locations="Alderman,Brown,Clemons" elevation="3">
-            <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
-          </uvalib-hours-card>
-          <uvalib-hours-card style="height:900px" all-locations elevation="3">
-          </uvalib-hours-card>
+          <div id="container">
+            <uvalib-hours-card locations="Alderman,Clemons,Brown" elevation="3">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
+            </uvalib-hours-card>
+            <uvalib-hours-card locations="Alderman,Brown,Clemons" elevation="3">
+              <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
+            </uvalib-hours-card>
+            <uvalib-hours-card all-locations elevation="3">
+            </uvalib-hours-card>
+          </div>
         </template>
       </demo-snippet>
     </div>

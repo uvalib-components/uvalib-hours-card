@@ -32,17 +32,20 @@ Custom property | Description | Default
         --uvalib-hours-card-header-font-size: 24px;
         --uvalib-hours-card-header-font-weight: bold;
         --iron-icon-fill-color: var(--color-text-gray,black);
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
       }
       paper-material {
+        @apply(--layout-vertical);
         background-color: var(--color-white,white);
-        height: 100%;
+        @apply(--layout-flex);
       }
       iron-icon {
         padding-right: 10px;
       }
       .card {
-        height: 100%;
         @apply(--layout-vertical);
+        @apply(--layout-flex);
       }
       .card-header {
         font-size: var(--uvalib-hours-card-header-font-size,--header-font-size);
