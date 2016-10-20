@@ -44,7 +44,12 @@
               @apply(--layout-flex);
             }
             uvalib-hours-card[all-locations] {
-              min-height: 900px;
+              min-height: 975px;
+            }
+            .card-close {
+              color: var(--color-text-gray);
+              float: right;
+              padding-right: 0px;
             }
           </style>
           <div id="container">
@@ -55,6 +60,7 @@
               <uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button>
             </uvalib-hours-card>
             <uvalib-hours-card all-locations elevation="3">
+              <uvalib-button class="card-close" icon="times" reverse on-tap="closeHours">Close<uvalib-button>
             </uvalib-hours-card>
           </div>
         </template>
