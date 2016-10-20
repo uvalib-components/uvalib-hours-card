@@ -97,7 +97,7 @@ Custom property | Description | Default
     <byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" last-response="{{_springshareData}}"
       debounce-duration="300"></byutv-jsonp>
 
-    <paper-material elevation={{elevation}}>
+    <paper-material elevation$="{{elevation}}">
       <div class="card">
         <div class="card-header">
           <iron-icon icon$="{{headingIcon}}"></iron-icon> {{heading}}
