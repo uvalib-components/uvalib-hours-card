@@ -28,7 +28,7 @@
 
         test('check ajax call returns data', function(done) {
           var isDone = false;
-          this.timeout(5000);
+          this.timeout(10000);
           var element = fixture('basic');
           element.addEventListener('response', function(evt) {
             assert.isNotNull(element._libraries);
