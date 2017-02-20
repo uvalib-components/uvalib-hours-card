@@ -34,6 +34,8 @@ Custom property | Description | Default
         --iron-icon-fill-color: var(--color-text-gray,black);
         @apply(--layout-flex);
         @apply(--layout-vertical);
+
+        font-family: var(--font-primary);
       }
       paper-material {
         @apply(--layout-vertical);
@@ -48,29 +50,55 @@ Custom property | Description | Default
         @apply(--layout-flex);
       }
       .card-header {
+        /*
         font-size: var(--uvalib-hours-card-header-font-size,--header-font-size);
         font-weight: var(--uvalib-hours-card-header-font-weight,--font-weight-demi);
         color: var(--color-text-gray,black);
-        padding: var(--uvalib-hours-card-padding,15px);
-        padding-bottom: 20px;
+        */
+        padding: var(--uvalib-hours-card-padding,21px);
+        padding-top: 10px;
+        padding-bottom: 24px;
+
+
+        font-family: var(--font-primary);
+        font-size: 24px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: normal;
+        color: rgba(0, 0, 0, 0.54);
       }
       .card-content {
         @apply(--layout-flex);
-        padding: var(--uvalib-hours-card-padding,15px);
+        padding: var(--uvalib-hours-card-padding,21px);
+
+        padding-top: 0;
       }
       .card-actions {
         border-top: 1px solid LightGray;
         padding-top: 10px;
         padding-bottom: 10px;
-        padding-left: var(--uvalib-hours-card-padding,15px);
-        padding-right: var(--uvalib-hours-card-padding,15px);
+        padding-left: var(--uvalib-hours-card-padding,21px);
+        padding-right: var(--uvalib-hours-card-padding,21px);
       }
       .name {
-        font-size: larger;
-        color: var(--color-text-gray,black);
+/*        font-size: larger;
+        color: var(--color-text-gray,black); */
+
+        font-family: var(--font-primary);
+        font-size: 16px !important;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: rgba(0, 0, 0, 0.54);
+
       }
       .location {
-        padding-bottom: 15px;
+        padding-bottom: 21px;
       }
       .location-info {
         margin-top: 0px;
