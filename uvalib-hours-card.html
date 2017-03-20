@@ -50,6 +50,7 @@ Custom property | Description | Default
         @apply(--layout-flex);
       }
       .card-header {
+        @apply(--layout-horizontal);
         /*
         font-size: var(--uvalib-hours-card-header-font-size,--header-font-size);
         font-weight: var(--uvalib-hours-card-header-font-weight,--font-weight-demi);
@@ -68,6 +69,9 @@ Custom property | Description | Default
         line-height: 1.33;
         letter-spacing: normal;
         color: rgba(0, 0, 0, 0.54);
+      }
+      .card-header div[flex] {
+        @apply(--layout-flex);
       }
       .card-content {
         @apply(--layout-flex);
@@ -127,7 +131,9 @@ Custom property | Description | Default
     <paper-material elevation$="{{elevation}}">
       <div class="card">
         <div class="card-header">
-          <iron-icon icon$="{{headingIcon}}"></iron-icon> {{heading}}
+          <iron-icon icon$="{{headingIcon}}"></iron-icon>
+          <div flex>{{heading}}</div>
+          <iron-icon icon="times" on-tap="_closeEvent" hidden$="{{!closeIcon}}"></iron-icon>
         </div>
         <div class="card-content">
           <template is="dom-repeat" items="{{_libraries}}">
@@ -172,6 +178,11 @@ Custom property | Description | Default
         headingIcon: {
           type: String,
           value: "clock-o"
+        },
+
+        closeIcon: {
+          type: Boolean,
+          value: false
         },
 
         /**
@@ -351,6 +362,10 @@ Custom property | Description | Default
       },
       _hasContent: function(){
         return this._childText && this._childText.length > 0;
+      },
+
+      _closeEvent: function(){
+        this.fire('close');
       }
 
     });
