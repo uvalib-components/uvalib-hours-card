@@ -126,6 +126,9 @@ Custom property | Description | Default
       iron-icon[hidden] {
        display: none; 
       }
+      .closeicon {
+        cursor: pointer;
+      }
     </style>
 
     <byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" last-response="{{_springshareData}}"
@@ -136,7 +139,7 @@ Custom property | Description | Default
         <div class="card-header">
           <iron-icon icon$="{{headingIcon}}"></iron-icon>
           <div flex>{{heading}}</div>
-          <iron-icon icon="times" on-tap="_closeEvent" hidden$="{{!closeIcon}}"></iron-icon>
+          <iron-icon class="closeicon" icon="times" on-tap="_closeEvent" hidden$="{{!closeIcon}}"></iron-icon>
         </div>
         <div class="card-content">
           <template is="dom-repeat" items="{{_libraries}}">
