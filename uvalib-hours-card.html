@@ -123,6 +123,9 @@ Custom property | Description | Default
       .closing-soon {
         color: var(--color-primary-orange,Orange);
       }
+      iron-icon[hidden] {
+       display: none; 
+      }
     </style>
 
     <byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" last-response="{{_springshareData}}"
