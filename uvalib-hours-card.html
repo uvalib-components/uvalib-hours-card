@@ -32,30 +32,26 @@ Custom property | Description | Default
         --uvalib-hours-card-header-font-size: 24px;
         --uvalib-hours-card-header-font-weight: bold;
         --iron-icon-fill-color: var(--color-text-gray,black);
+        /*
         @apply(--layout-flex);
+        */
         @apply(--layout-vertical);
-
         font-family: var(--font-primary);
       }
       paper-material {
-        @apply(--layout-vertical);
         background-color: var(--color-white,white);
         @apply(--layout-flex);
+        @apply(--layout-vertical);
       }
       iron-icon {
         padding-right: 10px;
       }
       .card {
-        @apply(--layout-vertical);
         @apply(--layout-flex);
+        @apply(--layout-vertical);
       }
       .card-header {
         @apply(--layout-horizontal);
-        /*
-        font-size: var(--uvalib-hours-card-header-font-size,--header-font-size);
-        font-weight: var(--uvalib-hours-card-header-font-weight,--font-weight-demi);
-        color: var(--color-text-gray,black);
-        */
         padding: var(--uvalib-hours-card-padding,21px);
         padding-top: 10px;
         padding-bottom: 24px;
@@ -87,9 +83,6 @@ Custom property | Description | Default
         padding-right: var(--uvalib-hours-card-padding,21px);
       }
       .name {
-/*        font-size: larger;
-        color: var(--color-text-gray,black); */
-
         font-family: var(--font-primary);
         font-size: 16px !important;
         font-weight: normal;
@@ -124,34 +117,29 @@ Custom property | Description | Default
         color: var(--color-primary-orange,Orange);
       }
       iron-icon[hidden] {
-       display: none; 
+       display: none;
       }
       .closeicon {
         cursor: pointer;
       }
     </style>
 
-    <byutv-jsonp id="hrsData" auto url="{{libraryHoursSource}}" params="{{_libraryHoursParams}}" last-response="{{_springshareData}}"
+    <byutv-jsonp id="hrsData" auto url="[[libraryHoursSource]]" params="[[_libraryHoursParams]]" last-response="{{_springshareData}}"
       debounce-duration="300"></byutv-jsonp>
 
-    <paper-material elevation$="{{elevation}}">
+    <paper-material elevation$="[[elevation]]">
       <div class="card">
         <div class="card-header">
-          <iron-icon icon$="{{headingIcon}}"></iron-icon>
-          <div flex>{{heading}}</div>
-          <iron-icon class="closeicon" icon="times" on-tap="_closeEvent" hidden$="{{!closeIcon}}"></iron-icon>
+          <iron-icon icon$="[[headingIcon]]"></iron-icon>
+          <div flex>[[heading]]</div>
+          <iron-icon class="closeicon" icon="times" on-tap="_closeEvent" hidden$="[[!closeIcon]]"></iron-icon>
         </div>
         <div class="card-content">
-          <template is="dom-repeat" items="{{_libraries}}">
+          <template is="dom-repeat" items="[[_libraries]]">
             <div class="location">
-                <div class="name">{{item.name}}</div>
+                <div class="name">[[item.name]]</div>
                 <div class="location-info">
-                  <!--span class$="status {{_statusColor(item.status)}}">
-                    {{item.status}
-                  </span -->
-                  <span class="hours">
-                    {{item.hours}}
-                  </span>
+                  <span class="hours">[[item.hours]]</span>
                 </div>
             </div>
           </template>
@@ -160,13 +148,6 @@ Custom property | Description | Default
           <content></content>
         </div>
       </div>
-      <!--
-      <template is="dom-if" if="{{_hasContent(_childText)}}">
-        <div class="card-actions">
-          <content></content>
-        </div>
-      </template>
-    -->
     </paper-material>
   </template>
 
