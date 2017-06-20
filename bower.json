@@ -3,7 +3,10 @@
   "description": "Library hours information displayed in a card section",
   "main": "uvalib-hours-card.html",
   "dependencies": {
-    "uvalib-elements": "uvalib-components/uvalib-elements#latest",
+    "uvalib-elements": "uvalib-components/uvalib-elements#master",
     "byutv-jsonp": "^1.2.0"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4"
   }
 }
