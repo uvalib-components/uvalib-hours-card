@@ -1,0 +1,213 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-libs.html">
+<link rel="import" href="uvalib-model-weeks.html">
+
+<!--
+`uvalib-model-library`
+data model for days in a week for a library location.
+
+@demo demo/library.html
+-->
+
+<dom-module id="uvalib-model-days">
+  <template>
+    <template is="dom-if" if="{{!object}}" restamp>
+      <uvalib-model-weeks lid="[[lid]]" library="[[library]]" start-week="{{weekNumber}}" num-weeks="1" name="{{_name}}" data="{{_data}}"></uvalib-model-weeks>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-days',
+
+      properties: {
+        /**
+         * The library that is being requested.  If the lid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * The Springshare LibCal library identifier. If specified will define which Library is being requested (takes priority over the library property)
+         */
+        lid: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * Retrieve information for today only. If today is true then weekNumber is overridden.
+         */
+        today: {
+          value: false,
+          type: Boolean,
+          notify: true
+        },
+        /**
+         * Number of minutes before and after open hours for adding soon to current status (for today).
+         */
+        soonInterval: {
+          value: 30,
+          type: Number,
+          notify: true
+        },
+        /**
+         * Which week to use. An integer value between 1 and 52. This is overridden and set to 1 if the today property is set.
+         * Note: Week 1 represents the current week and the LibCal API provides data out to a max of 52 weeks.
+         */
+        weekNumber: {
+          value: 1,
+          type: Number,
+          notify: true
+        },
+        /**
+         * A week of hours as represented by the vendor API. If this property is set, the object provided is parsed and used. Otherwise this is populated from the API request.
+         */
+        object: {
+          value: null,
+          type: Array,
+          notify: true        },
+        /**
+         * A week of hours transformed to an array with 7 (or 1 if today specified) entries of the following format:
+         *   data[i] = {ymdDate: "YYYY-MM-DD", mdDate: "Mon D", month: "Month name", dayOfWeek: "Monday/Tuesday/...", hours: "8am-10pm", currentStatus: "Open/Closed/Closing Soon/..."}
+         */
+        data: {
+          value: null,
+          type: Array,
+          computed: '_processList(object)',
+          notify: true
+        },
+        _data: {
+          value: null,
+          type: Array,
+          observer: "_dataChanged"
+        },
+        /**
+         * The name of the Library location.
+         */
+        name: {
+          value: "",
+          type: String,
+          notify: true
+        },
+        _name: {
+          type: String,
+          observer: "_nameChanged",
+        }
+      },
+
+      observers: [
+        '_dayOrWeek(today,weekNumber)'
+      ],
+
+      /**
+       * This complex observer insures that the weekNumber is set to the first week ff today's hours are wanted.
+       * @param today
+       * @param weekNumber
+       * @private
+       */
+      _dayOrWeek: function(today,weekNumber) {
+        if (today) {
+          this.weekNumber = 1;
+        }
+      },
+
+      /**
+       * If the data has changed based on attribute values passed, then update the object data value.
+       * @private
+       */
+      _dataChanged: function(){
+        if (this._data && this._data.length > 0) {
+          this.object = this._data;
+        }
+      },
+
+      /**
+       * Parse the object data to create the preferred data object for use in the UI.
+       * @param obj
+       * @returns {*}
+       * @private
+       */
+      _processList: function(obj){
+        if (obj) {
+          var oneweek = Array();
+          var data = Array();
+          if (Array.isArray(obj)) {
+            data = obj;
+          } else {
+            data[0] = obj;
+          }
+          var today = moment().format("YYYY-MM-DD");
+          var day, i=0;
+          for (day in data[0]) {
+            var info = {ymdDate: data[0][day].date, mdDate: "", month: "", dayOfWeek: day, hours: data[0][day].rendered, currentStatus: "", isToday: false};
+            info.mdDate = moment(info.ymdDate).format("MMM D");
+            info.month = moment(info.ymdDate).format("MMMM");
+            if (data[0][day].date == today) {
+              info.isToday = true;
+              if (data[0][day].times && data[0][day].times.hours)
+              info.currentStatus = this._currentStatus(data[0][day].times.hours[0].from,data[0][day].times.hours[0].to);
+            }
+            i = moment(info.ymdDate).format("e");
+            oneweek[i] = info;
+          }
+          if (this.today) {
+            var oneday = Array();
+            for (var i=0; i < oneweek.length; i++) {
+              if (oneweek[i].ymdDate == today) {
+                oneday[0] = oneweek[i];
+                break;
+              }
+            }
+            return oneday;
+          } else {
+            return oneweek;
+          }
+        } else return null;
+      },
+
+      /**
+       * Used to update the name property when underlying data changes.
+       * @private
+       */
+      _nameChanged: function(){
+        if (this._name) {
+          this.name = this._name;
+        }
+      },
+
+      /**
+       * Useful for the current day to identify if the location is open or closed. Returns one of the following values: open, closed, opening soon, closing soon.
+       * @param openTime
+       * @param closeTime
+       * @returns {string}
+       * @private
+       */
+      _currentStatus: function(openTime,closeTime) {
+        var status = '';
+        var opening = (openTime.includes(":")) ? moment(openTime, "h:mma") : moment(openTime, "ha");
+        var closing = (closeTime.includes(":")) ? moment(closeTime, "h:mma") : moment(closeTime, "ha");
+        var now = moment();
+
+        // See if closing time should be the next day (if starts before opening time)
+        if (closing.isBefore(opening)) {
+          closing.add(1, 'days');
+        }
+
+        if (opening.isAfter(now) && opening.subtract(this.soonInterval, 'minutes').isBefore(now)) {
+          status = "Opening soon";
+        } else if (closing.isAfter(now) && closing.subtract(this.soonInterval, 'minutes').isBefore(now)) {
+          status = "Closing soon";
+        } else if (opening.isBefore(now) && closing.isAfter(now)) {
+          status = "Open";
+        } else if (closing.isBefore(now)) {
+          status = "Closed";
+        }
+        return status;
+      }
+    });
+  </script>
+</dom-module>

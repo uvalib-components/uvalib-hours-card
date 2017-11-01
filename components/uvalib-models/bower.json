@@ -1,0 +1,13 @@
+{
+  "name": "uvalib-models",
+  "description": "data models used for the Library site",
+  "main": "uvalib-models.html",
+  "dependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4",
+    "app-storage": "1 - 2",
+    "promise-polyfill": "^1.0.0"
+  }
+}

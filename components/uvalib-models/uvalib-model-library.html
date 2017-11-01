@@ -1,0 +1,294 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="uvalib-model-libraries.html">
+
+<!--
+`uvalib-model-library`
+data model for a Library used in the Library site
+
+@demo demo/library.html
+-->
+
+<dom-module id="uvalib-model-library">
+  <template>
+    <template is="dom-if" if="{{!object}}" restamp>
+      <uvalib-model-libraries data="{{_data}}" filter="{{_filter}}"></uvalib-model-libraries>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-library',
+
+      properties: {
+        /**
+         * The library that is being requested.  If the uuid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * The library object as it is represented from the API.  If this property is set, the object provided is parsed and used, otherwise this is populated from the API request.
+         */
+        object: {
+          value: null,
+          type: Object,
+          notify: true
+        },
+        _data: {
+          value: null,
+          type: Array,
+          observer: "_dataChanged"
+        },
+        _filter: {
+          type: Object,
+          computed: '_makeFilter(uuid,library)'
+        },
+        /**
+         * The uuid of the Library.  If specified will define which Library is being requested (takes priority over the library property)
+         */
+        uuid: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * The full name of the Library including any donor title
+         */
+        fullName: {
+          type: String,
+          computed: "_fullName(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The name of the Library
+         */
+        name: {
+          type: String,
+          computed: "_name(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The shortened name of the Library
+         */
+        shortName: {
+          type: String,
+          computed: "_shortName(object)",
+          readOnly: true
+        },
+        /**
+         * The descriptive information about the library location.
+         */
+        description: {
+          type: String,
+          computed: "_description(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The name of the donor for this library.
+         */
+        donorName: {
+          type: String,
+          computed: "_donorName(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The descriptive information for this library donor.
+         */
+        donorBio: {
+          type: String,
+          computed: "_donorBio(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The library phone number.
+         */
+        phone: {
+          type: String,
+          computed: "_phone(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The library email address.
+         */
+        email: {
+          type: String,
+          computed: "_email(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The library email address string reversed for use with uvalib-liame component.
+         */
+        rid: {
+          type: String,
+          computed: "_reverseEmail(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The descriptive hours information for this library; useful for professional schools not using LibCal Hours.
+         */
+        hoursInfo: {
+          type: String,
+          computed: "_hoursInfo(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The Springshare library location ID needed to access the location's hours information.
+         */
+        libcalId: {
+          type: String,
+          computed: "_libcalId(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * Social media links for the library.
+         */
+        socialMedia: {
+          type: Array,
+          computed: "_socialMedia(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The library location's type. Should be library or lab.
+         */
+        locationType: {
+          type: String,
+          computed: "_locationType(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The uuid for the main image of the library location.
+         */
+        imgId: {
+          type: String,
+          computed: "_imageUuid(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * The alternative text to be used for the main image of the library location.
+         */
+        imgAlt: {
+          type: String,
+          computed: "_imageAltText(object)",
+          readOnly: true,
+          notify: true
+        },
+        /**
+         * Slug used for building out URL or anchor reference to specific library location.
+         */
+        slug: {
+          type: String,
+          computed: "_slug(object)",
+          readOnly: true,
+          notify: true
+        }
+      },
+
+      _dataChanged: function(){
+        if (this._data && this._data.length > 0)
+          this.object = this._data[0];
+      },
+
+      _fullName: function(obj){
+        var fullName='';
+        if (obj) {
+          fullName += (obj.donorTitle) ? obj.donorTitle+' ' : '';
+          fullName += (obj.title) ? obj.title: '';
+        }
+        return fullName;
+      },
+      _name: function(obj){
+        return (obj && obj.title)? obj.title: '';
+      },
+      _shortName: function(obj){
+        return (obj && obj.shortTitle)? obj.shortTitle: '';
+      },
+      _donorName: function(obj){
+        return (obj && obj.donorTitle)? obj.donorTitle: '';
+      },
+      _donorBio: function(obj){
+        return (obj && obj.donorDescription)? obj.donorDescription: '';
+      },
+      _phone: function(obj){
+        return (obj && obj.phoneNumber)? obj.phoneNumber: '';
+      },
+      _email: function(obj){
+        // if no library email address exists, then use the generic library email address.
+        return (obj && obj.emailAddress)? obj.emailAddress: "library@virginia.edu";
+      },
+      _reverseEmail: function(obj) {
+        var rid = "";
+        var eid = this._email(obj);
+        // drop domain and then reverse string
+        rid = eid.replace(/@virginia.edu/i,"").split("").reverse().join("");
+        return rid;
+      },
+      _hoursInfo: function(obj){
+        return (obj && obj.hoursInformation)? obj.hoursInformation: '';
+      },
+      _libcalId: function(obj){
+        return (obj && obj.libcalID)? obj.libcalID: '';
+      },
+      _socialMedia: function(obj){
+        var media = Array();
+        if (obj) {
+          if (obj.socialMedia) {
+            if (obj.socialMedia.constructor === Array) {
+              media = obj.socialMedia;
+            } else if (obj.socialMedia.constructor === Object) {
+              media[0] = obj.socialMedia;
+            }
+          }
+        }
+        return media;
+      },
+      _locationType: function(obj){
+        var loc="";
+        if (obj) {
+          if (obj.placeType) {
+            loc = obj.placeType.name;
+          }
+        }
+        return loc;
+      },
+      _imageUuid: function(obj){
+        return (obj && obj.mainImage && obj.mainImage.uuid)? obj.mainImage.uuid: '';
+      },
+      _imageAltText: function(obj){
+        return (obj && obj.mainImage && obj.mainImage.alt)? obj.mainImage.alt: '';
+      },
+      _slug: function(obj){
+        return (obj && obj.slug)? obj.slug: '';
+      },
+      _libraryURI: function(obj){
+        return (obj && obj.field_library_site_link)? obj.field_library_site_link: '';
+      },
+      _description: function(obj){
+        return (obj && obj.body)? obj.body: '';
+      },
+
+      _makeFilter: function(uuid,library){
+        if (uuid) {
+          return {uuid:uuid};
+        } else if (library) {
+          return {title: library};
+        } else return null;
+      }
+    });
+  </script>
+</dom-module>

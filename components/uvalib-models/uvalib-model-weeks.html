@@ -1,0 +1,123 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="uvalib-model-hours.html">
+
+<!--
+`uvalib-model-library`
+data model for a range of weeks hours for a library location.
+
+@demo demo/library.html
+-->
+
+<dom-module id="uvalib-model-weeks">
+  <template>
+    <template is="dom-if" if="{{!object}}" restamp>
+      <uvalib-model-hours data="{{_data}}" filter="{{_filter}}"></uvalib-model-hours>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-weeks',
+
+      properties: {
+        /**
+         * The library that is being requested.  If the lid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * The LibCal Hours library identifier. If specified will define which Library is being requested (takes priority over the library property)
+         */
+        lid: {
+          value: null,
+          type: String,
+          notify: true
+        },
+        /**
+         * Which week to begin with when selecting weeks. An integer value between 1 and 52.
+         */
+        startWeek: {
+          value: 1,
+          type: Number,
+          notify: true
+        },
+        /**
+         * The number of weeks to retrieve, if specified. An integer value between 1 and 52.
+         */
+        numWeeks: {
+          value: 52,
+          type: Number,
+          notify: true
+        },
+        /**
+         * The location object as it is represented from the API.  If this property is set, the object provided is parsed and used. Otherwise this is populated from the API request.
+         */
+        object: {
+          value: null,
+          type: Object,
+          notify: true
+        },
+        /**
+         * Up to 52 weeks of hours data for a library location where each element represents a week of hours.
+         */
+        data: {
+          type: Array,
+          computed: '_processList(object, startWeek, numWeeks)',
+          notify: true,
+          readOnly: true
+        },
+        _data: {
+          value: null,
+          type: Array,
+          observer: "_dataChanged"
+        },
+        _filter: {
+          type: Object,
+          computed: '_makeFilter(lid,library)'
+        },
+        /**
+         * The name of the Library location.
+         */
+        name: {
+          type: String,
+          computed: "_name(object)",
+          readOnly: true,
+          notify: true
+        }
+
+      },
+
+      _dataChanged: function(){
+        if (this._data && this._data.length > 0)
+          this.object = this._data[0];
+      },
+
+      _name: function(obj){
+        return (obj && obj.name)? obj.name: '';
+      },
+
+      _processList: function(){
+        if (this.object && this.startWeek && this.numWeeks) {
+          return this.object.weeks.slice((this.startWeek-1),this.startWeek+this.numWeeks-1);
+        } else return null;
+      },
+
+      _makeFilter: function(lid,library){
+        if (lid) {
+          return {lid: Number(lid)};
+        } else if (library) {
+          if (library.includes("Library") || library.includes("Lab")) {
+            return {name:library};
+          } else {
+            var libName = library+" Library";
+            return {name:libName};
+          }
+        } else return null;
+      }
+    });
+  </script>
+</dom-module>

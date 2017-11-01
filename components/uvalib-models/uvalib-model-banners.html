@@ -1,0 +1,56 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<!--
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
+<link rel="import" href="firebase-app.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
+
+<!--
+`uvalib-model-banners`
+data model for the banners used for the Library site
+
+@demo demo/banners.html
+-->
+
+<dom-module id="uvalib-model-banners">
+  <template>
+    <firebase-document id="query" app-name="uvalibapi"
+      path="/homebanners"
+      data="{{data}}"></firebase-document>
+      <!--
+    <app-indexeddb-mirror
+        key="banners"
+        data="[[tmpData]]"
+        persisted-data="{{data}}"></app-indexeddb-mirror>
+      -->
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-banners',
+      behaviors: [uvalibbehaviors.helpers],
+      properties: {
+        /**
+         * The banners
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+        random: {
+          type: Object,
+          computed: '_random(data)',
+          notify: true
+        },
+      },
+
+    });
+  </script>
+</dom-module>

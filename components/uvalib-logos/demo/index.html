@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-logo demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
+
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
+    <link rel="import" href="../uvalib-logo.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles uvalib-theme">
+      demo-snippet.reverse {
+        --demo-snippet-demo: {background-color: black;};
+      }
+      demo-snippet.reverse.blue {
+        --demo-snippet-demo: {background-color: var(--color-primary-blue);};
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered" style="max-width: 95%;">
+      <h3>Text Only Logo Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-logo text-only></uvalib-logo>
+          <uvalib-logo stacked text-only></uvalib-logo>
+        </template>
+      </demo-snippet>
+
+      <h3>Simple stacked Logo Demo</h3>
+      <demo-snippet>
+        <template>
+          <style is="custom-style">
+            .custom {
+             color: red;
+            }
+          </style>
+          <uvalib-logo stacked two-color></uvalib-logo>
+          <uvalib-logo stacked></uvalib-logo>
+          <uvalib-logo stacked class="custom"></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="blue reverse">
+        <template>
+          <uvalib-logo stacked reverse two-color></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="reverse">
+        <template>
+          <uvalib-logo stacked reverse></uvalib-logo>
+        </template>
+      </demo-snippet>
+
+      <h3>Primary Logo Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-logo stacked two-color></uvalib-logo>
+          <uvalib-logo stacked></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="blue reverse">
+        <template>
+          <uvalib-logo stacked reverse two-color></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="reverse">
+        <template>
+          <uvalib-logo stacked reverse></uvalib-logo>
+        </template>
+      </demo-snippet>
+
+      <h3>Horizontal Logo Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-logo></uvalib-logo>
+          <uvalib-logo two-color></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="blue reverse">
+        <template>
+          <uvalib-logo reverse two-color></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="reverse">
+        <template>
+          <uvalib-logo reverse></uvalib-logo>
+        </template>
+      </demo-snippet>
+
+      <h3>Centered Logo Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-logo centered></uvalib-logo>
+          <uvalib-logo centered two-color></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="blue reverse">
+        <template>
+          <uvalib-logo centered reverse two-color></uvalib-logo>
+        </template>
+      </demo-snippet>
+      <demo-snippet class="reverse">
+        <template>
+          <uvalib-logo centered reverse></uvalib-logo>
+        </template>
+      </demo-snippet>
+
+      <h3>In Testing</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-logo two-color rotunda-only></uvalib-logo>
+          <uvalib-logo two-color short-form></uvalib-logo>
+        </template>
+      </demo-snippet>
+
+      <h3>Dynamic binding to Logo Demo</h3>
+      <demo-snippet>
+        <template is="dom-bind" class="reverse">
+          <paper-toggle-button checked="{{centered}}">Centered</paper-toggle-button>
+          <paper-toggle-button checked="{{twocolor}}">Two Color</paper-toggle-button>
+          <paper-toggle-button checked="{{reverse}}">Reverse</paper-toggle-button>
+          <paper-toggle-button checked="{{stacked}}">Stacked</paper-toggle-button>
+          <paper-toggle-button checked="{{textonly}}">Text Only</paper-toggle-button>
+          <uvalib-logo centered$="{{centered}}"
+                       two-color$="{{twocolor}}"
+                       reverse$="{{reverse}}"
+                       stacked$="{{stacked}}"
+                       text-only$="{{textonly}}"></uvalib-logo>
+        </template>
+      </demo-snippet>
+
+    </div>
+
+  </body>
+</html>

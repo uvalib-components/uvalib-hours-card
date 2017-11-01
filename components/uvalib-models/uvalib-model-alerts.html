@@ -1,0 +1,96 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
+<link rel="import" href="firebase-app.html">
+
+<!--
+`uvalib-model-alerts`
+data model for the alerts/notifications used on the Library's Web sites
+
+@demo demo/alerts.html
+-->
+
+<dom-module id="uvalib-model-alerts">
+  <template>
+    <app-localstorage-document key="uvalib-alerts" data="{{_seenAlerts}}">
+    <firebase-query id="query" app-name="uvalibapi"
+      path="/alerts"
+      data="{{tmpData}}" zero-value="[]"></firebase-query>
+    <app-indexeddb-mirror
+        key="alerts"
+        data="[[tmpData]]"
+        persisted-data="{{alerts}}">
+    </app-indexeddb-mirror>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'uvalib-model-alerts',
+      behaviors: [uvalibbehaviors.modelLive],
+      properties: {
+        _seenAlerts: Object,
+        /**
+         * The Alerts as they come from the api
+         *
+         * @type {Object[]}
+         */
+        alerts: {
+          type: Array,
+          value: null,
+          notify: true
+        },
+        /**
+         * The Alerts that have not been dismissed by the user
+         */
+        unseenAlerts: {
+          computed: '_showUnseen(alerts)',
+          notify: true
+        },
+        /**
+         * The Alerts that block (ex: show in a modal, then always on screen)
+         */
+        blockingAlerts: {
+          computed: '_showBlocking(alerts)',
+          notify: true
+        },
+        /**
+         * The total count of alerts both active and inactive, past and present
+         */
+        alertCount: {
+          type: Number,
+          value: null,
+          notify: true
+        },
+        /**
+         * The count of active alerts (even those that have been seen by the current user)
+         */
+        activeAlertCount: {
+          type: Number,
+          value: null,
+          notify: true
+        },
+        /**
+         * The count of alerts not seen by the current user
+         */
+        unseenAlertCount: {
+          type: Number,
+          value: null,
+          notify: true
+        }
+      },
+      _showUnseen: function(alerts){
+        return alerts;
+      },
+      _showBlocking: function(alerts){
+        return alerts;
+      },
+      seeAlert(uuid){
+        _seenAlerts[uuid] = new Date().valueOf();
+      }
+
+    });
+  </script>
+</dom-module>

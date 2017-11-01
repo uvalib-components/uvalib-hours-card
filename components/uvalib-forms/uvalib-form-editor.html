@@ -1,0 +1,79 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--<link rel="import" href="../polymerfire/firebase-document.html">-->
+<link rel="import" href="uvalib-form-editor-section.html">
+
+<!--
+`uvalib-forms`
+
+
+@demo demo/edit.html
+-->
+
+<dom-module id="uvalib-form-editor">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <uvalib-form-editor-section conf="{{_conf}}" on-change="_calcDef"></uvalib-form-editor-section>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-form-editor',
+
+      properties: {
+        formConfig: {
+          type: String,
+          value: "",
+          notify: true
+        },
+        /*
+        _items: {
+          type: Array,
+          value: function(){return [];}
+        },
+        _title: {
+          type: String,
+          value: "",
+          notify: true
+        },
+        */
+        _conf: {
+          type: Object,
+          value: {type:"section",title:"",items:[]},
+//          observer: "_calcDef",
+          notify: true
+        },
+        /*
+        _formConfig: {
+          type: Object,
+          value: function(){return {};}
+//          computed: "_makeConfig(_title,_items,_items.splices)"
+        },
+        */
+      },
+/*
+      observers: ['_makeConfig(_title,_items,_items.splices)'],
+*/
+      observers: ['_calcDef(_conf.items,_conf)'],
+      _calcDef: function(){
+        this.debounce('defbuild',function(){
+          console.log('building conf string!')
+          this.formConfig = JSON.stringify(this._conf);
+        },200);
+      },
+/*
+      _makeConfig: function(){
+        this.set('_formConfig',{
+          type:'selection',
+          items:this._items,
+          title:this._title
+        });
+      }
+*/
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <title>uvalib-models demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+  <link rel="import" href="../uvalib-model-hours.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+  </style>
+</head>
+<body>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-hours filter='{"lid":2090}' data="{{locations}}"></uvalib-model-hours>
+
+      <h2>Filtered locations</h2>
+      <template is="dom-repeat" items="{{locations}}">
+        <h3>{{item.name}}</h3>
+          <dl>
+            <dt>Category</dt><dd>{{item.category}}</dd>
+            <dt>Weeks</dt>
+            <dd><ul>
+              <template is="dom-repeat" items="{{item.weeks}}" as="week">
+                <li>Sunday {{week.Sunday.date}}: {{week.Sunday.rendered}}</li>
+              </template>
+            </ul></dd>
+          </dl>
+        </template>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-hours data="{{locations}}"></uvalib-model-hours>
+
+      <h2>All locations</h2>
+      <template is="dom-repeat" items="{{locations}}">
+        <h3>{{item.name}}</h3>
+
+        <dl>
+          <dt>Category</dt><dd>{{item.category}}</dd>
+          <dt>Color</dt><dd>{{item.color}}</dd>
+          <dt>Contact</dt><dd>{{item.contact}}</dd>
+          <dt>Springshare location id</dt><dd>{{item.lid}}</dd>
+        </dl>
+      </template>
+
+    </template>
+  </demo-snippet>
+</div>
+
+</body>
+</html>

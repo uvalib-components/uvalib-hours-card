@@ -1,0 +1,139 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--<link rel="import" href="../polymerfire/firebase-document.html">-->
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="uvalib-form-editor-item.html">
+<link rel="import" href="uvalib-form-editor-addnew.html">
+
+<dom-module id="uvalib-form-editor-section">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-material {
+        margin: 10px;
+        @apply(--layout-verticle);
+      }
+      .config-area {
+        margin: 10px;
+      }
+    </style>
+
+    <paper-input label="Section Title" value="{{_title}}"></paper-input>
+    <template is="dom-repeat" items="{{conf.items}}">
+      <paper-material>
+        <paper-toolbar>
+          <span class="title">[[item.type]]</span>
+          <template is="dom-if" if="[[!_first(index,conf.items)]]">
+            <paper-icon-button icon="arrow-upward" on-tap="_moveUp" index="[[index]]"></paper-icon-button>
+          </template>
+          <template is="dom-if" if="[[!_last(index,conf.items)]]">
+            <paper-icon-button icon="arrow-downward" on-tap="_moveDown" index="[[index]]"></paper-icon-button>
+          </template>
+          <paper-icon-button icon="delete" on-tap="_delete" index="[[index]]"></paper-icon-button>
+          <uvalib-form-editor-addnew on-add="_newItem" index="[[index]]"></uvalib-form-editor-addnew>
+        </paper-toolbar>
+        <div class="config-area">
+          <template is="dom-if" if="[[_isHeading(item)]]">
+            <uvalib-form-editor-item item="{{item}}" on-change="_fireChange"></uvalib-form-editor-item>
+          </template>
+          <template is="dom-if" if="[[_isSection(item)]]">
+            <h2>[[item.title]]</h2>
+            <uvalib-form-editor-section config="{{item}}" on-change="_fireChange"></uvalib-form-editor-item>
+          </template>
+        </div>
+      </paper-material>
+    </template>
+    <uvalib-form-editor-addnew on-add="_newItem" index="[[conf.items.length]]"></uvalib-form-editor-addnew>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-form-editor-section',
+
+      properties: {
+        _title: {
+          type: String,
+          value: "",
+          observer: '_titleChanged',
+          notify: true
+        },
+/*
+        _items: {
+          type: Array,
+          value: function() {return [];},
+          observer: '_itemsChanged',
+          notify: true
+        },
+*/
+        conf: {
+          type: Object,
+          value: {type:"section",title:"",items:[]},
+          notify: true
+        }
+      },
+
+      observers: ['_fireChange(_title,conf.items.splices)'],
+      _titleChanged: function(){
+        this.set('conf.title',this._title);
+      },
+      _itemsChanged: function(){
+        this.set('conf.items',this.conf.items);
+      },
+      _first: function(index,items){
+        return (index==0);
+      },
+      _last: function(index,items){
+        return (index==this.conf.items.length-1);
+      },
+
+      _noSections: function(){
+        return (this.conf.items.length == 0);
+      },
+
+      _delete: function(e){
+        var index = (e.currentTarget.index)? e.currentTarget.index: 0;
+        console.log("removing item at "+parseInt(index));
+        var removed = this.splice('conf.items',index,1)[0];
+        this.notifyPath('conf.items');
+        return removed;
+      },
+      _moveUp: function(e){
+        var index = (e.currentTarget.index)? e.currentTarget.index: 0;
+        console.log("moving item at "+parseInt(index)+" up");
+        this.splice('conf.items',index-1,0,this._delete(e));
+        this.notifyPath('conf.items');
+      },
+      _moveDown: function(e){
+        var index = (e.currentTarget.index)? e.currentTarget.index: 0;
+        console.log("moving item at "+parseInt(index)+" down");
+        this.splice('conf.items',index+1,0,this._delete(e));
+        this.notifyPath('conf.items');
+      },
+      _newItem: function(e){
+        var index = (e.currentTarget.index)? e.currentTarget.index: 0;
+        console.log("creating a new item at "+parseInt(index));
+        this.splice('conf.items',index,0,e.detail);
+        this.notifyPath('conf');
+      },
+      _fireChange: function(){
+        console.log('change fired!');
+//        this.set('conf',{type:"section",title:this._title, items:this.conf.items});
+        this.fire('change');
+      },
+      _isHeading: function(item){
+        return (item.type === 'heading');
+      },
+      _isSection: function(item){
+        return (item.type === 'section');
+      }
+
+    });
+  </script>
+</dom-module>

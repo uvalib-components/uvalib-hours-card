@@ -1,0 +1,200 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="../neon-animation/neon-animated-pages.html">
+<link rel="import" href="../neon-animation/neon-animatable.html">
+<link rel="import" href="../neon-animation/neon-animations.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-html-echo.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+
+<link rel="import" href="uvalib-news.html">
+
+<!--
+`uvalib-news-section`
+This component handles the Library news display on the homepage
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-news-banner">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+        position: relative;
+        height: var(--uvalib-news-banner-height, 320px);
+        overflow: hidden;
+      }
+
+      uvalib-dot-selector {
+        --uvalib-dot-selector-dots: {
+          color: var(--color-white, white);
+        };
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        bottom: 0;
+      }
+
+      #card {
+        width: 300px;
+        height: 100%;
+      }
+      #banners {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+      }
+      #banners img {
+        width: 100%
+      }
+
+    </style>
+
+    <uvalib-banners items="{{bannerItems}}"></uvalib-banners>
+<!--
+    <div id="card">
+      <neon-animated-pages id="cards" selected="{{selected}}" entry-animation="fade-in-animation" exit-animation="fade-out-animation">
+        <template is="dom-repeat" items="{{bannerItems}}">
+          <neon-animatable>
+            <uvalib-card heading="{{_decodeHtml(item.title)}}" elevation="0">
+              <div class="card-content">
+                <uvalib-html-echo html="{{_truncate(item.content, 200)}}"></uvalib-html-echo>
+              </div>
+              <div class="card-actions">
+                  <uvalib-button href="{{item.url}}">Get Information</uvalib-button>
+              </div>
+            </uvalib-card>
+          </neon-animatable>
+        </template>
+      </neon-animated-pages>
+    </div>
+-->
+      <div id="banners">
+        <neon-animated-pages id="banner-images" selected="{{selected}}" entry-animation="slide-from-left-animation" exit-animation="slide-right-animation">
+          <template is="dom-repeat" items="{{bannerItems}}">
+            <neon-animatable>
+              <img src="{{item.image}}"/>
+            </neon-animatable>
+          </template>
+        </neon-animated-pages>
+      </div>
+
+      <uvalib-dot-selector length="{{_length(bannerItems)}}" selected="{{selected}}"></uvalib-dot-selector>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-news-banner',
+
+      properties: {
+        selected: {
+          type: Number,
+          value: 0,
+        },
+      },
+
+      _length: function(arry) {
+        return arry.length;
+      },
+      _decodeHtml: function(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      },
+      _truncate: function(s, l){
+        if(s.length <= l){
+            return s;
+        } else {
+            var ts = "";
+            var subs = s.split('&');
+            if(subs[0].length > l){
+                return subs[0].substring(0, l) + "&hellip;";
+            } else {
+                ts = ts + subs[0];
+            }
+            for(var i = 1; i < subs.length; i++){
+                var end = subs[i].indexOf(';');
+                l += end + 1;
+                ts = ts + '&' + subs[i];
+                if(ts.length >= l){
+                    return ts.substring(0,l) + "&hellip;";
+                }
+            }
+            return ts;
+        }
+     }
+
+    });
+  </script>
+</dom-module>
+
+
+
+
+<dom-module id="uvalib-dot-selector">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+      #dots {
+        @apply(--layout-horizontal);
+        margin-left: auto;
+        margin-right: auto;
+        @apply(--uvalib-dot-selector-dots);
+      }
+      .closed, .selected .open {
+        display: none;
+      }
+      .open, .selected .closed {
+        display: inline-block;
+      }
+      iron-icon {
+        cursor: pointer;
+      }
+    </style>
+
+    <iron-selector id="dots" selected="{{selected}}" selected-class="selected">
+      <template is="dom-repeat" items="{{_getDummyArray(length)}}">
+            <div class="selector">
+              <iron-icon class="closed" icon="circle"></iron-icon>
+              <iron-icon class="open" icon="circle-o"></iron-icon>
+            </div>
+      </template>
+    <iron-selector>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-dot-selector',
+
+      properties: {
+        selected: {
+          type: Number,
+          value: 0,
+          notify: true
+        },
+        length: {
+          type: Number,
+          value: 0,
+        },
+      },
+      _getDummyArray: function(len){
+        return new Array(len);
+      }
+
+    });
+  </script>
+</dom-module>

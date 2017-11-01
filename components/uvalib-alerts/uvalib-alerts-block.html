@@ -1,0 +1,35 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="uvalib-alerts-behavior.html">
+
+<!--
+`uvalib-alerts`
+University of Virginia Library Alert Blocks (notification blocks that are always 100% but only take up height when an alert is available to display)
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-alerts-block">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-alerts-block',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'uvalib-alerts',
+        },
+      },
+
+    });
+  </script>
+</dom-module>

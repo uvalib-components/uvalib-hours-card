@@ -1,0 +1,127 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  /**
+   * @demo demo/index.html
+   * @uvalibBehavior uvalibbehavior.searchbox
+   */
+  window.uvalibbehaviors = window.uvalibbehaviors || {};
+  uvalibbehaviors.searchbox = {
+    properties: {
+      /**
+       * Indicates whether to display advanced search links
+       */
+      advancedSearch: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Text to display for article search hyperlink.
+       */
+      advancedArticleSearchText: {
+        type: String,
+        value: 'Article Advanced'
+      },
+
+      /**
+       * URL for accessing the advanced article search features.
+       */
+      advancedArticleSearchUrl: {
+        type: String,
+        value: '//search.lib.virginia.edu/articles/advanced?catalog_select=articles'
+      },
+
+      /**
+       * Text to display for catalog search hyperlink.
+       */
+      advancedCatalogSearchText: {
+        type: String,
+        value: 'Catalog Advanced'
+      },
+
+      /**
+       * URL for accessing the advanced catalog search features.
+       */
+      advancedCatalogSearchUrl: {
+        type: String,
+        value: '//search.lib.virginia.edu/advanced?catalog_select=catalog'
+        },
+
+      /**
+       * Placeholder text to display in the Virgo search input text box.
+       */
+      searchVirgoPlaceholder: {
+        type: String,
+        value: 'Search Virgo for books, articles, digital materials, and more.',
+      },
+
+      /**
+       * Placeholder text to display in the site search input text box.
+       */
+      searchSitePlaceholder: {
+        type: String,
+        value: 'Search the UVA Library website.',
+      },
+
+      /**
+       * Tab selected for display.
+       */
+      selectedTab: {
+        type: String,
+        value: '0'
+      },
+
+      /**
+       * Indicates whether to display site search tab.
+       */
+      siteSearch: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Text to display in site search tab.
+       */
+      siteSearchTabText: {
+        type: String,
+        value: 'Site Search',
+      },
+
+      /**
+       * URL used to search the site.
+       */
+      siteSearchTabUrl: {
+        type: String,
+        value: '//www.library.virginia.edu/sitesearch/',
+      },
+
+      /**
+       * Text to display in Virgo search tab.
+       */
+      virgoSearchTabText: {
+        type: String,
+        value: 'Virgo'
+      },
+
+      /**
+       * URL used to search Virgo.
+       */
+      virgoSearchTabUrl: {
+        type: String,
+        value: '//search.lib.virginia.edu/catalog'
+      },
+
+      /**
+       * Use magnifying glass icon in place of button.
+       */
+      useIconForButton: {
+        type: Boolean,
+        value: false
+      }
+    },
+
+    
+  };
+
+</script>

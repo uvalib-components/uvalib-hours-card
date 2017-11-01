@@ -1,0 +1,13 @@
+{
+  "name": "uvalib-libraries",
+  "description": "UI component to display library or lab content",
+  "main": "uvalib-libraries.html",
+  "dependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4",
+    "app-storage": "1 - 2",
+    "promise-polyfill": "^1.0.0"
+  }
+}

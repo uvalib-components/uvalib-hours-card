@@ -1,0 +1,58 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="uvalib-card.html">
+
+<!--
+`uvalib-research-card`
+Research Card display component for the Library Web
+
+@demo demo/research.html
+-->
+
+<dom-module id="uvalib-research-card">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: inline-block;
+        background-color: black;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      li a {
+        text-decoration: none;
+      }
+      uvalib-card {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <uvalib-card horizontal$="{{horizontal}}" elevation$="{{elevation}}" class="card" heading="Research"
+                 image="https://static.lib.virginia.edu/images/card-images/research.jpg">
+        <div class="card-content">
+          <ul>
+            <li><a href="http://search.lib.virginia.edu/">Virgo: Library Catalog</a>
+            <li><a href="http://guides.lib.virginia.edu/az.php">Databases A-Z</a>
+            <li><a href="http://guides.lib.virginia.edu/">Subject guides</a>
+            <li><a href="http://guides.lib.virginia.edu/journalfinder">Journal finder</a>
+            <li><a href="http://www.library.virginia.edu/services/search-course-reserves/">Search course reserves</a>
+            <li><a href="http://data.library.virginia.edu/research-software/">Research software</a>
+          </ul>
+        </div>
+        <div class="card-actions">
+            <uvalib-button href="//www.library.virginia.edu/research/">More research tools</uvalib-button>
+        </div>
+    </uvalib-card>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'uvalib-research-card',
+      properties: {
+      }
+    });
+  </script>
+</dom-module>

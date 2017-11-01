@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-scroll-top-button demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../uvalib-scroll-top-button.html">
+
+    <style is="custom-style">
+      body {
+        height: 8000px;
+      }
+    </style>
+  </head>
+  <body>
+    <template is="dom-bind" id="app">
+      <h1>Scroll down to see the uvalib-scroll-top-button appear [[show]]</h1>
+      <uvalib-scroll-top-button scroll-target="document" no-show$="{{show}}"></uvalib-scroll-top-button>
+    </template>
+  </body>
+</html>

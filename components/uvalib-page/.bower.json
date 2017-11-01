@@ -1,0 +1,23 @@
+{
+  "name": "uvalib-page",
+  "description": "Library Web Page template",
+  "main": "uvalib-page.html",
+  "dependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master"
+  },
+  "resolutions": {
+    "lodash": "^4.17.4",
+    "app-storage": "~0.9.0",
+    "promise-polyfill": "^6.0.2"
+  },
+  "homepage": "https://github.com/uvalib-components/uvalib-page",
+  "_release": "814c5e6472",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "814c5e6472282164477e3bc21a9904c6954d0ab3"
+  },
+  "_source": "https://github.com/uvalib-components/uvalib-page.git",
+  "_target": "master",
+  "_originalSource": "uvalib-components/uvalib-page"
+}

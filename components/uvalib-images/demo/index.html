@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-image demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../uvalib-image.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+      uvalib-image {
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic uvalib-image demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-image sizing="cover" uuid="0085e691-bab8-4353-b68a-8d3283a3ad31" alt="Foo Bar!"></uvalib-image>
+          <uvalib-image uuid="b80daa25-9d17-439f-8270-b955cc07ae36" alt="Clemons"></uvalib-image>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <h3>Thumb uvalib-image demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-image thumb uuid="0085e691-bab8-4353-b68a-8d3283a3ad31" alt="Foo Bar!"></uvalib-image>
+          <uvalib-image thumb uuid="b80daa25-9d17-439f-8270-b955cc07ae36" alt="Clemons"></uvalib-image>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

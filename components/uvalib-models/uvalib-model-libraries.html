@@ -1,0 +1,76 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<!--
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
+<link rel="import" href="firebase-app.html">
+
+<!--
+`uvalib-model-libraries`
+data model for the libraries used for the Library site
+
+@demo demo/libraries.html
+-->
+
+<dom-module id="uvalib-model-libraries">
+  <template>
+    <firebase-document id="query" app-name="uvalibapi"
+      path="/libraries"
+      data="{{_libdata}}" zero-value="[]">
+    </firebase-document>
+    <!--
+    <app-indexeddb-mirror
+        key="libraries"
+        data="{{tmpData}}"
+        persisted-data="{{_libdata}}">
+    </app-indexeddb-mirror>
+  -->
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-libraries',
+
+      properties: {
+        /**
+         * The data as an Array of objects, see the uvalib-model-library element for finer grain usage
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+//          computed: '_processList(_libdata, filter)',
+          notify: true,
+          readOnly: true
+        },
+        /**
+         * The filter to limit the data that is returned
+         */
+        filter: {
+          type: Object,
+          value: null,
+        },
+
+        _libdata: {
+          observer: '_processList',
+          type: Array,
+        }
+
+      },
+
+      _processList: function(){
+        this.debounce('libbounce', function(){
+          if (this._libdata && this._libdata.length > 0) {
+            var temp = (this.filter)?
+              _.filter(this._libdata, this.filter): this._libdata;
+            this._setData(_.orderBy(temp, ['shortTitle'],['asc']) );
+          }
+        }, 100);
+      }
+
+    });
+  </script>
+</dom-module>

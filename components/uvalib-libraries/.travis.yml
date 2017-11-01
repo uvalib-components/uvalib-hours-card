@@ -1,0 +1,23 @@
+language: node_js
+node_js: stable
+dist: trusty
+sudo: required
+addons:
+  firefox: latest
+  sauce_connect: true
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+before_script:
+- npm install -g bower polymer web-component-tester
+- npm install -g gulp gulp-accessibility gulp-rename run-sequence
+- bower install
+script:
+- xvfb-run wct --plugin sauce
+- xvfb-run gulp accessibility
+env:
+  global:
+  - secure: faqm3SjhH7GHPE2zJZCAIxaTuBkxYPAhy9XX+9rPzhgqu6wJnsLBphCUbEl1XmUriQQpkW9wIDMb5gQ2M0GsaZEfqEXhN8zOKXLbbFCDdyqpxaFfgVAEl+ADmiJNYDbkNAbzFd+L71jUvOtD3zgxJ9a0v3O6pcY7T5OoFfgOvRo=
+  - secure: SRL5MGfD6bjw+uNqHL3lhO6i5W8MrG8ZKT0gHHrm9Kn+4hn7iy0av1yb5eco/aHVvUEPig9V30JZm9gjVGdN7vQl+0HRqhn6YAS+aMPtbI5KeX2sBHgZ+254OfFA5Lkzfaeb//MEOGQqMLgdoxrf9dqRLHe9uYN85BoUaVNBBfk=

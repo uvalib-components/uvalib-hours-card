@@ -1,0 +1,313 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../uvalib-liame/uvalib-liame.html">
+<link rel="import" href="../uvalib-images/uvalib-image.html">
+<link rel="import" href="../uvalib-models/uvalib-model-libraries.html">
+<link rel="import" href="../uvalib-models/uvalib-model-library.html">
+<link rel="import" href="../uvalib-models/uvalib-model-days.html">
+<link rel="import" href="../uvalib-social-links/uvalib-social-links.html">
+
+<!--
+`uvalib-library`
+ui component that represents a library location
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--uvalib-library-title` | Mixin applied to the Library title | `{}`
+`--paper-card-header-color` | The color of the header text | `#000`
+`--paper-card` | Mixin applied to the card | `{}`
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-library">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --uvalib-libraries-line-height: 20px;
+        --uvalib-libraries-title-font-size: 2rem;
+        --default-vitals-font-size: 1rem;
+        --uvalib-libraries-tooltip-font-size: 1em;
+        --uvalib-libraries-globecolor: #B3D996;
+        --paper-tooltip-background: #FFFFFF;
+        --paper-tooltip-opacity: 1.0;
+        --paper-tooltip-text-color: #000000;
+        --paper-tooltip: {
+          font-size: var(--uvalib-libraries-tooltip-font-size);
+          line-height: var(--uvalib-libraries-line-height);
+          width: 400px;
+          border: 2px solid #000000;
+          -moz-border-radius: 3px;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+          -moz-box-shadow: 0 1px 4px rgba( 44, 44, 44, 0.2);
+          -webkit-box-shadow: 0 1px 4px rgba( 44, 44, 44, 0.2);
+          box-shadow: 0 1px 4px rgba( 44, 44, 44, 0.2);
+        };
+        --paper-icon-button: {
+          display: block;
+          margin: 0 auto 0.5em;
+          border: 0 none;
+          vertical-align: middle;
+          padding: 0;
+          height: auto;
+          max-width: 100%;
+          color: var(--uvalib-libraries-globecolor);
+        };
+        line-height: var(--uvalib-libraries-line-height);
+      }
+      h2, div, span, p, uvalib-image, a, paper-icon-button {
+        border: 0 none;
+        margin: 0;
+      }
+      h2 {
+        line-height: 1.1em;
+      }
+      section {
+        clear: both;
+        margin: 0 0 1.75em;
+        overflow: hidden;
+        padding-bottom: 1.5em;
+      }
+      .donor-title {
+        clear: both;
+        display: block;
+        float: left;
+        text-transform: uppercase;
+      }
+      .donor-title.donor-description {
+        border-bottom: 1px dotted #bbb;
+        cursor: help;
+        margin-bottom: 0.5em;
+      }
+      h2.library-title {
+        clear: both;
+        font-size: var(--uvalib-libraries-title-font-size);
+        margin: 0.25em 0 0.75em;
+        @apply(--uvalib-library-title);
+      }
+      paper-tooltip h2 {
+        background-color: var(--color-light-gray);
+      }
+      .library-info .library-picture {
+        float: left;
+        overflow: hidden;
+        width: 148px;
+      }
+      .library-info .library-picture uvalib-image {
+        margin-right: 1.33em;
+      }
+      .library-picture uvalib-image {
+        height: 120px;
+        width: 120px;
+        background: #fff none repeat scroll 0 0;
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        box-shadow: 0 1px 4px rgba(44, 44, 44, 0.2);
+        float: left;
+        margin-bottom: 0.5em;
+        padding: 4px;
+      }
+      .library-description {
+        float: left;
+        margin-bottom: 1em;
+        overflow: hidden;
+        width: 81%;
+      }
+      .library-description p {
+        float: none;
+        margin-bottom: 1em;
+      }
+      a.library-map {
+        cursor: pointer;
+      }
+      .library-map {
+        display: block;
+        float: right;
+        margin-left: 1%;
+        padding: 1%;
+        text-decoration: none;
+        width: 15%;
+      }
+      .library-map .map-description {
+        line-height: 1.2em;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+      }
+      .library-map p {
+        border: 0 none;
+        margin: 0;
+        padding: 0;
+      }
+      .library-map paper-icon-button {
+        display: block;
+        margin: 0 auto 0.5em;
+      }
+      .library-vitals {
+        border-bottom: 1px dotted #cdd1d9;
+        background: #e9edf5 none repeat scroll 0 0;
+        border-top: 1px solid #cdd1d9;
+        clear: both;
+        font-size: var(--uvalib-libraries-vitals-font-size,var(--default-vitals-font-size));
+        margin: 1em 0 0;
+        padding: 0.67em 1em;
+      }
+      .vitals-section {
+        overflow: hidden;
+        padding: 0.2em 0;
+        padding-bottom: 10px;
+      }
+      .library-vitals .vitals-section h4 {
+        float: left;
+        font-weight: 400;
+        padding-right: 2em;
+        text-transform: uppercase;
+        width: 6em;
+      }
+      .vital {
+        display: inline-block;
+        padding-right: 1.5em;
+        vertical-align: top;
+      }
+      .vital div {
+        display: inline-block;
+      }
+      .library-vitals .vital.social-link {
+        display: inline-block;
+        padding-right: 1em;
+      }
+      .vital.Opening, .vital.Closing {
+        color: #ae5100;
+      }
+      .vital.Open {
+        color: #007b00;
+      }
+      .vital.Closed {
+        color: #DA0000;
+      }
+      .vital-heading {
+        margin: 0;
+      }
+      uvalib-social-link {
+        display: inline-block;
+      }
+    </style>
+
+      <uvalib-model-library object="[[object]]"
+          name="{{libName}}" description="{{info}}" donor-name="{{donorName}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
+          rid="{{rid}}" hours-info="{{hoursInfo}}" phone="{{phone}}" social-media="{{socialMedia}}" slug="{{slug}}" libcal-id="{{libcalId}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
+      </uvalib-model-library>
+
+      <section id$="lib[[object.uuid]]" class="library item">
+        <span id$="donor[[object.uuid]]" class="donor-title donor-description">[[donorName]]</span>
+        <template is="dom-if" if="[[donorInfo]]"><paper-tooltip for$="donor[[object.uuid]]" offset="1" position="right"><div inner-h-t-m-l="<h2>[[donorTitle]]</h2>[[donorInfo]]"></div></paper-tooltip></template>
+        <h2 class="library-title item-title">[[libName]]</h2>
+        <div class="library-info clearfix">
+          <div class="library-description item-description">
+            <template is="dom-if" if="[[imgId]]">
+              <div class="library-picture"><uvalib-image uuid$="[[imgId]]" alt$="[[imgAlt]]" sizing="cover"></uvalib-image></div>
+            </template>
+            <p inner-h-t-m-l="[[info]]"></p>
+          </div>
+          <a href$="http://www.library.virginia.edu/map/#!/study/[[slug]]" class="library-map item-map">
+            <paper-icon-button icon="globe" alt$="View map for [[libName]]"></paper-icon-button>
+            <p class="map-description">Map &amp; Directions</p>
+          </a>
+          <div class="library-vitals item-vitals">
+            <div class="vitals-section">
+              <h4 class="vital-heading">Hours</h4>
+              <template is="dom-if" if="[[libcalId]]" restamp>
+                <uvalib-model-days lid="[[libcalId]]" today="true" data="{{days}}"></uvalib-model-days>
+                <template is="dom-repeat" items="[[days]]" as="today">
+                  <span class$="schedule vital [[today.currentStatus]]">[[today.currentStatus]]</span>
+                  <span class="schedule vital"><a href="https://www.library.virginia.edu/hours/#[[slug]]">[[today.hours]]</a></span>
+                </template>
+              </template>
+              <template is="dom-if" if="[[!libcalId]]" restamp>
+                <span class="schedule vital"><div inner-h-t-m-l="[[hoursInfo]]"></div></span>
+              </template>
+            </div>
+            <div class="vitals-section">
+              <h4 class="vital-heading">Contact</h4>
+              <span class="phone vital" hidden$="[[!phone]]">Phone:&nbsp;&nbsp;<a href="tel:[[phone]]">[[phone]]</a></span>
+              <span class="contact vital" hidden$="[[!rid]]">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
+              <template is="dom-repeat" items="[[socialMedia]]" as="social">
+                <span class="contact vital">
+                  <uvalib-social-link href$="[[social.uri]]" alt$="[[libName]] [[social.title]]" style="color: darkblue; height:40px; width:40px"></uvalib-social-link>
+                </span>
+              </template>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  </template>
+
+  <script>
+    Polymer({
+// ToDo is there a social link representation elsewhere (e.g. footer) that we want to reuse everywhere?
+// ToDo how is the tooltip implemented for the donor information? will that work within this component?
+// ToDo implement icons for map, social media
+// ToDo apply layout CSS to component but not any styling
+      is: 'uvalib-library',
+
+      properties: {
+        /**
+         * The raw object from the data array of uvalib-model-libraries
+         */
+        object: {
+          type: Object,
+          value: null
+        },
+        /**
+         * The uuid of the Library.  If specified will define which Library is being requested (takes priority over the library property)
+         */
+        uuid: {
+          type: String,
+          value: null
+        },
+        /**
+         * The library that is being requested.  If the uuid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+        },
+        /**
+         * Data parsed to generate one or more library/lab content types.
+         */
+        data: {
+          value: null,
+          type: Array,
+        },
+        _filter: {
+          type: Object,
+          computed: '_makeFilter(uuid,library)'
+        },
+        _scoped: Array
+
+      },
+
+      _dataPassed: function(uuid,library) {
+        if (!uuid && !library) {
+          return 1;
+        } else {
+          return 0;
+        }
+      },
+
+      _makeFilter: function(uuid,title) {
+        if (uuid) {
+          return {uuid: uuid};
+        } else if (title) {
+          return {title: title};
+        } else return {};
+      }
+
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+  <title>uvalib-models demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+  <link rel="import" href="../uvalib-model-weeks.html">
+  <link rel="import" href="../uvalib-model-days.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+  </style>
+</head>
+<body>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind" id="first">
+      <uvalib-model-days lid="2090" today="true" name="{{libName}}" data="{{days}}"></uvalib-model-days>
+
+      <h2>Selection using lid for today</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Today</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>{{item.currentStatus}} {{item.hours}}</li>
+            <template is="dom-if" if="{{item.isToday}}">
+              <ul>
+                <li>Today is {{item.ymdDate}}</li>
+              </ul>
+            </template>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-days lid="2090" today week-number="2" name="{{libName}}" data="{{days}}"></uvalib-model-days>
+
+      <h2>Selection using lid for today</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Today</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>{{item.currentStatus}} {{item.hours}}</li>
+            <template is="dom-if" if="{{item.isToday}}">
+              <ul>
+                <li>Today is {{item.mdDate}}</li>
+                <li>Month is {{item.month}}</li>
+              </ul>
+            </template>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-days library="Clemons" name="{{libName}}" data="{{days}}"></uvalib-model-days>
+
+      <h2>Selection using library for this week</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Current Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>{{item.dayOfWeek}} {{item.ymdDate}}: {{item.currentStatus}} {{item.hours}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-days library="Clemons" week-number="2" name="{{libName}}" data="{{days}}"></uvalib-model-days>
+
+      <h2>Selection using library for next week</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Next Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>{{item.dayOfWeek}} {{item.mdDate}}: {{item.currentStatus}} {{item.hours}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-days object='[{ "Friday" : { "date" : "2017-05-26", "rendered" : "8am - 6pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "6pm" } ], "status" : "open" } }, "Monday" : { "date" : "2017-05-22", "rendered" : "8am - 10pm", "times" : { "currently_open" : true, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Saturday" : { "date" : "2017-05-27", "rendered" : "1pm - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "1pm", "to" : "5pm" } ], "status" : "open" } }, "Sunday" : { "date" : "2017-05-21", "rendered" : "8am - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "5pm" } ], "status" : "open" } }, "Thursday" : { "date" : "2017-05-25", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Tuesday" : { "date" : "2017-05-23", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Wednesday" : { "date" : "2017-05-24", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } } }]' data="{{days}}"></uvalib-model-days>
+
+      <h2>Object specified with week of data</h2>
+      <h3>Alderman Hours</h3>
+      <dl>
+        <dt>Old Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{days}}">
+            <li>{{item.dayOfWeek}} {{item.ymdDate}}: <template is="dom-if" if="{{item.isToday}}"><strong>{{item.currentStatus}}</strong></template> {{item.hours}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind" id="last">
+      <uvalib-model-weeks library="Clemons" num-weeks="2" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Selection using library for two weeks</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <template is="dom-repeat" items="{{weeks}}">
+          <dt>Week {{index}}</dt>
+          <dd><ul>
+            <uvalib-model-days object="[[item]]" data="{{days}}"></uvalib-model-days>
+            <template is="dom-repeat" items="{{days}}" as="day">
+              <li>{{day.dayOfWeek}} {{day.ymdDate}}: {{day.currentStatus}} {{day.hours}}</li>
+            </template>
+          </ul></dd>
+        </template>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
+<link rel="import" href="uvalib-model-static-behavior.html">
+
+<!--
+`uvalib-model-files`
+data model for the files used for the Library site
+
+@demo demo/bookplates.html
+-->
+
+<dom-module id="uvalib-model-bookplates">
+  <script>
+    Polymer({
+      is: 'uvalib-model-bookplates',
+      behaviors: [uvalibbehaviors.modelStatic],
+      properties: {
+        /**
+         * The data for the model from the Library API
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          value: [],
+          readOnly: true,
+          notify: true
+        },
+        _path: {
+          type: String,
+          value: "/bookplates"
+        },
+        files: {
+          computed: 'computeFiles(data)',
+          notify: true
+        }
+      },
+      computeFiles: function(data){
+        return _.values(this.data);
+      }
+
+    });
+  </script>
+</dom-module>

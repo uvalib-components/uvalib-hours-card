@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-alerts demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+
+    <link rel="import" href="../uvalib-alerts.html">
+    <link rel="import" href="../uvalib-alerts-dialog.html">
+    <link rel="import" href="../uvalib-alerts.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container">
+
+      <h3>uvalib-alert-dialog demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-alert-dialog modal id="dialog1"
+            alerts='[{"uuid":"footest","title":"foo","type":"emergency","body":"<p>Hello World</p>","link":"http://google.com"}]'>
+          </uvalib-alert-dialog>
+          <paper-button raised onclick="dialog1.open()">Open Dialog</paper-button>
+        </template>
+      </demo-snippet>
+
+      <h3>uvalib-alert-dialog demo with multiple alerts</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-alert-dialog modal id="dialog2"
+            alerts='[{"uuid":"foo","title":"foo","type":"emergency","body":"<p>Hello World</p>","link":"http://google.com"},{"uuid":"bar","title":"bar","type":"emergency","body":"<p>Hello UVA</p>","link":"http://google.com"}]'>
+          </uvalib-alert-dialog>
+          <paper-button raised onclick="dialog2.open()">Open Dialog</paper-button>
+        </template>
+      </demo-snippet>
+
+    </div>
+  </body>
+</html>

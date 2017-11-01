@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-scroll-top-button test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../uvalib-scroll-top-button.html">
+  </head>
+  <body>
+    <test-fixture id="basic">
+      <template>
+        <uvalib-scroll-top-button></uvalib-scroll-top-button>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('uvalib-scroll-top-button', function() {
+        test('instantiating the element works', function() {
+          var element = fixture('basic');
+          assert.equal(element.is, 'uvalib-scroll-top-button');
+        });
+      });
+    </script>
+  </body>
+</html>

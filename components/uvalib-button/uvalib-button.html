@@ -1,0 +1,187 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+
+<!--
+`uvalib-button`
+Standard button used for content
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--uvalib-button` | Mixin applied to the button | `{}`
+`--uvalib-button-bkgrd-color` | Background color of button | `Based on uvalib-theme --color-primary-orange`
+`--uvalib-button-text-color` | Color of button text | `Based on uvalib-theme --color-white`
+`--uvalib-button-text-transform` | Text Transform of button text | `defaults to uppercase`
+`--uvalib-button-font-family` | Font family of button text | `Based on uvalib-theme --font-primary`
+`--uvalib-button-font-weight` | Font weight of button text | `Based on uvalib-theme --font-weight-book`
+`--uvalib-button-icon-width` | Icon width | `Default is 24px`
+`--uvalib-button-icon-height` | Icon height | `Default is 24px`
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-button">
+  <template>
+    <style include="uvalib-theme">
+      :host {
+        display: inline;
+        color: var(--color-text-gray);
+        --paper-button-raised-keyboard-focus: {
+          font-weight: normal;
+          outline: var(--color-accessibility-outline) solid 3px;
+        }
+        --paper-button-flat-keyboard-focus: {
+          font-weight: normal;
+          outline: var(--color-accessibility-outline) solid 3px;
+        }
+      }
+
+      a {
+        color: currentColor;
+      }
+
+      paper-button {
+        text-transform: var(--uvalib-button-text-transform, uppercase);
+        height: inherit;
+        background-color: var(--uvalib-button-bkgrd-color, transparent);
+        color: var(--uvalib-button-text-color, currentColor);
+        font-family: var(--uvalib-button-font-family, var(--font-primary));
+        font-weight: var(--uvalib-button-font-weight, var(--font-weight-book));
+        @apply --uvalib-button;
+      }
+
+      paper-icon-button {
+        color: var(--uvalib-button-text-color, currentColor);
+      }
+
+      paper-icon-button:focus {
+        outline: var(--color-accessibility-outline) solid 3px;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      iron-icon {
+        --iron-icon-width: var(--uvalib-button-icon-width);
+        --iron-icon-height: var(--uvalib-button-icon-height);
+      }
+      iron-icon[left] {
+        padding-right: 5px;
+      }
+      iron-icon[right] {
+        padding-left: 5px;
+      }
+    </style>
+
+    <!-- if content node exists then we use a paper-button -->
+    <dom-if>
+      <template is="dom-if" if="[[_hasContent(_childText)]]" restamp>
+        <template is="dom-if" if="[[href]]" restamp>
+          <a href="[[href]]" tabindex="-1">
+            <paper-button raised$="[[raised]]" toggles$="[[toggles]]" disabled$="[[disabled]]">
+              <template is="dom-if" if="[[_iconForward(icon,reverse)]]" restamp>
+                <iron-icon icon$="[[icon]]" left></iron-icon>
+              </template>
+              <slot></slot>
+              <template is="dom-if" if="[[_iconReverse(icon,reverse)]]" restamp>
+                <iron-icon icon$="[[icon]]" right></iron-icon>
+              </template>
+            </paper-button>
+          </a>
+        </template>
+        <template is="dom-if" if="[[!href]]" restamp>
+          <paper-button raised$="[[raised]]" toggles$="[[toggles]]" disabled$="[[disabled]]">
+            <template is="dom-if" if="[[_iconForward(icon,reverse)]]" restamp>
+              <iron-icon icon$="[[icon]]" left></iron-icon>
+            </template>
+            <slot></slot>
+            <template is="dom-if" if="[[_iconReverse(icon,reverse)]]" restamp>
+              <iron-icon icon$="[[icon]]" right></iron-icon>
+            </template>
+          </paper-button>
+        </template>
+      </template>
+    </dom-if>
+
+    <!-- if there is no content node and there is an icon attribute then we use a paper-icon-button -->
+    <dom-if>
+      <template is="dom-if" if="[[_isLoneIcon(icon,_childText)]]" restamp>
+        <template is="dom-if" if="[[href]]" restamp>
+          <a href="[[href]]" tabindex="-1">
+            <paper-icon-button icon$="[[icon]]" toggles$="[[toggles]]" disabled$="[[disabled]]"></paper-button>
+          </a>
+        </template>
+        <template is="dom-if" if="[[!href]]" restamp>
+          <paper-icon-button icon$="[[icon]]" toggles$="[[toggles]]" disabled$="[[disabled]]"></paper-button>
+        </template>
+      </template>
+    </dom-if>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-button',
+      hostAttributes: {
+        tabindex: -1
+      },
+      properties: {
+        /**
+         * A URL that the button links to.
+         *
+         * @type {String}
+         */
+        href: {
+          type: String,
+          value: ""
+        },
+        raised: {
+          type: Boolean,
+          value: false
+        },
+        toggles: {
+          type: Boolean,
+          value: false
+        },
+        disabled: {
+          type: Boolean,
+          value: false
+        },
+        reverse: {
+          type: Boolean,
+          value: false
+        },
+        icon: String,
+        _childCount: Number
+      },
+
+      attached: function() {
+        this._childText = Polymer.dom(this).textContent;
+      },
+      _hasContent: function(){
+        return this._childText && this._childText.length > 0;
+      },
+      _hasIcon: function(){
+        return this.icon && this.icon.length > 0;
+      },
+      _isLoneIcon: function(){
+        return !this._hasContent() && this._hasIcon();
+      },
+      _iconForward: function(){
+        return this._hasIcon() && !this.reverse;
+      },
+      _iconReverse: function(){
+        return this._hasIcon() && this.reverse;
+      }
+    });
+  </script>
+</dom-module>

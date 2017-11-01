@@ -1,0 +1,48 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+
+<!--
+`uvalib-form`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-form">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <template is="dom-repeat" items="[[_config]]">
+      <template is="dom-if" if="[[_isHeading(item)]]">
+        <h2>[[item.text]]</h2>
+      </template>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-form',
+
+      properties: {
+        def: {
+          type: String,
+          value: "{}",
+        },
+        _config: {
+          type: Object,
+          computed: '_createConfig(def)'
+        }
+      },
+      _isHeading: function(item){
+        return (item.type === 'heading');
+      },
+      _createConfig: function(defString){
+        return JSON.parse(defString);
+      }
+    });
+  </script>
+</dom-module>

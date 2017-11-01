@@ -1,0 +1,398 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "`uvalib-button`\nStandard button used for content\n\n### Styling\n\nThe following custom properties are available for styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--uvalib-button` | Mixin applied to the button | `{}`\n`--uvalib-button-bkgrd-color` | Background color of button | `Based on uvalib-theme --color-primary-orange`\n`--uvalib-button-text-color` | Color of button text | `Based on uvalib-theme --color-white`\n`--uvalib-button-text-transform` | Text Transform of button text | `defaults to uppercase`\n`--uvalib-button-font-family` | Font family of button text | `Based on uvalib-theme --font-primary`\n`--uvalib-button-font-weight` | Font weight of button text | `Based on uvalib-theme --font-weight-book`\n`--uvalib-button-icon-width` | Icon width | `Default is 24px`\n`--uvalib-button-icon-height` | Icon height | `Default is 24px`",
+      "summary": "",
+      "path": "uvalib-button.html",
+      "properties": [
+        {
+          "name": "hostAttributes",
+          "type": "Object",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 135,
+              "column": 6
+            },
+            "end": {
+              "line": 137,
+              "column": 7
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "A URL that the button links to.",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 144,
+              "column": 8
+            },
+            "end": {
+              "line": 147,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "\"\""
+        },
+        {
+          "name": "raised",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 148,
+              "column": 8
+            },
+            "end": {
+              "line": 151,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "toggles",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 152,
+              "column": 8
+            },
+            "end": {
+              "line": 155,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 156,
+              "column": 8
+            },
+            "end": {
+              "line": 159,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "reverse",
+          "type": "boolean",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 160,
+              "column": 8
+            },
+            "end": {
+              "line": 163,
+              "column": 9
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          },
+          "defaultValue": "false"
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "description": "",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 164,
+              "column": 8
+            },
+            "end": {
+              "line": 164,
+              "column": 20
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        },
+        {
+          "name": "_childCount",
+          "type": "number",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 165,
+              "column": 8
+            },
+            "end": {
+              "line": 165,
+              "column": 27
+            }
+          },
+          "metadata": {
+            "polymer": {}
+          }
+        }
+      ],
+      "methods": [
+        {
+          "name": "attached",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 168,
+              "column": 6
+            },
+            "end": {
+              "line": 170,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_hasContent",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 171,
+              "column": 6
+            },
+            "end": {
+              "line": 173,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_hasIcon",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 174,
+              "column": 6
+            },
+            "end": {
+              "line": 176,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_isLoneIcon",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 177,
+              "column": 6
+            },
+            "end": {
+              "line": 179,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_iconForward",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 180,
+              "column": 6
+            },
+            "end": {
+              "line": 182,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        },
+        {
+          "name": "_iconReverse",
+          "description": "",
+          "privacy": "protected",
+          "sourceRange": {
+            "start": {
+              "line": 183,
+              "column": 6
+            },
+            "end": {
+              "line": 185,
+              "column": 7
+            }
+          },
+          "metadata": {},
+          "params": []
+        }
+      ],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 132,
+          "column": 12
+        },
+        "end": {
+          "line": 186,
+          "column": 5
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "A URL that the button links to.",
+          "sourceRange": {
+            "start": {
+              "line": 144,
+              "column": 8
+            },
+            "end": {
+              "line": 147,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        },
+        {
+          "name": "raised",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 148,
+              "column": 8
+            },
+            "end": {
+              "line": 151,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "toggles",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 152,
+              "column": 8
+            },
+            "end": {
+              "line": 155,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "disabled",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 156,
+              "column": 8
+            },
+            "end": {
+              "line": 159,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "reverse",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 160,
+              "column": 8
+            },
+            "end": {
+              "line": 163,
+              "column": 9
+            }
+          },
+          "metadata": {},
+          "type": "boolean"
+        },
+        {
+          "name": "icon",
+          "description": "",
+          "sourceRange": {
+            "start": {
+              "line": 164,
+              "column": 8
+            },
+            "end": {
+              "line": 164,
+              "column": 20
+            }
+          },
+          "metadata": {},
+          "type": "string"
+        }
+      ],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "uvalib-button"
+    }
+  ]
+}

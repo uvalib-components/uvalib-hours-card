@@ -1,0 +1,71 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
+<!--
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
+<link rel="import" href="firebase-app.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-helper-behaviors.html">
+
+<!--
+`uvalib-model-pages`
+pages model for the Library's API
+
+@demo demo/pages.html
+-->
+
+<dom-module id="uvalib-model-pages">
+  <template>
+      <firebase-query id="query" app-name="uvalibapi"
+        path="/pages" order-by-child="path" equal-to="[[_path]]"
+        data="{{tmpData}}" zero-value="[]"></firebase-query>
+    <app-indexeddb-mirror
+        key="[[_generateCacheKey(path)]]"
+        data="[[tmpData]]"
+        persisted-data="{{pages}}"></app-indexeddb-mirror>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'uvalib-model-pages',
+      properties: {
+        /**
+         * The Pages Object
+         *
+         * @type {Object[]}
+         */
+        pages: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+        page: {
+          type: Object,
+          computed: "_first(pages.*)",
+          notify: true
+        },
+        path: {
+          type: String,
+          value: null
+        },
+        _path: {
+          type: Object,
+          computed: "_mkPath(path)"
+        }
+      },
+      _first: function(l) {
+        if (l.base && Array.isArray(l.base) && l.base.length > 0)
+          return l.base[0];
+        else return null;
+      },
+      _generateCacheKey: function(path) {
+        return (path)? "pages-"+path:
+                       "pages";
+      },
+      _mkPath: function(path) {
+        return (path)? path: null;
+      }
+
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uva-centered-logo demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../uva-logo.html">
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        demo-snippet.reverse {
+          --demo-snippet-demo: {background-color: black;}
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <h3>Primary Logo Demo</h3>
+      <demo-snippet class="reverse">
+        <template>
+          <uva-logo></uva-logo>
+        </template>
+      </demo-snippet>
+
+      <h3>Basic uva-centered-logo Demo</h3>
+      <demo-snippet class="reverse">
+        <template>
+          <uva-logo></uva-logo>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

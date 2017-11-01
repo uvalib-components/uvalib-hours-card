@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-models demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../uvalib-model-query.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template id="app" is="dom-bind">
+
+          <uvalib-model-query featured data="{{services}}"
+          content-type="services"></uvalib-model-query>
+          <h2>All featured services</h2>
+          <template is="dom-repeat" items="[[services]]">
+            <h1>[[item.title]]</h1>
+          </template>
+
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template id="app" is="dom-bind">
+
+          <uvalib-model-query data="{{libraries}}"
+          content-type="libraries"></uvalib-model-query>
+          <h2>All libraries</h2>
+          <template is="dom-repeat" items="[[libraries]]">
+            <h1>[[item.title]]</h1>
+          </template>
+
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

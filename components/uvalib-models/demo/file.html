@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-models demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../uvalib-model-file.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <uvalib-model-file uuid="0085e691-bab8-4353-b68a-8d3283a3ad31" raw-data="{{data}}"></uvalib-model-file>
+          <h2>The 0085e691-bab8-4353-b68a-8d3283a3ad31 object:</h2>
+          <pre>[[data]]</pre>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

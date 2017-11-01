@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>uvalib-events-card demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../../uvalib-button/uvalib-button.html">
+    <link rel="import" href="../../uvalib-theme/uvalib-icons.html">
+    <link rel="import" href="../uvalib-events-card.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+      /* Style to apply to the widget */
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container">
+      <h3>Basic uvalib-events-card Demo</h3>
+      <demo-snippet>
+        <template>
+          <style is="custom-style">
+            uvalib-events-card {
+              padding: 20px;
+            }
+            .long {
+              min-height: 800px;
+            }
+          </style>
+
+          <uvalib-events-card class="long" heading="Upcoming Events" elevation="3" max-num-events-shown="6">
+              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+          </uvalib-events-card>
+
+          <uvalib-events-card class="long" heading="Upcoming Events"
+              elevation="3" max-num-events-shown="0"
+              cat-ids-filter="27116,26930">
+              <uvalib-button href="http://cal.lib.virginia.edu/calendar/events">View calendar</uvalib-button>
+          </uvalib-events-card>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

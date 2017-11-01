@@ -1,0 +1,164 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-route/app-location.html">
+<link rel="import" href="uvalib-library.html">
+<link rel="import" href="../uvalib-models/uvalib-model-libraries.html">
+
+<!--
+`uvalib-libraries`
+ui component that displays a listing of UVA libraries
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--uvalib-libraries-list` | Mixin applied to the Library list | `{}`
+`--uvalib-libraries-list-item` | Mixin applied to the Library list items | `{}`
+
+@demo demo/index.html
+@demo demo/listing.html
+-->
+
+<dom-module id="uvalib-libraries">
+  <template>
+    <style is="custom-style">
+      :host {
+        display: block;
+      }
+      ul {
+        @apply --uvalib-libraries-list;
+      }
+      li {
+        @apply --uvalib-libraries-list-item;
+      }
+    </style>
+
+    <app-location path="{{_anchor}}" use-hash-as-path></app-location>
+
+    <template is="dom-if" if="[[uuid]]" restamp>
+      <uvalib-model-libraries data="{{data}}" filter="[[_filter]]"></uvalib-model-libraries>
+    </template>
+    <template is="dom-if" if="[[library]]" restamp>
+      <uvalib-model-libraries data="{{data}}" filter="[[_filter]]"></uvalib-model-libraries>
+    </template>
+    <template is="dom-if" if="[[_dataPassed(uuid,library)]]" restamp>
+      <uvalib-model-libraries data="{{data}}"></uvalib-model-libraries>
+    </template>
+
+    <template is="dom-if" if="[[menu]]" restamp>
+      <ul>
+        <template is="dom-repeat" items="[[data]]" as="lib">
+          <li><a href="#[[lib.slug]]">[[lib.shortTitle]]</a></li>
+        </template>
+      </ul>
+    </template>
+    <template is="dom-if" if="[[!menu]]" restamp>
+      <template is="dom-repeat" items="[[data]]" as="lib">
+          <a id="[[lib.slug]]"></a>
+          <uvalib-library object="[[lib]]"></uvalib-library>
+      </template>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'uvalib-libraries',
+
+      properties: {
+        /**
+         * listing should be a menu of libraries
+         */
+        menu: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * The uuid of the Library.  If specified will define which Library is being requested (takes priority over the library property)
+         */
+        uuid: {
+          type: String,
+          value: null
+        },
+        /**
+         * The library that is being requested.  If the uuid property is not specified and the library property is, then this is used to define which Library is being requested.
+         */
+        library: {
+          value: null,
+          type: String,
+        },
+        /**
+         * Data parsed to generate one or more library/lab content types.
+         */
+        data: {
+          value: null,
+          type: Array,
+          observer: "_dataChanged"
+        },
+        _filter: {
+          type: Object,
+          computed: '_makeFilter(uuid,library)'
+        },
+        /**
+         * Anchors will scroll into view if true
+         */
+        anchorsEnabled: {
+          type: Boolean,
+          value: false
+        },
+        /**
+         * If anchorsEnabled is true, sets an offset from the top when scrolled.
+         */
+        scrollOffset: {
+          type: Number,
+          value: 0
+        },
+        _anchor: {
+          type: String,
+          observer: '_anchorChanged'
+        }
+
+      },
+
+      _dataChanged: function(){
+        if( this.anchorsEnabled ) {
+          this.debounce('datachange',function(){
+            this._jumpToAnchor();
+          },500);
+        }
+      },
+
+      _dataPassed: function(uuid,library) {
+        if (!uuid && !library) {
+          return 1;
+        } else {
+          return 0;
+        }
+      },
+
+      _makeFilter: function(uuid,title) {
+        if (uuid) {
+          return {uuid: uuid};
+        } else if (title) {
+          return {title: title};
+        } else return {};
+      },
+
+      _anchorChanged: function(){
+        if( this.anchorsEnabled ) {
+          console.log('anchor changed to '+this._anchor);
+          this._jumpToAnchor();
+        }
+      },
+
+      _jumpToAnchor: function(){
+        if(this._anchor && this.$$('#'+this._anchor)) {
+          this.$$('#'+this._anchor).scrollIntoView(true);
+          if (this.scrollOffset > 0) {
+            var scrolledY = window.scrollY;
+            if(scrolledY){
+              window.scroll(0, scrolledY - this.scrollOffset);
+            }
+          }
+        }
+      }
+
+    });
+  </script>
+</dom-module>

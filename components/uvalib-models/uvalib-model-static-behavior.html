@@ -1,0 +1,55 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
+<link rel="import" href="../promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="../uvalib-helper-libs/fetch.html">
+
+<script>
+  /**
+   * @demo demo/index.html
+   * @polymerBehavior uvalibbehavior.modelStatic
+   */
+  window.uvalibbehaviors = window.uvalibbehaviors || {};
+  uvalibbehaviors.modelStatic = {
+    properties: {
+      _path: {
+        type: String,
+        value: "",
+        observer: "fetch"
+      },
+      _baseURL: {
+        type: String,
+        value: "https://uvalib-api.firebaseio.com",
+        observer: "fetch"
+      },
+      shallow: {
+        type: Boolean,
+        value: false
+      },
+      _url: '_compileURL(_baseURL, _path, shallow)'
+    },
+    ready: function(){
+      this.fetch();
+    },
+    _compileURL: function(base, path, shallow){
+      var tmp = base + path + ".json";
+      if (shallow) {
+        tmp += "?shallow=true";
+      }
+    },
+    fetch: function (){
+      if (this._path)
+        fetch( this._baseURL + this._path + ".json" )
+          .then(function(response){
+            response.json().then(function(data){
+              if (this.properties.data.type == Array)
+                this._setData( _.values(data) );
+              else
+                this._setData(data);
+            }.bind(this));
+          }.bind(this))
+          .catch(function(ex){
+            console.log('parsing json failed', ex);
+          });
+    }
+  };
+</script>

@@ -1,0 +1,98 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element used to interface with the UVa Library Web Analytics Server.
+
+Example:
+
+    <uvalib-analytics site-id="23"></uvalib-analytics>
+
+Example:
+
+    <uvalib-analytics path="/foo/bar" site-id="23"></uvalib-analytics>
+
+Example:
+
+    <uvalib-analytics event="{'Maillist','Signup'}" site-id="23"></uvalib-analytics>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="uvalib-analytics">
+  <template>
+  </template>
+  <script>
+    var _paq = _paq || [];
+    _paq.push(['enableLinkTracking']);
+
+    Polymer({
+      is: 'uvalib-analytics',
+      properties: {
+        /**
+         * The id of the Piwik site
+         **/
+        siteId: {
+          type: Number,
+          value: null
+        },
+        /**
+         * The path to track, as the path changes pageView events will be logged
+         **/
+        path: {
+          type: String,
+          value: null,
+          observer: 'pathChanged'
+        },
+        /**
+         * The event to track as an object like {'Category Name':'Event Name'}
+         * Every time this attribute is changed the event is logged
+         **/
+        event: {
+          type: Object,
+          value: null,
+          observer: '_eventTriggered'
+        }
+      },
+      ready: function(){
+        this.pathChanged();
+        this._init();
+      },
+      /**
+       * Calls piwiks trackEvent method
+       * This is called whenever this elements event attribute changes
+       **/
+      _eventTriggered: function(){
+        if (this.event)
+          for (var key in this.event)
+            if (this.event.hasOwnProperty(key))
+              _paq.push(['trackEvent',this._eventStringClean(key),this._eventStringClean(this.event[key])]);
+      },
+      _eventStringClean: function(str){
+        return str.replace(/\s+/,'-');
+      },
+      /**
+       * Calls piwiks trackPageView method
+       * This is called when intially loaded and automatically whenever this elements path attribute changes
+       **/
+      pathChanged: function(){
+        // wait up to a second for any page changeing to settle down before counting this as a view
+        this.debounce('pagechange', function(){
+          if (this.path)
+            _paq.push(['setCustomUrl', document.location.origin+this.path ]);
+          _paq.push(['trackPageView']);
+        }, 1000);
+      },
+
+      _init: function(){
+        if (this.siteId && document.location.hostname != "localhost") {
+          var u="//analytics.lib.virginia.edu/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', this.siteId]);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        }
+      }
+    });
+  </script>
+</dom-module>

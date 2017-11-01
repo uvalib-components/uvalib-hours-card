@@ -1,0 +1,46 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="uvalib-form-section.html">
+
+<!--
+`uvalib-form`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-form">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <!-- config root is always a section -->
+    <uvalib-form-section config="[[_config]]"></uvalib-form-section>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-form',
+
+      properties: {
+        def: {
+          type: String,
+          value: "{}",
+        },
+        _config: {
+          type: Object,
+          computed: '_createConfig(def)'
+        }
+      },
+      _createConfig: function(defString){
+        if (defString)
+          return JSON.parse(defString);
+        else
+          return {};
+      }
+    });
+  </script>
+</dom-module>

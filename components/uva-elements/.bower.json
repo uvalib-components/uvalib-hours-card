@@ -1,0 +1,23 @@
+{
+  "name": "uva-elements",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer#^2.1.1",
+    "iron-component-page": "^3.0.1",
+    "webcomponentsjs": "^1.0.14",
+    "iron-demo-helpers": "^2.0.0",
+    "iron-flex-layout": "^2.0.0",
+    "iron-icon": "^2.0.1",
+    "iron-iconset-svg": "^2.1.0"
+  },
+  "homepage": "https://github.com/uva-components/uva-elements",
+  "_release": "35af4fc615",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "35af4fc615c276102d4234edb4a354950e91a171"
+  },
+  "_source": "https://github.com/uva-components/uva-elements.git",
+  "_target": "master",
+  "_originalSource": "uva-components/uva-elements"
+}

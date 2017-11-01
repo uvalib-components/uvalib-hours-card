@@ -1,0 +1,163 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../app-layout/app-header/app-header.html">
+<link rel="import" href="../app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../app-layout/app-scroll-effects/effects/resize-snapped-title.html">
+<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
+
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
+<link rel="import" href="../paper-item/paper-item.html">
+
+<link rel="import" href="../uva-brand-style/uva-layout-behavior.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+
+<!--
+`uvalib-alt-header`
+UVA Library Page Header for Alternate Library sites
+
+@demo demo/alt.html
+-->
+
+<dom-module id="uvalib-alt-header">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+        margin: 0;
+        z-index: 1000;
+      }
+
+      app-header {
+        color: var(--color-white);
+        background-color: var(--color-primary-orange);
+      }
+
+      app-toolbar, h2, div[title] {
+        color: var(--color-white) !important;
+        font-family: var(--font-primary);
+        font-weight: var(--font-headline);
+      }
+
+      app-toolbar[bottom] {
+        background-color: var(--color-primary-orange);
+      }
+
+      app-toolbar a:link, app-toolbar a:visited, app-toolbar a:hover, app-toolbar a:active {
+        color: var(--color-white);
+        text-decoration: none;
+      }
+
+      app-toolbar a {
+        margin: 15px;
+      }
+
+      div[title] {
+        @apply(--font-headline);
+        font-size: 3.5em;
+        line-height: 1.2;
+      }
+
+      .small-screen div[title] {
+        font-size: 2.5em;
+        line-height: 1;
+      }
+
+      div[title] div[sub] {
+        @apply(--font-title);
+        font-size: .5em;
+        color: var(--color-white) !important;
+      }
+
+    </style>
+
+    <iron-media-query query="{{smallScreenQuery}}" query-matches="{{smallScreen}}"></iron-media-query>
+    <iron-media-query query="{{mediumScreenQuery}}" query-matches="{{mediumScreen}}"></iron-media-query>
+    <iron-media-query query="{{largeScreenQuery}}" query-matches="{{largeScreen}}"></iron-media-query>
+
+    <app-header-layout class$="{{_issmallclass(smallScreen)}}">
+    <app-header id="header" shadow condenses fixed effects="blend-background parallax-background resize-snapped-title">
+      <app-toolbar></app-toolbar>
+      <app-toolbar></app-toolbar>
+      <app-toolbar></app-toolbar>
+      <app-toolbar></app-toolbar>
+      <app-toolbar></app-toolbar>
+      <app-toolbar>
+        <div title spacer>
+          <div main>{{title}}</div>
+          <div sub>{{subTitle}}</div>
+        </div>
+      </app-toolbar>
+      <app-toolbar></app-toolbar>
+      <app-toolbar bottom>
+        <!--
+        <template is="dom-if" if="[[smallScreen]]" >
+          <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+        </template>
+        -->
+        <div condensed-title><!--<a href="{{rootPath}}/news/">{{title}}&mdash;{{}}</a>--></div>
+        <!--<template is="dom-if" if="[[!smallScreen]]">-->
+          <a href="{{rootPath}}news/{{_issue.slug}}">Home</a>
+<!--
+          <template is="dom-if" if="{{_multiple(_issueSlugs)}}">
+            <paper-menu-button>
+              <paper-button class="dropdown-trigger">
+                <span>Archive</span>
+              </paper-button>
+              <paper-menu class="dropdown-content" attr-for-selected="slug" selected="{{issueData.issue}}">
+                <template is="dom-repeat" items="{{_issueSlugs}}">
+                  <paper-item slug="{{item.slug}}">{{item.title}}</paper-item>
+                </template>
+              </paper-menu>
+            </paper-menu-button>
+          </template>
+          <template is="dom-if" if="{{mailchimpId}}">
+            <a href="/subscribe">Subscribe</a>
+          </template>
+-->
+        <!--</template>-->
+      </app-toolbar>
+    </app-header>
+    <content></content>
+  </app-header-layout>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-alt-header',
+      behaviors: [uvabehaviors.layout],
+      properties: {
+        image: {
+          type: String,
+          observer: 'imageChange'
+        },
+        title: String,
+        subTitle: String,
+        rootPath: {
+          type: String,
+          value: '/'
+        }
+      },
+      imageChange: function(){
+        if (this.image && this.$.header && this.$.header.customStyle) {
+          this.$.header.customStyle['--app-header-background-front-layer'] = "background-image: url('"+this.image+"'); background-position: 50% 10%;";
+          this.async(this.$.header.updateStyles, 100);
+        }
+      },
+      ready: function(){
+        this.imageChange();
+      },
+      _issmallclass: function(small){
+        if (small) return "small-screen";
+      },
+
+    });
+  </script>
+</dom-module>

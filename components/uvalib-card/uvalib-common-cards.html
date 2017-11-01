@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="uvalib-card.html">
+
+<!--
+`uvalib-featured-exhibit-card`
+Card display component for the Library Web
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-featured-exhibit-card">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+      }
+      uvalib-card {
+        height: 100%;
+      }
+    </style>
+
+    <uvalib-card small-screen$="{{smallScreen}}" horizontal$="{{horizontal}}" elevation$="{{elevation}}" class="card" heading="Exhibition Spotlight" image="https://static.lib.virginia.edu/images/card-images/100objects.gif">
+        <div class="card-content">
+          <p><em>The University of Virginia in 100 Objects</em>, a Bicentennial exhibition celebrating the history of the University on display through June 2018.</p>
+        </div>
+        <div class="card-actions">
+            <uvalib-button href="http://news.library.virginia.edu/2016/09/12/uva-exhibiton-sacred-spaces-the-home-and-poetry-of-anne-spencer-featured-in-lynchburg-paper/">Read More</uvalib-button>
+        </div>
+    </uvalib-card>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'uvalib-featured-exhibit-card',
+      properties: {
+        elevation: {
+          type: Number,
+          value: 0
+        },
+        horizontal: {
+          type: Boolean,
+          value: false
+        },
+        smallScreen: {
+          type: Boolean,
+          value: false
+        }
+      }
+    });
+  </script>
+</dom-module>
+
+<!--
+`uvalib-engage-card`
+Card display component for the Library Web
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-engage-card">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      li a {
+        text-decoration: none;
+        @apply(--font-card-content);
+      }
+      uvalib-card {
+        height: 100%;
+      }
+    </style>
+
+      <uvalib-card small-screen$="{{smallScreen}}" horizontal$="{{horizontal}}" elevation$="{{elevation}}" class="card" heading="Support, Engage, Connect" image="https://static.lib.virginia.edu/images/card-images/engage.jpg">
+        <div class="card-content">
+          <ul>
+            <li><a href="http://www.library.virginia.edu/jobs/">Volunteer Opportunities</a>
+            <li><a href="http://www.library.virginia.edu/services/alumni/">Alumni Services</a>
+            <li><a href="http://www.library.virginia.edu/services/community-patrons/">Community Patrons</a>
+          </ul>
+        </div>
+        <div class="card-actions">
+            <uvalib-button href="http://www.library.virginia.edu/support/">Learn More</uvalib-button>
+        </div>
+    </uvalib-card>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'uvalib-engage-card',
+      properties: {
+        elevation: {
+          type: Number,
+          value: 0
+        },
+        horizontal: {
+          type: Boolean,
+          value: false
+        },
+        smallScreen: {
+          type: Boolean,
+          value: false
+        }
+      }
+    });
+  </script>
+</dom-module>

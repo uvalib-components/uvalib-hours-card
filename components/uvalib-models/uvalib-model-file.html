@@ -1,0 +1,109 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="uvalib-model-static-behavior.html">
+
+<!--
+`uvalib-model-file`
+data model for the files used for the Library site
+
+@demo demo/file.html
+-->
+
+<dom-module id="uvalib-model-file">
+
+  <script>
+    Polymer({
+      behaviors: [uvalibbehaviors.modelStatic],
+      is: 'uvalib-model-file',
+      properties: {
+        /**
+         * The data for the model from the Library API
+         *
+         * @type Object
+         */
+        data: {
+          type: Object,
+          value: {},
+          readOnly: true,
+          notify: true
+        },
+        _path: {
+          type: String,
+          computed: '_dbPath(uuid)'
+        },
+        uuid: {
+          type: String,
+          value: null
+        },
+        rawData: {
+          type: String,
+          computed: '_toString(data)',
+          notify: true
+        },
+        url: {
+          type: String,
+          computed: '_getURL(data,_webPsupport)',
+          notify: true
+        },
+        _webPsupport: {
+          type: Boolean,
+          value: null
+        }
+      },
+      _getURL: function(data,webP){
+        if(data)
+          return (data.webpSrc && webP)?
+            data.webpSrc:
+            (data.compSrc)?
+              data.compSrc:
+              data.origSrc;
+        else {
+          return null;
+        }
+      },
+      _toString: function(data){
+        return JSON.stringify(data);
+      },
+      _dbPath: function(uuid){
+        if (uuid)
+          return '/files/'+uuid;
+        else
+          return null;
+      },
+      /**
+       * from: https://developers.google.com/speed/webp/faq
+       * 'feature' can be one of 'lossy', 'lossless', 'alpha' or 'animation'.
+       * 'callback(feature, result)' will be passed back the detection result (in an asynchronous way!)
+       */
+      _checkWebP: function(feature, callback){
+        var kTestImages = {
+            lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
+            lossless: "UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==",
+            alpha: "UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKgEAAQAAAP4AAA3AAP7mtQAAAA==",
+            animation: "UklGRlIAAABXRUJQVlA4WAoAAAASAAAAAAAAAAAAQU5JTQYAAAD/////AABBTk1GJgAAAAAAAAAAAAAAAAAAAGQAAABWUDhMDQAAAC8AAAAQBxAREYiI/gcA"
+        };
+        var img = new Image();
+        img.onload = function () {
+            var result = (img.width > 0) && (img.height > 0);
+            callback(feature, result);
+        };
+        img.onerror = function () {
+            callback(feature, false);
+        };
+        img.src = "data:image/webp;base64," + kTestImages[feature];
+      }.bind(this),
+      ready: function(){
+        if (window.webPsupport == undefined)
+          if (this._webPsupport == undefined) {
+            this._checkWebP('lossless',function(feature,support){
+              this._webPsupport = support;
+              window.webPsupport = support;
+              console.log('webp support: '+support);
+            }.bind(this));
+          } else {
+            window.webPsupport = this._webPsupport;
+            console.log('webp support: '+support);
+          }
+      }
+    });
+  </script>
+</dom-module>

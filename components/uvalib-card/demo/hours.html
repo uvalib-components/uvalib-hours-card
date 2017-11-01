@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>uvalib-card demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-media-query/iron-media-query.html">
+
+    <link rel="import" href="../../uvalib-button/uvalib-button.html">
+
+    <link rel="import" href="../uvalib-hours-card.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body unresolved>
+
+    <div class="vertical-section-container">
+      <h3>uvalib-hours-cards Demo</h3>
+      <demo-snippet>
+        <template>
+          <style is="custom-style">
+            .card {
+              margin-bottom: 20px;
+              height: 400px;
+              width: 250px;
+            }
+          </style>
+
+          <uvalib-hours-card class="card"><uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button></uvalib-hours-card>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

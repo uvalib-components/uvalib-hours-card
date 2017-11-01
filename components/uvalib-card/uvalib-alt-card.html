@@ -1,0 +1,110 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../iron-image/iron-image.html">
+
+<!--
+`uvalib-card`
+Card display component for the Library Web
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-card">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+        --paper-card-header-color: var(--color-white);
+      }
+      paper-card {
+        width: 100%;
+        --paper-card-background-color: var(--uvalib-card-background-color,--color-white);
+      }
+      .card-content a {
+        display: block;
+      }
+      .vertical {
+        --paper-card-actions: {
+          margin-left: 0px;
+          padding-left: 2px;
+        }
+      }
+
+
+      .horiz {
+        @apply(--layout-horizontal);
+      }
+      .vertBox {
+        @apply(--layout-flex);
+        @apply(--layout-vertical);
+        padding-left: 15px;
+        padding-top: 10px;
+      }
+      iron-image {
+        height: 100%;
+      }
+      paper-material {
+        height: 142px;
+        min-width: 430px;
+      }
+      .content {
+        @apply(--layout-flex);
+      }
+      .heading {
+        @apply(--font-headline);
+      }
+      </style>
+
+    <template is="dom-if" if="{{!horizontal}}">
+      <paper-card class$="{{_layoutClass(horizontal)}}"
+                  heading="{{heading}}"
+                  image="{{image}}"
+                  elevation="{{elevation}}" alt="">
+          <div class="section">
+            <div class="heading">{{heading}}</div>
+            <content select=".card-content"></content>
+            <content select=".card-actions"></content>
+          </div>
+      </paper-card>
+    </template>
+    <template is="dom-if" if="{{horizontal}}">
+      <paper-material class="horiz" elevation$="{{elevation}}">
+        <iron-image class="img" src="{{image}}"></iron-image>
+        <div class="vertBox">
+          <div class="heading">{{heading}}</div>
+          <div class="content"><content></content></div>
+        </div>
+      </paper-material>
+    </template>
+  </template>
+
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-card',
+
+      properties: {
+        heading: String,
+        image: String,
+        elevation: {
+          type: Number,
+          value: 1
+        },
+        horizontal: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      _layoutClass: function(horizontal){
+        if (horizontal) return "horizontal";
+        else return "vertical";
+      }
+
+    });
+  </script>
+</dom-module>

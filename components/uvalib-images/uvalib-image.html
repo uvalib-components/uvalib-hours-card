@@ -1,0 +1,103 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../uvalib-models/uvalib-model-file.html">
+<link rel="import" href="../uvalib-helper-libs/webp-check.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<!--
+`uvalib-image`
+Used to present Library image resources given a uuid
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-image">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        @apply(--layout-vertical);
+      }
+      [hidden] {
+        display: none;
+      }
+      iron-image[sizing] {
+        @apply(--layout-flex);
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <template is="dom-if" if="[[uuid]]">
+      <uvalib-model-file uuid="[[uuid]]" data="{{_file}}"></uvalib-model-file>
+      <template is="dom-if" if="[[_imageLoaded(_file)]]">
+        <iron-image alt="[[alt]]" src="[[_whichSrc(_file)]]" sizing$="[[sizing]]"></iron-image>
+      </template>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-image',
+
+      properties: {
+        alt: {
+          type: String,
+          value: null
+        },
+        sizing: {
+          type: String,
+          value: null
+        },
+        uuid: {
+          type: String,
+          value: null,
+        },
+        thumb: {
+          type: Boolean,
+          value: false
+        },
+        _file: {
+          type: Object,
+          value: null
+        },
+        _webP: {
+          type: Boolean
+        }
+      },
+
+      created: function(){
+        check_webp_feature(
+          'lossless',function(feature,support){
+            this._webP = support;
+          }.bind(this));
+      },
+      _whichSrc: function(file){
+        if (this.thumb) {
+          if (this._webP && file.webpthumbSrc) {
+            return file.webpthumbSrc;
+          } else {
+            if (file.thumbSrc) {
+              return file.thumbSrc;
+            } else {
+              return file.origSrc;
+            }
+          }
+        } else {
+          if (file.compSrc) {
+            if (file.webpSrc && this._webP){
+              return file.webpSrc;
+            } else {
+              return file.compSrc;
+            }
+          } else {
+            return file.origSrc;
+          }
+        }
+      },
+      _imageLoaded: function(file){
+        return !!(file && file.origSrc);
+      }
+    });
+  </script>
+</dom-module>

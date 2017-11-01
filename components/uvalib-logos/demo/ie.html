@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uva-centered-logo demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
+    <link rel="import" href="../uvalib-logo.html">
+
+    <style is="custom-style" include="uvalib-theme"></style> 
+  </head>
+  <body>
+
+    <template is="dom-bind" class="reverse">
+      <paper-toggle-button checked="{{centered}}">Centered</paper-toggle-button>
+      <paper-toggle-button checked="{{twocolor}}">Two Color</paper-toggle-button>
+      <paper-toggle-button checked="{{reverse}}">Reverse</paper-toggle-button>
+      <paper-toggle-button checked="{{stacked}}">Stacked</paper-toggle-button>
+      <paper-toggle-button checked="{{textonly}}">Text Only</paper-toggle-button>
+      <uvalib-logo centered$="{{centered}}"
+                   two-color$="{{twocolor}}"
+                   reverse$="{{reverse}}"
+                   stacked$="{{stacked}}"
+                   text-only$="{{textonly}}"></uvalib-logo>
+    </template>
+
+  </body>
+</html>

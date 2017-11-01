@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-model-mediaobjects demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../uvalib-model-query.html">
+    <link rel="import" href="../../uvalib-images/uvalib-image.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <!--
+      <demo-snippet>
+        <template is="dom-bind">
+          <style>
+
+          </style>
+          <uvalib-model-query data="{{objects}}" content-type="mediaobjects" filter='{"association":"100objectsBanner"}'></uvalib-model-query>
+          <h2>Filtered Media Objects (100objectsBanner)</h2>
+          <ul>
+            <template is="dom-repeat" items="{{objects}}">
+              <li>{{item.title}}</li>
+            </template>
+          </ul>
+        </template>
+      </demo-snippet>
+    -->
+
+      <demo-snippet>
+        <template is="dom-bind">
+          <style>
+
+          </style>
+          <uvalib-model-query random="{{object}}" content-type="mediaobjects" order-by="association" equal-to="100objectsBanner"></uvalib-model-query>
+          <h2>Random Banner Image</h2>
+          <h1>[[object.title]]</h1>
+          <uvalib-image uuid="[[object.image.uuid]]"></uvalib-image>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

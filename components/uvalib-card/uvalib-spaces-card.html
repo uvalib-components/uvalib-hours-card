@@ -1,0 +1,57 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="uvalib-card.html">
+
+<!--
+`uvalib-research-card`
+Research Card display component for the Library Web
+
+@demo demo/research.html
+-->
+
+<dom-module id="uvalib-spaces-card">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: inline-block;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      li a {
+        text-decoration: none;
+      }
+      uvalib-card {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <uvalib-card horizontal$="{{horizontal}}" elevation$="{{elevation}}" class="card" vertical heading="Spaces &amp; Equipment"
+                 image="https://static.lib.virginia.edu/images/card-images/spaces.jpg">
+        <div class="card-content">
+          <ul>
+            <li><a href="http://www.library.virginia.edu/map/#!/study/">Find study spaces</a>
+            <li><a href="http://www.library.virginia.edu/policies/">Using the library - policies</a>
+            <li><a href="http://www.library.virginia.edu/print-copy-scan-computing/">Printers &amp; scanning</a>
+            <li><a href="https://www.library.virginia.edu/services/reserve-equipment-computers/">Borrow equipment</a>
+            <li><a href="https://www.library.virginia.edu/services/reserve-rooms/">Reserve a room</a>
+            <li><a href="http://www.library.virginia.edu/services/digital-labs/">Digital labs</a>
+          </ul>
+        </div>
+        <div class="card-actions">
+            <uvalib-button href="http://static.lib.virginia.edu/directory/libraries.html">Explore libraries &amp; labs</uvalib-button>
+        </div>
+    </uvalib-card>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'uvalib-spaces-card',
+      properties: {
+      }
+    });
+  </script>
+</dom-module>

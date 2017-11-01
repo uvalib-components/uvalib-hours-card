@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>uvalib-button test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../uvalib-button.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <uvalib-button></uvalib-button>
+      </template>
+    </test-fixture>
+    <test-fixture id="icon">
+      <template>
+        <uvalib-button icon="bars"></uvalib-button>
+      </template>
+    </test-fixture>
+    <test-fixture id="with-link">
+      <template>
+        <uvalib-button href="https://www.library.virginia.edu">UVA Library Homepage</uvalib-button>
+      </template>
+    </test-fixture>
+    <test-fixture id="custom-button">
+      <template>
+        <uvalib-button icon="search" raised style="color: blue; height: 33px;">Blue</uvalib-button>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('uvalib-button', function() {
+
+        test('instantiating basic', function() {
+          var element = fixture('basic');
+          assert.equal(element.is, 'uvalib-button');
+        });
+        test('instantiating icon', function() {
+          var element = fixture('icon');
+          assert.equal(element.is, 'uvalib-button');
+        });
+        test('instantiating with link', function() {
+          var element = fixture('with-link');
+          assert.equal(element.is, 'uvalib-button');
+        });
+        test('instantiating custom-button', function() {
+          var element = fixture('custom-button');
+          assert.equal(element.is, 'uvalib-button');
+        });
+
+        a11ySuite('basic');
+        a11ySuite('icon');
+        a11ySuite('with-link');
+        a11ySuite('custom-button');
+      });
+    </script>
+  </body>
+</html>

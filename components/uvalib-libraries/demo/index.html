@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>uvalib-libraries demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script>
+      /* this script must run before Polymer is imported */
+      window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true
+      };
+    </script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
+    <link rel="import" href="../uvalib-libraries.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container">
+      <h3>Basic uvalib-libraries name Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-libraries library="Alderman Library"></uvalib-libraries>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container">
+      <h3>Basic uvalib-libraries uuid Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-libraries uuid="1dc3d8f6-4112-496f-9041-2c6156e80ae1"></uvalib-libraries>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container">
+      <h3>Basic uvalib-libraries Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-model-libraries id="list" data="{{libraries}}"></uvalib-model-libraries>
+          <uvalib-libraries id="libraries" data="[[libraries]]"></uvalib-libraries>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

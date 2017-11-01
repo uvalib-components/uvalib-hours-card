@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-models demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../google-map/google-map.html">
+    <link rel="import" href="../../google-map/google-map-marker.html">
+
+    <link rel="import" href="../../uvalib-images/uvalib-image.html">
+    <link rel="import" href="../../uvalib-liame/uvalib-liame.html">
+    <link rel="import" href="../uvalib-model-library.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <uvalib-model-library library="Alderman Library"
+             name="{{libName}}" description="{{info}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
+             email="{{email}}" rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}"
+             location-type="{{locationType}}" slug="{{slug}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
+          </uvalib-model-library>
+          <span class="donor-title donor-description" data-content$="[[donorInfo]]" data-original-title$="[[donorTitle]]"></span>
+          <h2 class="title">[[libName]]</h2>
+          <div class="info">
+            <div class="description">
+              <div class="picture"><uvalib-image uuid="[[imgId]]" alt="[[imgAlt]]"></uvalib-image></div>
+              <p>[[info]]</p>
+              <p>Type: [[locationType]]</p>
+            </div>
+            <div class="vitals">
+              <div class="vitals-section">
+                <h4>Hours</h4>
+                <span class="status"></span>
+                <span class="schedule"><a href="{{slug}}">slug for URLs: {{slug}}</a></span>
+              </div>
+              <div class="vitals-section">
+                <h4>Contact</h4>
+                <span class="phone">Phone:&nbsp;&nbsp;[[phone]]</span>
+                <span class="contact">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
+                <template is="dom-repeat" items="[[socialMedia]]">
+                  <span class="contact social-link"><a class="{{item.title}}-link" href="{{item.uri}}">{{item.title}}</a></span>
+                </template>
+              </div>
+            </div>
+          </div>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <uvalib-model-library uuid="1dc3d8f6-4112-496f-9041-2c6156e80ae1"
+              name="{{libName}}" description="{{info}}" donor-bio="{{donorInfo}}" full-name="{{donorTitle}}"
+              email="{{email}}" rid="{{rid}}" phone="{{phone}}" social-media="{{socialMedia}}"
+              location-type="{{locationType}}" slug="{{slug}}" img-id="{{imgId}}" img-alt="{{imgAlt}}">
+          </uvalib-model-library>
+          <span class="donor-title donor-description" data-content$="[[donorInfo]]" data-original-title$="[[donorTitle]]"></span>
+          <h2 class="title">[[libName]]</h2>
+          <div class="info">
+            <div class="description">
+              <div class="picture"><uvalib-image uuid="[[imgId]]" alt="[[imgAlt]]"></uvalib-image></div>
+              <p>[[info]]</p>
+            </div>
+            <div class="vitals">
+              <div class="vitals-section">
+                <h4>Hours</h4>
+                <span class="status"></span>
+                <span class="schedule"><a href="{{slug}}">slug for URLs: {{slug}}</a></span>
+              </div>
+              <div class="vitals-section">
+                <h4>Contact</h4>
+                <span class="phone">Phone:&nbsp;&nbsp;[[phone]]</span>
+                <span class="contact">Email:&nbsp;&nbsp;<uvalib-liame rid="[[rid]]"></uvalib-liame></span>
+                <template is="dom-repeat" items="[[socialMedia]]">
+                  <span class="contact social-link"><a class="{{item.title}}-link" href="{{item.uri}}">{{item.title}}</a></span>
+                </template>
+              </div>
+            </div>
+          </div>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <uvalib-model-library
+              object='{ "body" : "<p>The Law Library provides print and online resources to assist patrons with their legal research needs.&nbsp; Anyone from U.Va. may use the facility and check materials out, though the building is locked at 7 p.m. weekdays and 5 p.m. weekends.&nbsp; Reference assistance is available weekdays starting at&nbsp;10 a.m. and&nbsp;at&nbsp;<a href=\"mailto:lawlibref@virginia.edu\">lawlibref@virginia.edu</a>. For more <a href=\"http://www.law.virginia.edu/html/librarysite/library.htm\">information, see the Law Library website.</a></p>\r\n", "donorDescription" : "<p><strong>Arthur J. Morris</strong> graduated in the U.Va. class of 1899 in with a degree in English literature, moral philosophy, and economics and went on to study law at U.Va. A banker, Morris created a lending plan to assist middle and lower income workers. The Morris Plan was adopted by countless American banks over the early twentieth century.&nbsp;Near the end of his life, Morris gave a generous donation toward the construction of the law library in the new building at North Grounds. In recognition of his contribution, the <strong>Arthur J. Morris Law library </strong>opened in 1974, one year after Morris’s death.</p>\r\n", "donorTitle" : "Arthur J. Morris", "id" : "464", "libraryFeed" : "http://uvalaw.typepad.com/library/atom.xml", "mainImage" : { "alt" : "Law Library", "uuid" : "5ca5af33-b57c-4711-a967-a9b6ca388092" }, "phoneNumber" : "434.924.3384", "placeType" : { "name" : "Library", "uuid" : "6d60bc76-2098-46ac-a3ab-c88d0a8c99ce" }, "slug" : "law", "title" : "Law Library", "uuid" : "a61385f9-95c0-43d8-8cc8-7d2cf7d03551" }'
+              name="{{libName}}" hours-info="{{hoursInfo}}"></uvalib-model-library>
+          <img src="" alt="">
+          <h2>[[libName]]</h2>
+          <p inner-h-t-m-l="[[hoursInfo]]"></p>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <uvalib-model-library
+              object='{ "body" : "<p>The Camp Library supports U.Va.’s Darden School of Business by providing access for Darden students and faculty to a wide range online resources as well as books and periodicals. The Camp Library also provides access to Virgo and shares resources with the U.Va. Library. You can find <a href=\"http://www.darden.virginia.edu/web/Faculty-Research/Library/Home/\">more information on the Darden website</a><strong>.</strong></p>\r\n", "donorDescription" : "<p>Designed in 1986 by Robert A.M. Stern architects and conveniently located in the Student Services Building, the library is named for the <strong>Camp family of Franklin, Virginia</strong>, who supported building the facility.</p>\r\n", "donorTitle" : "The Camp Family Library at", "fmKey" : "0554", "hoursInformation" : "<p>See:&nbsp;<a href=\"http://www.darden.virginia.edu/current-students/library/hours-location/\">Darden Library webpage</a></p>\r\n", "id" : "10", "location" : { "lat" : "38.0528", "lng" : "-78.513999" }, "phoneNumber" : "434-924-7321", "placeType" : { "name" : "Library", "uuid" : "6d60bc76-2098-46ac-a3ab-c88d0a8c99ce" }, "slug" : "darden", "title" : "Darden", "uuid" : "150094ae-bdb3-44e4-9169-7f82347f9dad" }'
+              name="{{libName}}" hours-info="{{hoursInfo}}"></uvalib-model-library>
+          <img src="" alt="">
+          <h2>[[libName]]</h2>
+          <p inner-h-t-m-l="[[hoursInfo]]"></p>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

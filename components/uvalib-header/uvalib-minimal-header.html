@@ -1,0 +1,216 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-logos/uvalib-logo.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../app-layout/app-header/app-header.html">
+<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../iron-signals/iron-signals.html" >
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../uvalib-hours-card/uvalib-hours-card.html" >
+
+
+<!--
+`uvalib-header`
+UVA Library Page Header
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-minimal-header">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+        position: relative;
+        @apply(--layout-vertical);
+        height: 95px;
+        margin: 0;
+        z-index: 100000000000;
+      }
+
+      [hidden] {
+        display: none;
+      }
+
+      app-header {
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 95px;
+        color: var(--color-white);
+        background-color: var(--color-primary-blue);
+        --app-header-background-rear-layer: {
+          background-color: #0b8043;
+        };
+      }
+      paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+      app-toolbar {
+        height: 39px;
+      }
+      uvalib-logo {
+        position: absolute;
+        padding: 15px;
+        width: 125px;
+        left: 15px;
+        top: 5px;
+      }
+      uvalib-logo[condensed-title] {
+        position: absolute;
+        padding: 15px;
+        left: 0;
+        top: 0;
+        width: 100px;
+      }
+      uvalib-button {
+        color: var(--color-white);
+        font-size: 15px;
+        /*
+        height: 35px;
+        */
+        --uvalib-button-icon-width: 15px;
+        --uvalib-button-icon-height: 15px;
+        --uvalib-button-font-weight: 100;
+      }
+      .card-close {
+        color: var(--color-text-gray);
+        float: right;
+        padding-right: 0px;
+      }
+      .link {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      }
+      .dropdown-content {
+        background-color: white;
+        line-height: 20px;
+        border-radius: 3px;
+        box-shadow: 0px 2px 6px #ccc;
+      }
+      uvalib-hours-card[all-locations] {
+        height: 1100px;
+      }
+      .flex {
+        @apply(--layout-flex);
+      }
+      /* desktop */
+      @media (min-width: 993px) {
+        app-toolbar {
+          padding-left: 250px;
+        }
+        uvalib-logo {
+          -ms-transform: translate(0, -30px);
+        }
+        uvalib-logo[condensed-title] {
+          -ms-transform: translate(0, -50px);
+        }
+      }
+      /* tablet */
+      @media (min-width: 601px) and (max-width: 992px) {
+        app-header {
+          height: 75px;
+        }
+        app-toolbar {
+          padding-left: 250px;
+        }
+        uvalib-logo {
+          padding: 0;
+          width: 190px;
+        }
+        uvalib-logo[condensed-title] {
+          display: none;
+        }
+      }
+      /* mobile */
+      @media (max-width: 600px) {
+        app-header {
+          height: 75px;
+        }
+        app-toolbar {
+          padding-left: 0;
+        }
+        app-toolbar uvalib-button {
+          font-size: 12px;
+        }
+        uvalib-logo {
+          display: none;
+          width: 0px;
+        }
+      }
+
+    </style>
+
+    <app-header id="header" condenses reveals fixed effects="waterfall resize-snapped-title">
+      <app-toolbar>
+        <uvalib-logo main-title stacked$="[[largeScreen]]" text-only reverse hidden$="[[smallScreen]]"></uvalib-logo>
+        <div class="flex" hidden$="[[smallScreen]]"></div>
+        <uvalib-button icon="angle-down" reverse on-tap="openHours">Hours</uvalib-button>
+        <iron-dropdown style="display:none" auto-fit-on-attach id="hours" horizontal-align="[[_hoursDropdownHalign(largeScreen)]]" vertical-align="top" no-overlap>
+          <div class="dropdown-content">
+            <uvalib-hours-card all-locations elevation="0">
+              <uvalib-button class="card-close" icon="times" reverse on-tap="closeHours">Close<uvalib-button>
+            </uvalib-hours-card>
+          </div>
+        </iron-dropdown>
+        <div class="flex" hidden$="[[!smallScreen]]"></div>
+        <uvalib-button icon="comments" href="http://www.library.virginia.edu/askalibrarian/">Ask a Librarian</uvalib-button>
+        <div class="flex" hidden$="[[!smallScreen]]"></div>
+        <uvalib-button href="http://search.lib.virginia.edu/account/review">Account</uvalib-button>
+      </app-toolbar>
+    </app-header>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-minimal-header',
+
+      properties: {
+        smallScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        mediumScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        largeScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        }
+      },
+
+      openDrawer: function(ev) {
+        this.fire('open-drawer');
+        console.log('open drawer');
+      },
+
+      openHours: function(ev){
+        this.$.hours.positionTarget = ev.target;
+        this.$.hours.open();
+      },
+      closeHours: function(){
+        this.$.hours.close();
+      },
+      ready: function(){
+        setTimeout(function(){
+          console.log('header hack until https://github.com/PolymerElements/app-layout/issues/320 is resolved');
+          this.$.header.resetLayout();
+        }.bind(this),500);
+      }
+    });
+  </script>
+</dom-module>

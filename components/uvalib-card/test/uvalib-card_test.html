@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <title>uvalib-card test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../uvalib-card.html">
+    <link rel="import" href="../uvalib-common-cards.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <uvalib-card></uvalib-card>
+      </template>
+    </test-fixture>
+    <test-fixture id="research">
+      <template>
+        <uvalib-research-card></uvalib-research-card>
+      </template>
+    </test-fixture>
+    <test-fixture id="spaces">
+      <template>
+        <uvalib-spaces-card></uvalib-spaces-card>
+      </template>
+    </test-fixture>
+    <test-fixture id="services">
+      <template>
+        <uvalib-services-card></uvalib-services-card>
+      </template>
+    </test-fixture>
+    <test-fixture id="featured-exhibit">
+      <template>
+        <uvalib-featured-exhibit-card horizontal></uvalib-featured-exhibit-card>
+      </template>
+    </test-fixture>
+    <test-fixture id="engage">
+      <template>
+        <uvalib-engage-card horizontal></uvalib-engage-card>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('uvalib-card', function() {
+
+        test('instantiating the element works', function() {
+          var element = fixture('basic');
+          assert.equal(element.is, 'uvalib-card');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('research');
+          assert.equal(element.is, 'uvalib-research-card');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('spaces');
+          assert.equal(element.is, 'uvalib-spaces-card');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('services');
+          assert.equal(element.is, 'uvalib-services-card');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('featured-exhibit');
+          assert.equal(element.is, 'uvalib-featured-exhibit-card');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('engage');
+          assert.equal(element.is, 'uvalib-engage-card');
+        });
+
+      });
+
+      a11ySuite('basic');
+      a11ySuite('research');
+      a11ySuite('spaces');
+      a11ySuite('services');
+      a11ySuite('featured-exhibit');
+      a11ySuite('engage');
+    </script>
+  </body>
+</html>

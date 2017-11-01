@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-image demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../uvalib-model-image.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+      uvalib-model-image {
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic uvalib-model-image demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-model-image></uvalib-model-image>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <h3>Basic uvalib-model-image demo (Carousel item)</h3>
+    <demo-snippet>
+      <template>
+        <uvalib-model-image equal-to="100objectsCarousel"></uvalib-model-image>
+      </template>
+    </demo-snippet>
+  </div>
+  </body>
+</html>

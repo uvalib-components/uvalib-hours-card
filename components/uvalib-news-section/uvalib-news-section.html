@@ -1,0 +1,143 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-helper-libs/uvalib-html-echo.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
+
+<link rel="import" href="uvalib-news.html">
+
+
+<!--
+`uvalib-news-section`
+This component handles the Library news display on the homepage
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-news-section">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+        width: 100%;
+        @apply(--layout-vertical);
+        font-family: var(--font-primary);
+      }
+
+      #news-items {
+        @apply(--layout-horizontal);
+        @apply(--layout-justified);
+        @apply(--layout-wrap);
+      }
+      h2 {
+        text-align: center;
+      }
+      .news-item {
+        min-width: 250px;
+        padding: 10px;
+        display: inline-block;
+        background: var(--color-light-gray);
+        margin: 10px;
+        @apply(--layout-flex);
+      }
+      .category {
+        color: var(--color-primary-orange);
+      }
+      .card-header a {
+        text-decoration: none;
+        color: #000000;
+      }
+      .card-header h6 {
+        @apply(--font-title);
+        font-family: var(--font-primary);
+      }
+      .button {
+        padding: 10px;
+        display: inline-block;
+        background: var(--color-light-gray);
+        margin: 10px;
+        @apply(--layout-flex);
+      }
+      uvalib-button {
+        margin-left: auto;
+        margin-right: auto;
+        @apply(--layout-flex);
+      }
+    </style>
+    <h2>Library News</h2>
+    <div id="news-items">
+      <uvalib-news items="{{newsItems}}" limit="{{numItems}}"></uvalib-news>
+      <template is="dom-repeat" items="{{newsItems}}">
+        <paper-material class="news-item" elevation="{{elevation}}">
+          <div class="">
+            <div class="card-header">
+              <template is="dom-if" if="{{item.category}}">
+                <div class="category">{{item.category}}</div>
+              </template>
+              <h6 tabindex="-1"><a href="{{item.url}}">{{_decodeHtml(item.title)}}</a></h6>
+            </div>
+            <div class="card-content">
+              <uvalib-html-echo html="{{_truncate(item.excerpt, 200)}}"></uvalib-html-echo>
+            </div>
+            <div class="card-actions">
+              <template is="dom-if" if="{{item.source}}">
+                <div class="source">Source: {{item.source}}</div>
+              </template>
+            </div>
+          </div>
+        </paper-material>
+      </template>
+    </div>
+    <uvalib-button href="http://news.library.virginia.edu">
+      <paper-material class="button" aria-hidden="true">More News</paper-material>
+    </uvalib-button>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-news-section',
+
+      properties: {
+        elevation: {
+          type: Number,
+          value: 1
+        },
+        numItems: {
+          type: Number,
+          value: 3
+        }
+      },
+
+      _decodeHtml: function(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      },
+      _truncate: function(s, l){
+        if(s.length <= l){
+            return s;
+        } else {
+            var ts = "";
+            var subs = s.split('&');
+            if(subs[0].length > l){
+                return subs[0].substring(0, l) + "&hellip;";
+            } else {
+                ts = ts + subs[0];
+            }
+            for(var i = 1; i < subs.length; i++){
+                var end = subs[i].indexOf(';');
+                l += end + 1;
+                ts = ts + '&' + subs[i];
+                if(ts.length >= l){
+                    return ts.substring(0,l) + "&hellip;";
+                }
+            }
+            return ts;
+        }
+     }
+
+    });
+  </script>
+</dom-module>

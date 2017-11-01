@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../iron-scroll-target-behavior/iron-scroll-target-behavior.html">
+<!--<link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">-->
+<link rel="import" href="../paper-fab/paper-fab.html">
+<link rel="import" href="../neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+
+<!--
+`uvalib-scroll-top-button`
+Adds a scroll to top button when the pane is scrolled
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-scroll-top-button">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+      }
+    </style>
+    <paper-fab label="top" on-tap="scrollTop" icon="angle-double-up"></paper-fab>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-scroll-top-button',
+
+      behaviors: [
+        Polymer.IronScrollTargetBehavior,
+        Polymer.NeonAnimationRunnerBehavior
+      ],
+
+      properties: {
+        opened: {
+          type: Boolean
+        },
+        scrollTarget: {
+          type: Object,
+          value: document
+        },
+        upperThreshold: {
+          type: Number,
+          value: 100
+        },
+        animationConfig: {
+          value: function(){
+            return {
+              'entry': {
+                name: 'fade-in-animation',
+                node: this
+              },
+              'exit': {
+                name: 'fade-out-animation',
+                node: this,
+                timing: {"duration": 200}
+              }
+            }
+          }
+        }
+      },
+      listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
+      _onNeonAnimationFinish: function(){
+        if (!this.opened) this.style.display = 'none';
+      },
+      show: function(){
+        if (!this.opened) {
+          console.log('opening')
+          this.opened = true;
+          this.style.display = "block";
+          this.playAnimation('entry');
+        }
+      },
+      hide: function(){
+        if (this.opened) {
+          console.log('closing');
+          this.opened = false;
+          this.playAnimation('exit');
+        }
+      },
+      _scrollHandler: function() {
+        // throttle the work on the scroll event
+        var THROTTLE_THRESHOLD = 200;
+        if (!this.isDebouncerActive('_checkTheshold')) {
+          this.debounce('_checkTheshold', function() {
+            this.checkScrollThresholds();
+          }, THROTTLE_THRESHOLD);
+        }
+      },
+      scrollTop: function(){
+        this.scroll(0,0);
+      },
+      checkScrollThresholds: function() {
+        var upperScrollValue = this.horizontal ? this._scrollLeft : this._scrollTop;
+        if (upperScrollValue <= this.upperThreshold && !this.upperTriggered) {
+          this.hide();
+        } else {
+          this.show();
+        }
+      },
+
+    });
+  </script>
+</dom-module>

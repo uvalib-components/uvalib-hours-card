@@ -1,0 +1,30 @@
+{
+  "name": "uva-theme",
+  "description": "Common UVA brand styles",
+  "main": "uva-theme.html",
+  "dependencies": {
+    "uva-elements": "uva-components/uva-elements#2.0"
+  },
+  "resolutions": {
+    "uva-elements": "2.0",
+    "paper-card": "^2.0.0",
+    "iron-component-page": "^3.0.1",
+    "webcomponentsjs": "^v1.0.2",
+    "web-component-tester": "^6.3.0",
+    "iron-demo-helpers": "^2.0.0",
+    "iron-flex-layout": "^2.0.0",
+    "iron-icon": "^2.0.1",
+    "iron-iconset-svg": "^2.1.0",
+    "iron-icons": "^2.0.1",
+    "app-storage": "^2.0.2",
+    "promise-polyfill": "^6.0.2",
+    "paper-icon-button": "^2.0.1",
+    "lodash": "^4.17.4",
+    "paper-button": "^2.0.0",
+    "app-layout": "1 - 2",
+    "polymer": "^2.1.1",
+    "iron-doc-viewer": "^3.0.0",
+    "test-fixture": "^3.0.0",
+    "iron-location": "1 - 2"
+  }
+}

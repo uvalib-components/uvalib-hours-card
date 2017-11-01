@@ -1,0 +1,61 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-models/uvalib-model-alerts.html">
+
+<!--
+`uvalib-alerts`
+University of Virginia Library Alerts
+
+Magicly alerts users of the various alert types at the Library.
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-alerts">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: absolute;
+        width: 100%;
+        background-color: blue;
+        height: 100px;
+      }
+    </style>
+    <uvalib-model-alerts data="{{_alerts}}"></uvalib-model-alerts>
+
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-alerts',
+
+      properties: {
+        _alerts: {
+          type: Array,
+          observer: '_updateAlerts'
+        },
+        _first: {
+          type: Object,
+          computed: '_getFirst(_alerts)'
+        },
+      },
+
+      _getFirst: function(alerts){
+        return (alerts.length > 0)? alerts[0]: null;
+      },
+
+      _newAlert: function(){
+        if (this._alerts.length > 0) {
+          console.log('new alert');
+          this.$.dialog.open();
+        } else {
+          console.log('bye bye alert')
+          this.$.dialog.close();
+        }
+      }
+
+    });
+  </script>
+</dom-module>

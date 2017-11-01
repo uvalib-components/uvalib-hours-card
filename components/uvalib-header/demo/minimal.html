@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>uvalib-header demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script>
+    Polymer = {dom: 'shadow'};
+
+    (function() {
+      if ('registerElement' in document
+        && 'import' in document.createElement('link')
+        && 'content' in document.createElement('template')) {
+        // platform is good!
+      } else {
+        document.write( '<script src="../../webcomponentsjs/webcomponents-lite.min.js">\x3C/script>')
+      }
+    })();
+  </script>
+
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../../iron-media-query/iron-media-query.html">
+  <link rel="import" href="../uvalib-minimal-header.html">
+
+</head>
+<body unresolved>
+
+<template is="dom-bind">
+  <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+  <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
+  <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
+
+  <uvalib-minimal-header small-screen="[[smallScreen]]" medium-screen="[[mediumScreen]]" large-screen="[[largeScreen]]">
+  </uvalib-minimal-header>
+  <div style="height: 5000px"></div>
+</template>
+
+</body>
+</html>

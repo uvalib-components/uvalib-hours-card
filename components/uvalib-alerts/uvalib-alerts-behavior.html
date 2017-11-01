@@ -1,0 +1,59 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  /**
+   * @demo demo/index.html
+   * @polymerBehavior uvalibbehavior.alerts
+   */
+  window.uvalibbehaviors = window.uvalibbehaviors || {};
+  uvalibbehaviors.alerts = {
+    properties: {
+
+      /*
+       * Array of alert objects
+       * Alert objects are composed of icon, type, title, link and body properties
+       * body is the only property that is required
+       */
+      alerts: {
+        type: Array,
+        value: null
+      },
+
+      /*
+       * The Alerts link for the More Info button
+       * This property sets the default link when using the alerts Array property to set alerts
+       * as each alert can set it's own link
+       */
+      href: {
+        type: String,
+        value: null
+      },
+
+      /*
+       * The icon to use in the Alert
+       * This property sets the default icon if using the alerts Array property to set alerts
+       * as each alert can set it's own icon (from defined icons in uvalib-theme)
+       */
+      icon: {
+        type: String,
+        value: "exclamation-circle"
+      },
+
+      /*
+       * The type of the Alert
+       * This property sets the default type of alert if using the alerts Array property to set alerts
+       * as each alert can set it's own type
+       */
+      type: {
+        type: String,
+        value: "Service interruptions"
+      },
+
+    },
+
+    resetDismissed: function(){
+
+    }
+  };
+
+</script>

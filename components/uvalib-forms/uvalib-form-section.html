@@ -1,0 +1,64 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+
+<!--
+`uvalib-form`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-form-section">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .section {
+        display: block;
+        border-radius: 25px;
+        border: 2px solid #73AD21;
+        padding: 10px;
+        margin: 10px;
+      }
+    </style>
+    <h1>[[config.title]]</h1>
+    <div class="section">
+      <template is="dom-repeat" items="[[config.items]]">
+        <template is="dom-if" if="[[_isHeading(item)]]">
+          <h2>[[item.text]]</h2>
+        </template>
+        <template is="dom-if" if="[[_isSection(item)]]">
+          <!-- Recursion! Nice :) -->
+          <uvalib-form-section config="[[item]]"></uvalib-form-section>
+        </template>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-form-section',
+
+      properties: {
+        config: {
+          type: Object,
+          value: {}
+        },
+        /*
+        _items: {
+          type: Array,
+          value: []
+        }
+        */
+      },
+      _isHeading: function(item){
+        return (item.type === 'heading');
+      },
+      _isSection: function(item){
+        return (item.type === 'section');
+      }
+    });
+  </script>
+</dom-module>

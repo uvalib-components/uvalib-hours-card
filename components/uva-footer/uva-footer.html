@@ -1,0 +1,257 @@
+<!-- Level Access Script -->
+<script type="text/javascript">var access_analytics={base_url:"https://analytics.ssbbartgroup.com/api/",instance_id:"AA-58bdcc11cee35"};(function(a,b,c){var d=a.createElement(b);a=a.getElementsByTagName(b)[0];d.src=c.base_url+"access.js?o="+c.instance_id+"&v=2";a.parentNode.insertBefore(d,a)})(document,"script",access_analytics);</script>
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+<link rel="import" href="../uva-brand-style/uva-theme.html">
+
+<!--
+`uva-footer`
+A footer element for UVA web sites/apps
+
+@demo demo/index.html
+-->
+
+<dom-module id="uva-footer">
+  <template>
+    <style is="custom-style" include="uva-theme">
+      :host {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        background-color: var(currentcolor, --color-primary-blue);
+        color: var(currentcolor, --color-white);
+        font-family: var(--font-primary);
+        font-weight: var(--font-weight-medium);
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        @apply(--uva-footer);
+      }
+      #top {
+        @apply(--layout-flex);
+        width: 95%;
+        max-width: 1200px;
+      }
+      .copyright {
+        text-align: center;
+        color: var(--color-light-blue);
+        font-size: 14px;
+        padding-top: 20px;
+      }
+      #bottom {
+        @apply(--layout-center-justified);
+      }
+      #logo-container {
+        min-height: 90px;
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+      #link-container {
+        color: var(--color-white);
+        font-size: 20px;
+        padding-bottom: 20px;
+      }
+      .columns {
+        @apply(--uva-footer-columns);
+      }
+
+      /* desktop */
+      @media (min-width: 993px) {
+        :host {
+          padding: 50px 0 20px 0;
+          height: 255px;
+        }
+        #top {
+          @apply(--layout-horizontal);
+          padding-left: 90px;
+        }
+        #top > .section {
+          @apply(--layout-flex-2);
+          @apply(--layout-horizontal);
+        }
+        .section > div {
+          @apply(--layout-flex);
+        }
+        #link-container {
+          @apply(--layout-flex-3);
+          @apply(--layout-horizontal);
+        }
+        #center {
+          @apply(--layout-flex-2);
+          @apply(--layout-horizontal);
+        }
+        #end, #center > div {
+          @apply(--layout-flex);
+        }
+        uva-centered-logo {
+          width: 180px;
+        }
+        #logo-container {
+          @apply(--layout-flex);
+        }
+      }
+      /* tablet */
+      @media (min-width: 601px) and (max-width: 992px) {
+        :host {
+          padding: 20px 15px 50px 15px;
+          height: var(--uva-footer-tablet-height, 255px) !important;
+        }
+        #top {
+          @apply(--layout-horizontal);
+          padding-left: 90px;
+        }
+        #top > .section {
+          @apply(--layout-flex-2);
+          @apply(--layout-vertical);
+        }
+        .section > div {
+          padding-bottom: 20px;
+        }
+        #link-container {
+          @apply(--layout-flex-2);
+          @apply(--layout-vertical);
+          height: 100%;
+        }
+        #center {
+          @apply(--layout-flex-2);
+          @apply(--layout-horizontal);
+        }
+        #end, #center > div {
+          @apply(--layout-flex);
+        }
+        uva-centered-logo {
+          width: 140px;
+        }
+        #logo-container {
+          @apply(--layout-flex);
+        }
+      }
+      /* mobile */
+      @media (max-width: 600px) {
+        :host {
+          padding: 30px;
+          height: var(--uva-footer-mobile-height, 505px) !important;
+        }
+        #top {
+          @apply(--layout-vertical);
+        }
+        #top > .section {
+          @apply(--layout-flex-2);
+          @apply(--layout-vertical);
+        }
+        .section > div {
+          @apply(--layout-flex);
+          padding-bottom: 20px;
+          @apply(--layout-center);
+          text-align: center;
+        }
+        #link-container {
+          @apply(--layout-flex-2);
+          padding-top: 30px;
+          @apply(--layout-vertical);
+        }
+        #center, {
+          @apply(--layout-flex-2);
+          @apply(--layout-vertical);
+        }
+        #center  div, #end {
+          @apply(--layout-flex);
+          @apply(--layout-center-justified);
+          text-align: center;
+          padding-bottom: 30px;
+        }
+        uva-centered-logo {
+          width: 140px;
+        }
+        #logo-container {
+          @apply(--layout-flex);
+        }
+      }
+    </style>
+
+    <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+    <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
+    <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
+
+    <div role="contentinfo" id="top" nologo$="{{dropLogo}}">
+      <template is="dom-if" if="{{!dropLogo}}">
+        <div id="logo-container">
+          <template is="dom-if" if="{{logoOverride}}">
+            <content select=".logo"></content>
+          </template>
+        </div>
+        <div id="link-container">
+          <div id="center">
+            <div class="column"><content select=".column-1"></content></div>
+            <div class="column"><content select=".column-2"></content></div>
+          </div>
+          <div id="end" class="column"><content select=".column-3"></content></div>
+        </div>
+      </template>
+      <template is="dom-if" if="{{dropLogo}}">
+        <div class="section">
+          <div class="column"><content select=".column-1"></content></div>
+          <div class="column"><content select=".column-2"></content></div>
+        </div>
+        <div class="section">
+          <div class="column"><content select=".column-3"></content></div>
+          <div class="column"><content select=".column-4"></content></div>
+        </div>
+      </template>
+    </div>
+    <div id="bottom">
+      <content select="[bottom]"></content>
+      <template is="dom-if" if="[[!dropCopyright]]">
+        <div class="copyright">© {{_currentYear}} By the Rector and Visitors of the University of Virginia</div>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uva-footer',
+
+      properties: {
+        smallScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        mediumScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        largeScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        logoOverride: {
+          type: Boolean,
+          value: false,
+        },
+        dropCopyright: {
+          type: Boolean,
+          value: false
+        },
+        dropLogo: {
+          type: Boolean,
+          value: false
+        },
+        _currentYear: {
+          type: String,
+          value: ''
+        }
+      },
+      ready: function(){
+        this._currentYear = new Date().getFullYear();
+      },
+    });
+  </script>
+</dom-module>

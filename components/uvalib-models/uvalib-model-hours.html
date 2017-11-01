@@ -1,0 +1,77 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<!--
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
+<link rel="import" href="../uvalib-helper-libs/lodash.html">
+<link rel="import" href="firebase-app.html">
+
+<!--
+`uvalib-model-hours`
+data model for the hours used for the Library site; current data source for this content is Springshare LibCal Hours.
+
+@demo demo/hours.html
+-->
+
+<dom-module id="uvalib-model-hours">
+  <template>
+    <firebase-document id="query" app-name="uvalibapi"
+                       path="/hours/locations"
+                       data="{{_hourdata}}" zero-value="[]">
+    </firebase-document>
+    <!--
+    <app-indexeddb-mirror
+        key="hours"
+        data="{{tmpData}}"
+        persisted-data="{{_hourdata}}">
+    </app-indexeddb-mirror>
+  -->
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-hours',
+
+      properties: {
+        /**
+         * An array of JSON objects where each entry represents information about one of the locations.
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          computed: '_processList(_hourdata, filter)',
+          notify: true,
+          readOnly: true
+        },
+        /**
+         * The filter to limit the data returned to one or more locations.
+         */
+        filter: {
+          type: Object,
+          value: null,
+        },
+
+        _hourdata: Array,
+
+      },
+
+      _processList: function(){
+        if (this.filter) {
+          return _.filter(this._hourdata, this.filter);
+        } else {
+          if (Array.isArray(this._hourdata)) {
+            return this._hourdata;
+          } else {
+            var data = _.map(this._hourdata, function(value, index) {
+              return [value];
+            });
+            return data;
+          }
+        }
+      },
+
+    });
+  </script>
+</dom-module>

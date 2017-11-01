@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+  <title>uvalib-models demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+  <link rel="import" href="../uvalib-model-weeks.html">
+
+  <style is="custom-style" include="demo-pages-shared-styles">
+  </style>
+</head>
+<body>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-weeks lid="2090" num-weeks="1" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Selection by lid with 1 week</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Current Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{weeks}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Monday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: {{item.Wednesday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: {{item.Thursday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: {{item.Friday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: {{item.Saturday.rendered}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-weeks library="Clemons" start-week="2" num-weeks="3" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Selection by library with 3 weeks beginning with second week</h2>
+      <h3>{{libName}}</h3>
+      <dl>
+        <dt>Current Week</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{weeks}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Monday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: {{item.Wednesday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: {{item.Thursday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: {{item.Friday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: {{item.Saturday.rendered}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-weeks lid="2093" name="{{libName}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Selection by lid - all weeks</h2>
+      <h3>{{libName}}</h3>
+
+      <dl>
+        <dt>Weeks</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{weeks}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Monday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.rendered}}</li>
+            <li>...</li>
+          </template>
+        </ul></dd>
+      </dl>
+
+    </template>
+  </demo-snippet>
+</div>
+
+<div class="vertical-section-container centered">
+  <demo-snippet>
+    <template is="dom-bind">
+      <uvalib-model-weeks object='{ "category" : "library", "color" : "#000000", "contact" : "<p>434.924.3021</p>", "desc" : "", "fn" : "", "lat" : "", "lid" : 2090, "long" : "", "name" : "Alderman Library", "url" : "", "weeks" : [ { "Friday" : { "date" : "2017-05-26", "rendered" : "8am - 6pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "6pm" } ], "status" : "open" } }, "Monday" : { "date" : "2017-05-22", "rendered" : "8am - 10pm", "times" : { "currently_open" : true, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Saturday" : { "date" : "2017-05-27", "rendered" : "1pm - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "1pm", "to" : "5pm" } ], "status" : "open" } }, "Sunday" : { "date" : "2017-05-21", "rendered" : "8am - 5pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "5pm" } ], "status" : "open" } }, "Thursday" : { "date" : "2017-05-25", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Tuesday" : { "date" : "2017-05-23", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } }, "Wednesday" : { "date" : "2017-05-24", "rendered" : "8am - 10pm", "times" : { "currently_open" : false, "hours" : [ { "from" : "8am", "to" : "10pm" } ], "status" : "open" } } }] }' name="{{libName}}" category="{{type}}" description="{{info}}" contact="{{contact}}" data="{{weeks}}"></uvalib-model-weeks>
+
+      <h2>Pass object with a week of data</h2>
+      <h3>{{libName}}</h3>
+
+      <dl>
+        <dt>Weeks</dt>
+        <dd><ul>
+          <template is="dom-repeat" items="{{weeks}}">
+            <li>Sunday {{item.Sunday.date}}: {{item.Sunday.rendered}}</li>
+            <li>Monday {{item.Monday.date}}: {{item.Monday.rendered}}</li>
+            <li>Tuesday {{item.Tuesday.date}}: {{item.Tuesday.rendered}}</li>
+            <li>Wednesday {{item.Wednesday.date}}: {{item.Wednesday.rendered}}</li>
+            <li>Thursday {{item.Thursday.date}}: {{item.Thursday.rendered}}</li>
+            <li>Friday {{item.Friday.date}}: {{item.Friday.rendered}}</li>
+            <li>Saturday {{item.Saturday.date}}: {{item.Saturday.rendered}}</li>
+          </template>
+        </ul></dd>
+      </dl>
+
+    </template>
+  </demo-snippet>
+</div>
+</body>
+</html>

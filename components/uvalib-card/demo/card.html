@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>uvalib-card demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-media-query/iron-media-query.html">
+
+    <link rel="import" href="../../uvalib-button/uvalib-button.html">
+
+    <link rel="import" href="../uvalib-card.html">
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body unresolved>
+
+    <div class="vertical-section-container">
+      <h3>uvalib-custom-cards Demo</h3>
+      <demo-snippet>
+        <template>
+          <uvalib-card horizontal$="{{horizontal}}" elevation$="{{elevation}}" class="card" heading="Research"
+                       image="https://static.lib.virginia.edu/images/card-images/research.jpg">
+              <div class="card-content">
+                <ul>
+                  <li><a href="http://search.lib.virginia.edu/">Virgo: Library Catalog</a>
+                  <li><a href="http://guides.lib.virginia.edu/az.php">Databases A-Z</a>
+                  <li><a href="http://guides.lib.virginia.edu/">Subject guides</a>
+                  <li><a href="http://guides.lib.virginia.edu/journalfinder">Journal finder</a>
+                  <li><a href="http://www.library.virginia.edu/services/search-course-reserves/">Search course reserves</a>
+                  <li><a href="http://data.library.virginia.edu/research-software/">Research software</a>
+                </ul>
+              </div>
+              <div class="card-actions">
+                  <uvalib-button href="//www.library.virginia.edu/research/">More research tools</uvalib-button>
+              </div>
+          </uvalib-card>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "name": "uva-icon-link",
+  "description": "Link with icon",
+  "main": "uva-icon-link.html",
+  "dependencies": {
+    "uvalib-elements": "uvalib-components/uvalib-elements#master",
+    "fontawesome-iconset": "uva-components/font-awesome-polymer-icons#master"
+  },
+  "resolutions": {
+    "iron-demo-helpers": "^1.0.0",
+    "iron-component-page": "^1.0.0",
+    "webcomponentsjs": "^0.7.24",
+    "polymer": "^1.10.1",
+    "web-component-tester": "^5.0.1",
+    "lodash": "^4.17.4",
+    "promise-polyfill": "^1.0.0",
+    "iron-iconset-svg": "1 - 2",
+    "iron-icons": "1 - 2",
+    "iron-icon": "1 - 2",
+    "iron-doc-viewer": "^1.0.1",
+    "iron-flex-layout": "1 - 2",
+    "iron-list": "^1.0.0",
+    "iron-ajax": "1 - 2",
+    "iron-location": "1 - 2",
+    "app-layout": "1 - 2",
+    "app-storage": "1 - 2",
+    "paper-icon-button": "1 - 2",
+    "marked-element": "1 - 2",
+    "paper-button": "^1.0.0",
+    "paper-card": "^1.0.0",
+    "test-fixture": "^1.0.0",
+    "uva-elements": "master",
+    "uva-icon-link": "master"
+  },
+  "homepage": "https://github.com/uva-components/uva-icon-link",
+  "_release": "4cd13cea98",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "4cd13cea98c54f9d9b72a514a77b2597ac85cb75"
+  },
+  "_source": "https://github.com/uva-components/uva-icon-link.git",
+  "_target": "master",
+  "_originalSource": "uva-components/uva-icon-link"
+}

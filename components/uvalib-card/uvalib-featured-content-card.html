@@ -1,0 +1,76 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-models/uvalib-model-query.html">
+<link rel="import" href="uvalib-card.html">
+
+<!--
+`uvalib-featured-content-card`
+Featured Content Card display component for the Library Web
+
+@demo demo/featured.html
+-->
+
+<dom-module id="uvalib-featured-content-card">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: inline-block;
+        background-color: black;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      li a {
+        text-decoration: none;
+      }
+      uvalib-card {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <uvalib-model-query featured data="{{data}}" content-type="[[contentType]]"></uvalib-model-query>
+    <uvalib-card class="card" heading="[[heading]]" image="[[image]]">
+        <div class="card-content">
+          <ul>
+            <template is="dom-repeat" items="[[data]]">
+              <li><a href="[[item.siteLink]]">[[item.title]]</a></li>
+            </template>
+          </ul>
+        </div>
+        <div class="card-actions">
+            <uvalib-button href="[[href]]">[[linkText]]</uvalib-button>
+        </div>
+    </uvalib-card>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'uvalib-featured-content-card',
+      properties: {
+        contentType: {
+          type: String,
+          value: "services"
+        },
+        heading: {
+          type: String,
+          value: "Services"
+        },
+        href: {
+          type: String,
+          value: ""
+        },
+        linkText: {
+          type: String,
+          value: "More Services"
+        },
+        image: {
+          type: String,
+          value: null
+        }
+      }
+    });
+  </script>
+</dom-module>

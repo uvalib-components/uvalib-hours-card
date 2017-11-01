@@ -1,0 +1,34 @@
+{
+  "name": "font-awesome-polymer-icons",
+  "authors": [],
+  "description": "Polymer iron-icon compatible iconset based on Font Awesome SVG font",
+  "main": "fa-all.html",
+  "keywords": [
+    "Font Awesome",
+    "Polymer",
+    "Icons",
+    "Icon Set",
+    "web-component",
+    "web-components"
+  ],
+  "dependencies": {
+    "uva-elements": "uva-components/uva-elements#2.0"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/uva-components/font-awesome-polymer-icons",
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "package.json",
+    "update.js"
+  ],
+  "_release": "8d1c06fe54",
+  "_resolution": {
+    "type": "branch",
+    "branch": "2.0",
+    "commit": "8d1c06fe54706ebb17d1c04c38899b5b90e09b1e"
+  },
+  "_source": "https://github.com/uva-components/font-awesome-polymer-icons.git",
+  "_target": "2.0",
+  "_originalSource": "uva-components/font-awesome-polymer-icons"
+}

@@ -1,0 +1,177 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+		<meta content="text/html;charset=UTF-8" http-equiv="Content-type">
+
+		<link href="/css230/common.css" media="screen, projection" type="text/css" rel="stylesheet">
+		<title>LibCal</title>
+
+		<style type="text/css">
+			.calevent-mini { max-height: 415px; }
+			#mini-calendar a { text-decoration: none; }
+			/* This CSS controls: */
+/* Public and Admin System Calendar */
+/* Public Full and Mini Calendar Widget */
+
+div#s-lc-box-1413-container
+{ display: none; }
+
+
+/*Embeddable mini-calendar - from Widgets/API section */
+#s-lc-mini-calendar { background-color: #666666; }
+#mini-calendar { border: 0px; position: absolute; width: 700px}
+.cal-mini-outer {float: left; width: 50%;}
+.cal-mini {font-family: Arial, Verdana, sans-serif; margin: auto; }
+.cal-mini td { border-right: 0px;}
+.cal-mini-day-head, .cal-mini-title-row td {border: 0px!important;}
+.cal-mini-title-row th { padding-bottom: 15px;}
+.cal-mini-title {text-align: center; color: #fff; text-transform: uppercase; font: bold 14px Arial, Verdana, sans-serif;}
+.cal-mini-day-head { color: #fff; text-align: center; font-size: 12px; font-weight: bold; }
+.cal-mini-arrow { text-align: center!important; font-size: 16px; }
+.cal-mini-arrow a { color: #fff; }
+.cal-mini-row, .cal-mini-day { padding: 5px; }
+.cal-mini-day-num, .cal-mini-day-pad { text-align: center;  color: #fff; margin:1px;}
+.cal-mini-hasevent a { -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; background-color: #FF972F;  border: 1px solid #fff; display: block; color: #fff; text-decoration: none; }
+.cal-mini-hasevent a:hover { background-color: #fff; color: #FF972F; text-decoration: none; border: 1px solid #FF972F; }
+#calevent-mini-list { width: 50%; float: right; }
+#calevent-mini-list-h { display: none;}
+.calevent-mini { list-style-type: none; padding: 0px; margin:0px; overflow: auto; }
+.calevent-mini-time { padding: 0px; margin-top: 8px; color: #fff; font-size: 11px;  font-family:  Arial, Verdana, sans-serif;}
+.calevent-mini li a{ color: #fff; font-weight: bold; font-size: .75em; font-family:  Arial, Verdana, sans-serif; text-decoration: underline!important;}
+.calevent-mini li{ margin-bottom: 25px; border-bottom: 0px; }
+.calevent-mini li:hover{ }
+		</style>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js" type="text/javascript"></script>
+		<script type="text/javascript" language="javascript">
+		var lcjQ = jQuery.noConflict(true);
+		function nav(month,year,cal_id,iid,filter){
+			lcjQ( "#calendar-container" ).load( 'embed_mini_calendar.php?mode=month&amp;cal_id='+cal_id+'&amp;iid='+iid+'&amp;m='+month+'&amp;y='+year+'&amp;l='+filter+'&amp;tar=0&amp;sp=0&amp;c=&amp;z= #calendar-container');
+			return false;
+		}
+
+		function showday(day,filter,cal_id,iid){
+			lcjQ( "#calevent-mini-list" ).load( 'embed_mini_calendar.php?mode=day&amp;cal_id='+cal_id+'&amp;iid='+iid+'&amp;l='+filter+'&amp;e='+day+'&amp;tar=0&amp;c=&amp;z= #calevent-mini-list');
+			return false;
+		}
+		</script>
+
+			</head>
+
+<body id="s-lc-mini-calendar">
+	<div id="calendar-container">
+    <div id="mini-calendar">
+      <div class="cal-mini-outer">
+        <table cellspacing="0" cellpadding="0" class="cal-mini"><thead><tr class="cal-mini-title-row"><th class="cal-mini-arrow"><a aria-label="Previous month" class="cal-mini-control-nav" onclick="return nav('6','2016','4299','863','3');" href="#">«&nbsp;</a></th><th colspan="5"><div class="cal-mini-title">July 2016</div></th><th class="cal-mini-arrow"><a aria-label="Next month" class="cal-mini-control-nav" onclick="return nav('8','2016','4299','863','3');" href="#">&nbsp;»</a></th></tr><tr class="cal-mini-row-days">
+        <th class="cal-mini-day-head">S</th><th class="cal-mini-day-head">M</th><th class="cal-mini-day-head">T</th><th class="cal-mini-day-head">W</th><th class="cal-mini-day-head">T</th><th class="cal-mini-day-head">F</th><th class="cal-mini-day-head">S</th></tr></thead><tbody>
+        <tr class="cal-mini-row"><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day">
+        <div class="cal-mini-day-num">1</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">2</div>
+        </td>
+        </tr>
+        <tr class="cal-mini-row"><td class="cal-mini-day">
+        <div class="cal-mini-day-num">3</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">4</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">5</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">6</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">7</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">8</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">9</div>
+        </td>
+        </tr>
+        <tr class="cal-mini-row"><td class="cal-mini-day">
+        <div class="cal-mini-day-num">10</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">11</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">12</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">13</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">14</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">15</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">16</div>
+        </td>
+        </tr>
+        <tr class="cal-mini-row"><td class="cal-mini-day">
+        <div class="cal-mini-day-num">17</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">18</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">19</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">20</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">21</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">22</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">23</div>
+        </td>
+        </tr>
+        <tr class="cal-mini-row"><td class="cal-mini-day">
+        <div class="cal-mini-day-num">24</div>
+        </td>
+        <td class="cal-mini-current-day">
+        <div class="cal-mini-day-num cal-mini-hasevent"><a onclick="return showday('2016-07-25','3','4299','863')" title="1 Event" href="#">25</a></div></td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">26</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">27</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">28</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">29</div>
+        </td>
+        <td class="cal-mini-day">
+        <div class="cal-mini-day-num">30</div>
+        </td>
+        </tr>
+        <tr class="cal-mini-row"><td class="cal-mini-day">
+        <div class="cal-mini-day-num">31</div>
+        </td>
+        <td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td><td class="cal-mini-day-pad">&nbsp;</td></tr></tbody>
+        </table>
+      </div>
+      <div id="calevent-mini-list">
+        <div id="calevent-mini-list-h">Upcoming Events:</div>
+        <ul class="calevent-mini">
+          <li><a target="_blank" class="calevent-mini-a" href="http://cal.lib.virginia.edu/event/2652071?hs=a">Rare Book School Lecture</a><br><div class="calevent-mini-time"><span class="mini-edate">Mon, Jul 25, 2016</span><span class="mini-stime"> 5:30pm</span><span style="display: none;" class="mini-etime">-7:00pm</span></div></li>
+          <li><a target="_blank" class="calevent-mini-a" href="http://cal.lib.virginia.edu/event/2652072?hs=a">Rare Book School Lecture</a><br><div class="calevent-mini-time"><span class="mini-edate">Mon, Aug 1, 2016</span><span class="mini-stime"> 5:30pm</span><span style="display: none;" class="mini-etime">-7:00pm</span></div></li>
+          <li><a target="_blank" class="calevent-mini-a" href="http://cal.lib.virginia.edu/event/2652073?hs=a">Rare Book School Lecture</a><br><div class="calevent-mini-time"><span class="mini-edate">Wed, Aug 3, 2016</span><span class="mini-stime"> 5:30pm</span><span style="display: none;" class="mini-etime">-7:00pm</span></div></li>
+          <li id="cal-mini-showall-li"><a id="cal-mini-showall" target="_blank" href="http://cal.lib.virginia.edu/calendar/events">Show All</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

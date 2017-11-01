@@ -1,0 +1,253 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
+<link rel="import" href="../paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="uvalib-searchbox-behavior.html">
+
+<!--
+`uvalib-search-area`
+Library Search Area
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--uvalib-search-box-font-family` | Font family used for search box content | `Based on uvalib-theme --font-primary`
+`--uvalib-search-box-selected-tab-color` | Color of selected tab | `Based on uvalib-theme --color-primary-blue`
+`--uvalib-search-box-selected-tab-text-color` | Color of selected tab text | `Based on uvalib-theme --color-white`
+`--uvalib-search-box-tab-color` | Color of unselected tabs | `Based on uvalib-theme --color-light-blue`
+`--uvalib-search-box-tab-text-color` | Color of unselected tab text | `Based on uvalib-theme --color-primary-blue`
+`--uvalib-search-box-bkgrd-color` | Background color of search box | `Based on uvalib-theme --color-primary-blue`
+`--uvalib-search-box-btn-bkgrd-color` | Background color of search button | `Based on uvalib-theme --color-light-blue`
+`--uvalib-search-box-btn-text-color` | Color of search button label text | `Based on uvalib-theme --color-secondary-blue`
+`--uvalib-search-box-advanced-text-color` | Color of advanced search options | `Based on uvalib-theme --color-white`
+
+@demo demo/area.html
+-->
+
+<dom-module id="uvalib-search-area">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+      #container {
+        width: 100%;
+        max-width: var(--uvalib-display-width-max);
+        @apply(--layout-horizontal);
+      }
+      #main {
+        @apply(--layout-flex);
+      }
+      #close {
+        width: 100px;
+        @apply(--layout-horizontal);
+        @apply(--layout-end);
+      }
+      #close paper-icon-button {
+        color: #002f6c;
+        height: 60px;
+        width: 60px;
+      }
+      #links {
+        @apply(--layout-horizontal);
+        height: 44px;
+      }
+      #search {
+        @apply(--layout-horizontal);
+        height: 56px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      #links, #search {
+
+      }
+      .spacer {
+        @apply(--layout-flex);
+      }
+      #links uvalib-button {
+        --uvalib-button-text-transform: none;
+        --uvalib-button: {
+          font-family: var(--font-primary);
+          font-size: 16px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: normal;
+          letter-spacing: 1.1px;
+          color: #000000;
+        };
+      }
+      #search form {
+        @apply(--layout-flex);
+        @apply(--layout-horizontal);
+      }
+      #search input {
+        @apply(--layout-flex);
+        display: inline-block;
+        box-sizing: content-box;
+        padding: 0 31px 0 31px;
+        height: 54px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        background-color: #fafafa;
+        border: solid 1px #e0e0e0;
+        font-family: var(--font-primary);
+        font-size: 19px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+        text-align: left;
+        color: #000000;
+
+      }
+      #search input::placeholder {
+        font-family: var(--font-primary);
+        font-size: 19px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+        text-align: left;
+        color: rgba(0, 0, 0, 0.23);
+      }
+      #search paper-menu-button {
+        width: 218px;
+        height: 54px;
+        padding: 0;
+        background-color: #eeeeee;
+        border: solid 1px #e0e0e0;
+        border-left-width: 0;
+      }
+      #search paper-menu-button[small], paper-button[small] {
+        width: 150px !important;
+      }
+      #search paper-menu-button paper-button {
+        width: 218px;
+        --paper-button: {
+          text-transform: none;
+        };
+        font-size: 19px;
+      }
+      #search paper-button {
+        font-family: var(--font-primary);
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.21;
+        letter-spacing: 1px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+      #search paper-button.submit {
+        width: 189px;
+        font-size: 22px;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 0.6px;
+        color: #ffffff;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-color: #0065e6;
+        margin: 0;
+      }
+    </style>
+    <div id="container">
+      <div id="main">
+        <div id="links">
+          <div class="spacer"></div>
+          <uvalib-button href="{{advancedCatalogSearchUrl}}" icon="angle-right" reverse>{{advancedCatalogSearchText}}</uvalib-button>
+          <uvalib-button href="{{advancedArticleSearchUrl}}" icon="angle-right" reverse>{{advancedArticleSearchText}}</uvalib-button>
+        </div>
+        <div id="search">
+          <template is="dom-if" if="{{_isVirgo(selectedIndex)}}">
+            <form is="iron-form" method="get" action="{{virgoSearchTabUrl}}" id="virgoSearchForm">
+              <input type="hidden" name="catalog_select" value="all">
+              <input id="q1" class="searchinput" current$="{{_isVirgo(selectedIndex)}}" name="q" placeholder="{{searchVirgoPlaceholder}}">
+            </form>
+          </template>
+          <template is="dom-if" if="{{!_isVirgo(selectedIndex)}}">
+            <form is="iron-form" method="get" action="{{siteSearchTabUrl}}" id="siteSearchForm">
+              <input id="q2" class="searchinput" current$="{{!_isVirgo(selectedIndex)}}" name="q" placeholder="{{searchSitePlaceholder}}">
+            </form>
+          </template>
+          <paper-menu-button small$="{{small}}">
+            <paper-button small$="{{small}}" class="dropdown-trigger" noink elevation="0">
+              <span>{{selectedIndex}}</span>
+              <iron-icon icon="angle-down"></iron-icon>
+            </paper-button>
+            <paper-menu class="dropdown-content" selected="{{selectedIndex}}" attr-for-selected="val">
+              <paper-item val="Site Search">Site Search</paper-item>
+              <paper-item val="Virgo">Virgo</paper-item>
+            </paper-menu>
+          </paper-menu-button>
+          <paper-button class="submit" on-tap="_submit" hidden$="{{small}}">Search</paper-button>
+          <paper-button class="submit small" small on-tap="_submit" hidden$="{{!small}}"><iron-icon icon="search"></iron-icon></paper-button>
+        </div>
+      </div>
+      <div id="close">
+        <paper-icon-button icon="times" on-tap="_close"></paper-icon-button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'uvalib-search-area',
+      behaviors: [uvalibbehaviors.searchbox],
+      properties: {
+        small: {
+          type:Boolean,
+          value:false
+        },
+        selectedIndex: {
+          type: String,
+          value: "Virgo"
+        }
+
+      },
+      focus: function(){
+        console.log('focus the searchbox!');
+        var input = this.$.container.querySelector('.searchinput[current]');
+        input.focus();
+        input.select();
+      },
+      _isVirgo: function(){
+        return (this.selectedIndex === "Virgo");
+      },
+      _submit: function(){
+        if (this._isVirgo()) this.submitCatalogSearch();
+        else this.submitSiteSearch();
+      },
+      _close: function(){
+        this.fire('close');
+      },
+      submitCatalogSearch: function() {
+        this.$.container.querySelector('#virgoSearchForm').submit();
+      },
+      submitSiteSearch: function() {
+        this.$.container.querySelector('#siteSearchForm').submit();
+      }
+
+    });
+
+  </script>
+</dom-module>

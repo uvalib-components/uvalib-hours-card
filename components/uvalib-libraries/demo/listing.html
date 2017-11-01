@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>uvalib-libraries demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script>
+      /* this script must run before Polymer is imported */
+      window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true
+      };
+    </script>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../../uvalib-theme/uvalib-theme.html">
+    <link rel="import" href="../uvalib-libraries.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+
+    <div class="vertical-section-container">
+      <h3>Basic uvalib-libraries Demo</h3>
+      <demo-snippet>
+        <template>
+          <style is="custom-style">
+            #container {
+              @apply(--layout-horizontal);
+            }
+            #menu {
+              @apply(--layout-vertical);
+            }
+            #main {
+              @apply(--layout-vertical);
+            }
+            uvalib-libraries {
+              --uvalib-libraries-list: {
+                list-style: square outside none;
+                margin-left: 1.5em;
+              };
+              --uvalib-libraries-list-item: {
+                font-size: 15px;
+                margin: 0 0 1.2em 0;
+                overflow: visible;
+                font-family: "franklin-gothic-urw", arial, sans-serif;
+                font-weight: 400;
+                font-style: normal;
+              };
+              --uvalib-library-title: {
+                color: #393a3d;
+                font-family: "chaparral-pro", Georgia, "Times New Roman", Times, serif;
+                font-weight: normal;
+                font-size: 27px;
+                margin: 0.25em 0 0.75em;
+              }
+            }
+          </style>
+          <div id="container">
+            <div id="menu">
+              <uvalib-libraries id="libraries" menu></uvalib-libraries>
+            </div>
+            <div id="main">
+              <uvalib-libraries id="libraries" anchors-enabled scroll-offset="100"></uvalib-libraries>
+            </div>
+          </div>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,317 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../uvalib-theme/uvalib-theme.html">
+<link rel="import" href="../uvalib-skip-nav/uvalib-skip-nav.html">
+<link rel="import" href="../uvalib-logos/uvalib-logo.html">
+<link rel="import" href="../uvalib-theme/uvalib-icons.html">
+<link rel="import" href="../app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../app-layout/app-header/app-header.html">
+<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../uvalib-button/uvalib-button.html">
+<link rel="import" href="../uvalib-nav/uvalib-nav.html">
+<link rel="import" href="../iron-signals/iron-signals.html" >
+<link rel="import" href="../iron-dropdown/iron-dropdown.html">
+<link rel="import" href="../uvalib-search-box/uvalib-search-box.html" >
+<link rel="import" href="../uvalib-hours-card/uvalib-hours-card.html" >
+
+<!--
+`uvalib-header`
+UVA Library Page Header
+
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-header">
+  <template>
+    <style is="custom-style" include="uvalib-theme">
+      :host {
+        display: block;
+        position: relative;
+        @apply(--layout-vertical);
+        height: 118px;
+        margin: 0;
+        z-index: 100000000000;
+      }
+
+      [hidden] {
+        display: none;
+      }
+
+      app-header {
+        z-index: 1000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 118px;
+        color: var(--color-white);
+        background-color: var(--color-primary-blue);
+        --app-header-background-rear-layer: {
+          background-color: #0b8043;
+        };
+      }
+      paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+      app-toolbar {
+        height: 39px;
+      }
+      #nav {
+        height: 79px;
+      }
+      uvalib-logo {
+        position: absolute;
+        padding: 15px;
+        width: 125px;
+        left: 15px;
+        top: 15px;
+      }
+      uvalib-logo[condensed-title] {
+        position: absolute;
+        padding: 15px;
+        left: 0;
+        top: 0;
+        width: 100px;
+      }
+      uvalib-button {
+        color: var(--color-white);
+        font-size: 15px;
+        /*
+        height: 35px;
+        */
+        --uvalib-button-icon-width: 15px;
+        --uvalib-button-icon-height: 15px;
+        --uvalib-button-font-weight: 100;
+      }
+      .card-close {
+        color: var(--color-text-gray);
+        float: right;
+        padding-right: 0px;
+      }
+      .link {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      }
+      .dropdown-content {
+        background-color: white;
+        line-height: 20px;
+        border-radius: 3px;
+        box-shadow: 0px 2px 6px #ccc;
+      }
+      uvalib-hours-card[all-locations] {
+        height: 1100px;
+      }
+      .flex {
+        @apply(--layout-flex);
+      }
+      /* desktop */
+      @media (min-width: 993px) {
+        app-toolbar {
+          padding-left: 250px;
+        }
+        uvalib-nav {
+          overflow: hidden;
+          padding-left: 250px;
+          height: 79px;
+        }
+        uvalib-logo {
+          -ms-transform: translate(0, -30px);
+        }
+        uvalib-logo[condensed-title] {
+          -ms-transform: translate(0, -50px);
+        }
+      }
+      /* tablet */
+      @media (min-width: 601px) and (max-width: 992px) {
+        app-toolbar {
+          padding-left: 250px;
+        }
+        uvalib-logo {
+          padding: 0;
+          width: 190px;
+        }
+        uvalib-logo[condensed-title] {
+          display: none;
+        }
+      }
+      /* mobile */
+      @media (max-width: 600px) {
+        app-toolbar {
+          padding-left: 0;
+        }
+        app-toolbar uvalib-button {
+          font-size: 12px;
+        }
+        uvalib-search-box {
+          position: relative;
+          top: -22px;
+        }
+        uvalib-logo {
+          display: none;
+          width: 0px;
+        }
+        uvalib-nav {
+          display: none;
+        }
+        #nav {
+          @apply(--layout-horizontal);
+          position: relative;
+          top: 20px;
+        }
+        #nav uvalib-search-box {
+          @apply(--layout-flex);
+        }
+
+      }
+
+      #simple-search {
+        background-color: #002F6C;
+        padding: 10px;
+      }
+
+    </style>
+
+    <iron-signals on-iron-signal-searchinview="_searchSignal"></iron-signals>
+    <uvalib-skip-nav></uvalib-skip-nav>
+    <app-header id="header" condenses reveals fixed effects="waterfall resize-snapped-title">
+      <app-toolbar>
+        <uvalib-logo main-title stacked$="[[largeScreen]]" text-only reverse hidden$="[[smallScreen]]"></uvalib-logo>
+        <uvalib-button icon="comments" href="http://www.library.virginia.edu/askalibrarian/" hidden$="[[!largeScreen]]">Ask a Librarian</uvalib-button>
+        <div class="flex" hidden$="[[smallScreen]]"></div>
+<!--
+        <uvalib-button icon="search" hidden$="{{_showSearchToolItem(_searchInView,largeScreen)}}" on-tap="_triggerSearch">Search</uvalib-button>
+        <uvalib-button icon="search" hidden$="{{_showSearchToolItem(contentHasSearchBox,largeScreen)}}" on-tap="showSearch">Search</uvalib-button>
+-->
+        <uvalib-button icon="search" hidden$="[[!largeScreen]]" on-tap="_triggerSearch">Search</uvalib-button>
+        <uvalib-button icon="search" hidden$="[[!mediumScreen]]" on-tap="showSearch">Search</uvalib-button>
+        <uvalib-button icon="angle-down" reverse on-tap="openHours">Hours</uvalib-button>
+        <iron-dropdown style="display:none" auto-fit-on-attach id="hours" horizontal-align="[[_hoursDropdownHalign(largeScreen)]]" vertical-align="top" no-overlap>
+          <div class="dropdown-content">
+            <uvalib-hours-card all-locations elevation="0">
+              <uvalib-button class="card-close" icon="times" reverse on-tap="closeHours">Close<uvalib-button>
+            </uvalib-hours-card>
+          </div>
+        </iron-dropdown>
+        <div class="flex" hidden$="[[!smallScreen]]"></div>
+        <uvalib-button href="http://www.library.virginia.edu/askalibrarian/" hidden$="[[largeScreen]]">Ask a Librarian</uvalib-button>
+        <div class="flex" hidden$="[[!smallScreen]]"></div>
+        <uvalib-button href="http://search.lib.virginia.edu/account/review">Account</uvalib-button>
+      </app-toolbar>
+      <template is="dom-if" if="[[!smallScreen]]" restamp>
+        <div sticky id="nav" hidden$="[[smallScreen]]">
+          <a href="//www.library.virginia.edu" aria-label="link home">
+            <uvalib-logo condensed-title stacked$="[[largeScreen]]" text-only reverse></uvalib-logo>
+          </a>
+          <uvalib-nav include-search$="[[mediumScreen]]" on-show-search="showSearch" navigation="[[navigation]]">
+          </uvalib-nav>
+        </div>
+      </template>
+
+
+      <div sticky id="simple-search" hidden$="[[!_showSearch]]">
+        <uvalib-search-box id="tabletSearch"></uvalib-search-box>
+      </div>
+
+
+      <template is="dom-if" if="[[smallScreen]]" restamp>
+        <div sticky id="nav">
+          <paper-icon-button icon="bars" on-tap="openDrawer"></paper-icon-button>
+          <uvalib-search-box use-icon-for-button></uvalib-search-box>
+        </div>
+      </template>
+    </app-header>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-header',
+
+      properties: {
+        /**
+         * Array of JSON items that represent the navigation. Each JSON item has a label property, an icon property, and a url property.
+         */
+        navigation: {
+          type: Array,
+          value: [
+            {"label": "About", "icon": "university", "url": "//www.library.virginia.edu/about-uva-library/"},
+            {"label": "Research", "icon": "graduation-cap", "url": "//www.library.virginia.edu/research/"},
+            {"label": "Collections", "icon": "book", "url": "//www.library.virginia.edu/collections/"},
+            {"label": "Services", "icon": "cloud", "url": "//www.library.virginia.edu/services/"}
+          ],
+        },
+        smallScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        mediumScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        largeScreen: {
+          type: Boolean,
+          notify: true,
+          value: false,
+          reflectToAttribute: true
+        },
+        contentHasSearchBox: {
+          type: Boolean,
+          value: false
+        },
+        _showSearch: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+        _searchInView: {
+          type: Boolean,
+          value: true,
+          notify: true
+        }
+      },
+
+      openDrawer: function(ev) {
+        this.fire('open-drawer');
+        console.log('open drawer');
+      },
+
+      showSearch: function(ev) {
+        this._showSearch = (this._showSearch) ? false : true;
+        if (this.$.tabletSearch) this.$.tabletSearch.focus();
+      },
+
+      openHours: function(ev){
+        this.$.hours.positionTarget = ev.target;
+        this.$.hours.open();
+      },
+      closeHours: function(){
+        this.$.hours.close();
+      },
+      _searchSignal: function(e, searchInView, sender){
+        this._searchInView = searchInView;
+      },
+      _showSearchToolItem: function(inView, large) {
+        return inView || !large;
+      },
+      _triggerSearch: function(){
+        this.fire('iron-signal', {name: "triggersearch"});
+        console.log('trigger search');
+      },
+      _hoursDropdownHalign: function(largeScreen){
+        if (largeScreen) return "right";
+        else return "left";
+      },
+      ready: function(){
+        setTimeout(function(){
+          console.log('header hack until https://github.com/PolymerElements/app-layout/issues/320 is resolved');
+          this.$.header.resetLayout();
+        }.bind(this),500);
+      }
+    });
+  </script>
+</dom-module>

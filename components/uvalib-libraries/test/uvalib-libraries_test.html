@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>uvalib-libraries test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../uvalib-libraries.html">
+  </head>
+  <body>
+
+    <test-fixture id="basic">
+      <template>
+        <uvalib-libraries></uvalib-libraries>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="alderman">
+      <template>
+        <uvalib-libraries library="Alderman Library"></uvalib-libraries>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="fine-arts">
+      <template>
+        <uvalib-libraries uuid="1dc3d8f6-4112-496f-9041-2c6156e80ae1"></uvalib-libraries>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="darden">
+      <template>
+        <uvalib-libraries uuid="150094ae-bdb3-44e4-9169-7f82347f9dad"></uvalib-libraries>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('<uvalib-libraries>', function() {
+
+        test('instantiating the element works', function() {
+          var element = fixture('basic');
+          assert.equal(element.is, 'uvalib-libraries');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('alderman');
+          assert.equal(element.is, 'uvalib-libraries');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('fine-arts');
+          assert.equal(element.is, 'uvalib-libraries');
+        });
+        test('instantiating the element works', function() {
+          var element = fixture('darden');
+          assert.equal(element.is, 'uvalib-libraries');
+        });
+
+      });
+      a11ySuite("basic");
+      a11ySuite("alderman");
+      a11ySuite("fine-arts");
+      a11ySuite("darden");
+    </script>
+  </body>
+</html>

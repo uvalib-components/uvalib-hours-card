@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>uvalib-card demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-media-query/iron-media-query.html">
+
+    <link rel="import" href="../../uvalib-button/uvalib-button.html">
+
+    <link rel="import" href="../uvalib-card.html">
+    <link rel="import" href="../uvalib-common-cards.html">
+    <link rel="import" href="../uvalib-research-card.html">
+    <link rel="import" href="../uvalib-spaces-card.html">
+    
+    <link rel="import" href="../uvalib-hours-card.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body unresolved>
+
+    <div class="vertical-section-container">
+      <h3>uvalib-custom-cards Demo</h3>
+      <demo-snippet>
+        <template>
+          <style is="custom-style">
+            .card {
+              margin-bottom: 20px;
+              height: 400px;
+            }
+          </style>
+          <uvalib-research-card class="card"></uvalib-research-card>
+          <uvalib-spaces-card class="card"></uvalib-spaces-card>
+          <uvalib-hours-card class="card"><uvalib-button href="http://www.library.virginia.edu/hours/#!/">All locations</uvalib-button></uvalib-hours-card>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container">
+      <h3>Horizontal cards example</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <style is="custom-style">
+            uvalib-card {
+
+            }
+
+            .card2 {
+              margin-bottom: 20px;
+              height: 500px;
+            }
+          </style>
+          <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+          <uvalib-featured-exhibit-card class="card2" horizontal small-screen$="{{smallScreen}}"></uvalib-featured-exhibit-card>
+          <uvalib-engage-card class="card2" horizontal small-screen$="{{smallScreen}}"></uvalib-engage-card>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

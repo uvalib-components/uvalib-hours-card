@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "elements": [
+    {
+      "description": "`uva-logo`\nUVA logo",
+      "summary": "",
+      "path": "uva-logo.html",
+      "properties": [],
+      "methods": [],
+      "staticMethods": [],
+      "demos": [
+        {
+          "url": "demo/index.html",
+          "description": ""
+        }
+      ],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 185,
+          "column": 8
+        },
+        "end": {
+          "line": 192,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "attributes": [],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "uva-logo"
+    }
+  ]
+}

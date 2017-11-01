@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>uvalib-header demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script>
+      Polymer = {dom: 'shadow'};
+
+      (function() {
+        if ('registerElement' in document
+            && 'import' in document.createElement('link')
+            && 'content' in document.createElement('template')) {
+          // platform is good!
+        } else {
+          document.write( '<script src="../../webcomponentsjs/webcomponents-lite.min.js">\x3C/script>')
+        }
+      })();
+    </script>
+
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../iron-media-query/iron-media-query.html">
+    <link rel="import" href="../uvalib-header.html">
+
+  </head>
+  <body unresolved>
+
+    <template is="dom-bind">
+        <iron-media-query query="(max-width: 600px)" query-matches="{{smallScreen}}"></iron-media-query>
+        <iron-media-query query="(min-width: 601px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
+        <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
+
+        <uvalib-header small-screen="[[smallScreen]]" medium-screen="[[mediumScreen]]" large-screen="[[largeScreen]]"
+          navigation='[
+            {"label": "About", "icon": "university", "url": "//www.library.virginia.edu/about-uva-library/"},
+            {"label": "Research", "icon": "graduation-cap", "url": "//www.library.virginia.edu/research/"},
+            {"label": "Collections", "icon": "book", "url": "//www.library.virginia.edu/collections/"},
+            {"label": "Services", "icon": "cloud", "url": "//www.library.virginia.edu/services/"}
+          ]'
+          >
+        </uvalib-header>
+        <div style="height: 5000px"></div>
+    </template>
+
+  </body>
+</html>

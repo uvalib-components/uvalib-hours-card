@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-models demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../uvalib-model-files.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container centered">
+      <demo-snippet>
+        <template is="dom-bind">
+          <style>
+
+          </style>
+          <uvalib-model-files files="{{files}}"></uvalib-model-files>
+          <h2>All Live Banners</h2>
+          <template is="dom-repeat" items="{{files}}">
+            <h1>{{item.name}}</h1>
+            <picture>
+              <source srcset="{{item.webpthumbSrc}}" type="image/webp" />
+              <source srcset="{{item.thumbSrc}}" type="{{item.type}}" />
+              <img src="{{item.thumbSrc}}">
+            </picture>
+          </template>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

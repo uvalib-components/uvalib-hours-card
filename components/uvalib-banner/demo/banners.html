@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>uvalib-banner demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-media-query/iron-media-query.html">
+    <link rel="import" href="../../uva-brand-style/uva-layout-behavior.html">
+
+    <link rel="import" href="../uvalib-banners.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+      body {
+        padding: 0px;
+        margin: 0px;
+      }
+      uvalib-banner {
+        /* height: auto; */
+      }
+    </style>
+  </head>
+  <body unresolved>
+    <template is="dom-bind" id="app">
+      <iron-media-query query="(min-width: 600px) and (max-width: 992px)" query-matches="{{mediumScreen}}"></iron-media-query>
+      <iron-media-query query="(min-width: 993px)" query-matches="{{largeScreen}}"></iron-media-query>
+
+      <uvalib-banners large-screen$="[[largeScreen]]" medium-screen$="[[mediumScreen]]"></uvalib-banners>
+      <div style="height:5000px">
+        <h1>
+      </div>
+    </template>
+
+  </body>
+</html>

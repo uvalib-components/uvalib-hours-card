@@ -1,0 +1,52 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--<link rel="import" href="../polymerfire/firebase-document.html">-->
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+
+<dom-module id="uvalib-form-editor-addnew">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-dialog id="addDialog" on-iron-overlay-closed="_newItem">
+      <h2>Add Form Item</h2>
+      <select value="{{_type::change}}">
+        <option value="heading">Heading</option>
+        <option value="section">Section</option>
+      </select>
+      <div class="buttons">
+        <button dialog-dismiss>Cancel</button>
+        <button dialog-confirm autofocus>Add</button>
+      </div>
+    </paper-dialog>
+    <paper-icon-button icon="add-circle-outline" on-tap="_open"></paper-icon-button>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-form-editor-addnew',
+
+      properties: {
+        _type:{
+          type: String,
+          value: 'heading'
+        }
+      },
+      _newItem: function(e){
+        if (e.detail.confirmed) {
+          console.log('add the item!');
+          if (this._type==='heading')
+            this.fire('add', {type:'heading',text:''});
+          else if (this._type==='section')
+            this.fire('add', {type:'section',items:[]});
+        }
+      },
+      _open: function(){
+        this.$.addDialog.open();
+      },
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<!--
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+-->
+<link rel="import" href="firebase-app.html">
+
+<!--
+`uvalib-model-transit-vehicles`
+data model for the to monitor UVA UTS realtime bus data
+
+@demo demo/transit-vehicles.html
+-->
+
+<dom-module id="uvalib-model-transit-vehicles">
+  <template>
+    <!-- Maintain pressence in DB -->
+    <firebase-document app-name="uvalibapi" path="/.info/connected" data={{_conStatData}}></firebase-document>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-transit-vehicles',
+      properties: {
+
+      },
+      observers: ['_conStat(_conStatData)'],
+      _conStat: function(status) {
+          if (status === true) {
+              firebase.app('uvalibapi').database().ref('/presence/transit/' + "1234").set('online');
+              firebase.app('uvalibapi').database().ref('/presence/transit/' + "1234").onDisconnect().set('offline');
+          }
+      },
+
+    });
+  </script>
+</dom-module>

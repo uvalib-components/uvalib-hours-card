@@ -1,0 +1,38 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`uvalib-chat`
+@demo demo/index.html
+-->
+
+<dom-module id="uvalib-chat">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <script src="//v2.libanswers.com/load_chat.php?hash=[[widgetHashValue]]"></script>
+    <div id="libchat_[[widgetHashValue]]"></div>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-chat',
+
+      properties: {
+        /**
+         * Hash value from Springshare widget code; default value is for standard LibChat embed widget.
+         */
+        widgetHashValue: {
+          type: String,
+          value: "1a784443d6215a140f28fc6903b4a675"
+        }
+      },
+
+    });
+  </script>
+</dom-module>

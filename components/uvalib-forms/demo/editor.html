@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>uvalib-forms demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../uvalib-form-editor.html">
+    <link rel="import" href="../uvalib-form.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic uvalib-forms demo</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <h4>Create &amp; edit a form</h4>
+          <uvalib-form-editor form-config="{{def}}"></uvalib-form-editor>
+          <h4>Here is the form front-end produced from the definition</h4>
+          <uvalib-form def="[[def]]"></uvalib-form>
+          <h4>Here is the form config definition (to be used internally)</h4>
+          <div id="def">[[def]]</div>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

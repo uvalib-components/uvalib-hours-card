@@ -1,0 +1,46 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymerfire/firebase.html">
+<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="firebase-app.html">
+
+<!--
+`uvalib-model-destinations`
+data model for the destinations used to locate resources/services in the Library
+
+@demo demo/destinations.html
+-->
+
+<dom-module id="uvalib-model-destinations">
+  <template>
+    <firebase-document id="query" app-name="uvalibapi"
+      path="/destinations"
+      data="{{tmpData}}" zero-value="[]">
+    </firebase-document>
+    <app-indexeddb-mirror
+        key="destinations"
+        data="{{tmpData}}"
+        persisted-data="{{data}}">
+    </app-indexeddb-mirror>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'uvalib-model-destinations',
+      properties: {
+        /**
+         * The Destinations
+         *
+         * @type {Object[]}
+         */
+        data: {
+          type: Array,
+          value: [],
+          notify: true
+        }
+      }
+
+    });
+  </script>
+</dom-module>
